@@ -1,1 +1,47 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<div *ngIf="showSplash" class="splash" >
+       
+        <ion-grid style="background-color: rgba(239,199,111, 0.5);top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        position: absolute;
+        z-index: 0;
+        ">
+         
+          <ion-row>
+            <ion-col col-12 style="text-align: center;">
+                    <h3 class="tracking-in-expand" style="color:#000;   font: 33px 'Trebuchet MS';font-weight:550;"> Suggestions and Complaints Portal</h3>
+ 
+                   
+                
+            </ion-col>
+          </ion-row>
+          
+        </ion-grid>
+    <ion-grid>
+          
+            <ion-row>
+                <ion-col style="text-align:center;">
+                        <img   src="../assets/imgs/irlogo.png" style="height:80px;">
+                 <p class="tracking-in-expand" style="color:#000;   font: 25px 'Trebuchet MS';font-weight:550;margin:2px;"> COMS
+               </p>
+            <p class="tracking-in-expand" style="color:#000;   font: 20px 'Trebuchet MS';font-weight:550;margin:2px;"> 
+                (Register my Complaint)</p>   
+                <p class="tracking-in-expand" style="color:#000;   font: 20px 'Trebuchet MS';font-weight:550;margin:2px;"> 
+                        भारतीय रेल</p>             
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+           
+        <div style="position: absolute; bottom: 0px; width: 100%">
+                <div style="text-align: center">
+                  <p>An Indian Railways Initiative</p>
+                </div>
+            </div>      
+                
+                  
+    </div>
+      
+
+  
+  <ion-nav id="nav" [root]="rootPage"></ion-nav>

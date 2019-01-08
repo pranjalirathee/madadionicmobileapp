@@ -1,3 +1,55 @@
 page-home {
 
+
+    .bg{
+        width: 100%;
+        height: 100%;
+        
+        align-items:center;
+        justify-content:center;
+        background-size: cover;
+        background-image: url(../../assets/imgs/BannerImage5.jpg);
+        background-repeat: no-repeat;
+     
+       }
+
+
+       .mybutton
+       {
+        border-color:antiquewhite;
+        color:white;
+        background-color:darkorange ;
+        margin:0px;
+        border-width: 2px;
+        padding:20px;
+        font: 15px 'Trebuchet MS';
+        
+       }
+       .bg1
+       {
+        background-color:darkorange ;
+       }
+
+       .bg2
+       {
+        background-color:teal ;
+       }
+       .bg3
+       {
+        background-color:crimson ;
+       }
+       .bg4
+       {
+        background-color:purple ;
+       }
+       .bg5
+       {
+        background-color:teal ;
+       }
+
+       .mycol
+       {
+        padding:0px;
+        border:1.2px solid black;
+       }
 }

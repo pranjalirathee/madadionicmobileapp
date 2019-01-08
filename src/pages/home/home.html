@@ -1,14 +1,93 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar hideBackButton="true" color="custom">
+      <ion-buttons left>
+          <button ion-button image-only >
+            <img src="../../assets/icon/emblem.ico" style="height:40px;">
+          
+  
+                      
+          </button> 
+        </ion-buttons>
     <ion-title>
-      Ionic Blank
+      Suggestions and Complaints Portal
     </ion-title>
+    <ion-buttons right>
+        <button ion-button icon-only [navPush]="loginPage">
+         
+        
+          <ion-icon name="log-in"></ion-icon>
+
+                    
+        </button> 
+      </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content no-padding class="bg" >
+<ion-grid style="background-color: rgba(239,199,111, 0.5);top: 0;
+left: 0;
+bottom: 0;
+right: 0;
+position: absolute;
+z-index: 0;
+">
+  <ion-row>
+      <ion-col col-12 style="text-align: center;">
+              <h3 class="tracking-in-expand" style="color:#000;   font: 20px 'Trebuchet MS';font-weight:550;"> 
+                Suggestions and Complaints Portal (COMS)</h3>
+
+             
+          
+      </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col style="text-align:center;">
+                <img   src="../../assets/imgs/irlogo.png" style="height:80px;">
+                    
+        </ion-col>
+    </ion-row>
+    <ion-row style="margin-top:15px;">
+      <ion-col class="mycol">
+          <button class="mybutton bg1" ion-button block  outline>
+              <ion-icon name="train"></ion-icon>&nbsp;&nbsp;
+              Complaint - Train</button>
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-top:5px;">
+      <ion-col class="mycol">
+          <button class="mybutton bg2" ion-button block  outline [navPush]="complaintStationPage">
+              <ion-icon name="train"></ion-icon>&nbsp;&nbsp;
+              Complaint - Station</button>
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-top:5px;">
+
+   
+      <ion-col class="mycol">
+          <button class="mybutton bg3" ion-button block  outline >
+              <ion-icon name="stats"></ion-icon>&nbsp;&nbsp;
+              Track Complaint</button>
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-top:5px;">
+
+      <ion-col class="mycol">
+          <button class="mybutton bg4" ion-button block  outline >
+              <ion-icon name="thumbs-down"></ion-icon>
+              <ion-icon name="thumbs-up"></ion-icon>&nbsp;&nbsp;
+              Suggestions</button>
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-top:5px;">
+
+        <ion-col class="mycol">
+            <button class="mybutton bg5" ion-button block  outline >
+                <ion-icon name="call"></ion-icon>
+             &nbsp;&nbsp;
+                Helpline Number</button>
+        </ion-col>
+      </ion-row>
+</ion-grid>
+ 
+  
 </ion-content>

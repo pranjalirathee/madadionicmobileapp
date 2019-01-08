@@ -1,0 +1,111 @@
+<ion-header>
+    <ion-navbar  color="custom">
+       
+      <ion-title>
+        Login
+      </ion-title>
+     
+    </ion-navbar>
+
+    <ion-toolbar no-border-top>
+        <ion-segment [(ngModel)]="appType" color="custom">
+          <ion-segment-button value="Login" >
+            Login
+          </ion-segment-button>         
+          <ion-segment-button value="Register" >
+            Register
+          </ion-segment-button>
+        </ion-segment>
+      </ion-toolbar>
+  </ion-header>
+
+
+
+<ion-content no-padding>
+    <div [ngSwitch]="appType">
+        <div *ngSwitchCase="'Login'">
+            <form  #f="ngForm" novalidate>
+            
+              <ion-grid>
+                  <ion-row>
+                      <ion-col col-12 col-sm col-md-3>
+                          <ion-item style="padding-left:2px;">
+                              <ion-label stacked color="custom">Username</ion-label>
+                              <ion-input type="text"  [(ngModel)]="login.username"  name="username"
+                              required></ion-input>
+                            
+                              <ion-icon color="custom" item-end name="person"></ion-icon>
+                            </ion-item>
+                    </ion-col>
+                    <ion-col col-12 col-sm col-md-3>
+                        <ion-item style="padding-left:2px;">
+                            <ion-label stacked color="custom">Password</ion-label>
+                            <ion-input type="password" [(ngModel)]="login.password"  name="password"
+                            required></ion-input>
+                          
+                            <ion-icon color="custom" item-end name="key"></ion-icon>
+                          </ion-item>
+                  </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-12 col-sm col-md-3 style="text-align:center;">
+                            <button ion-button small block color="custom"
+                            (click)="checklogin(f)"  >Login</button>
+
+                        </ion-col>
+
+                    </ion-row>
+              </ion-grid>
+            </form>
+        </div>
+        <div *ngSwitchCase="'Register'">
+            <form  #f="ngForm" novalidate>
+            
+              <ion-grid>
+                  <ion-row>
+                      <ion-col col-12 col-sm col-md-3>
+                          <ion-item style="padding-left:2px;">
+                              <ion-label stacked color="custom">Name</ion-label>
+                              <ion-input type="text" [(ngModel)]="register.name"  name="name"
+                              required></ion-input>
+                            
+                              <ion-icon color="custom" item-end name="person"></ion-icon>
+                            </ion-item>
+                    </ion-col>
+                    <ion-col col-12 col-sm col-md-3>
+                        <ion-item style="padding-left:2px;">
+                            <ion-label stacked color="custom">Mobile Number</ion-label>
+                            <ion-input type="text"  [(ngModel)]="register.mobile"  name="mobile"></ion-input>
+                          
+                            <ion-icon color="custom" item-end name="call"></ion-icon>
+                          </ion-item>
+                  </ion-col>
+                   
+                  <ion-col col-12 col-sm col-md-3>
+                      <ion-item style="padding-left:2px;text-align:center;">
+                          <ion-label stacked color="custom">OR</ion-label>
+                         
+                        </ion-item>
+                </ion-col>
+                <ion-col col-12 col-sm col-md-3>
+                    <ion-item style="padding-left:2px;">
+                        <ion-label stacked color="custom">Email Address</ion-label>
+                        <ion-input type="text"  [(ngModel)]="register.email"  name="email"></ion-input>
+                      
+                        <ion-icon color="custom" item-end name="mail"></ion-icon>
+                      </ion-item>
+              </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-12 col-sm col-md-3 style="text-align:center;">
+                            <button ion-button small block color="custom" 
+                            (click)="registeruser(f)" >Register</button>
+
+                        </ion-col>
+
+                    </ion-row>
+              </ion-grid>
+            </form>
+        </div>
+    </div>
+</ion-content>

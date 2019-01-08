@@ -1,0 +1,115 @@
+<ion-header>
+    <ion-navbar  color="custom">
+       
+      <ion-title>
+        Complaint Station
+      </ion-title>
+     
+    </ion-navbar>
+
+    
+  </ion-header>
+
+
+
+<ion-content no-padding>
+
+            <form  #f="ngForm" novalidate>
+            
+              <ion-grid>
+                  <ion-row>
+                      <ion-col col-12 col-sm col-md-3>
+                          <ion-item style="padding-left:2px;">
+                              <ion-label stacked color="custom">Complaint</ion-label>
+                              <ion-select   color="custom"
+                              (ionChange)="getSubComplaintList()"                
+                              
+                              required
+                              >
+                              <ion-option 
+                              *ngFor="let v of complaintArr"
+                              value="{{v.id}}">{{v.headSubheadEn}}</ion-option>
+                                </ion-select>
+                             
+                            
+                             
+                            </ion-item>
+                    </ion-col>
+                    <ion-col col-12 col-sm col-md-3>
+                        <ion-item style="padding-left:2px;">
+                            <ion-label stacked color="custom">Sub Complaint</ion-label>
+                            <ion-select   color="custom"
+                                         
+                            
+                            required
+                            >
+                            <ion-option 
+                            *ngFor="let v of subcomplaintArr"
+                            value="{{v.id}}">{{v.headSubheadEn}}</ion-option>
+                              </ion-select>
+                           
+                          
+                           
+                          </ion-item>
+                  </ion-col>
+                  <ion-col col-12 col-sm col-md-3>
+                      <ion-item style="padding-left:2px;">
+                          <ion-label stacked color="custom">Incident Date</ion-label>
+                          <ion-datetime displayFormat="MM/DD/YY HH:mm" [(ngModel)]="myDate" 
+                          [max]="maxDate"
+                          [min]="minDate"  color="custom"
+                          name="dd"></ion-datetime>
+                         
+                        
+                         
+                        </ion-item>
+                </ion-col>
+                <ion-col col-12 col-sm col-md-3>
+                    <ion-item style="padding-left:2px;">
+                        <ion-label stacked color="custom">Complaint Description</ion-label>
+                        <ion-textarea rows="3" type="text" 
+                        maxlength="500" 
+                        ></ion-textarea>
+  
+                       
+                      
+                       
+                      </ion-item>
+              </ion-col>
+              <ion-col col-12 col-sm col-md-3>
+                  <ion-item style="padding-left:2px;contain:none; overflow: visible;">
+                      <ion-label stacked color="custom">Station Name</ion-label>
+                      <ion-auto-complete [dataProvider]="completeTestService" item-content></ion-auto-complete>
+
+
+                     
+                    
+                     
+                    </ion-item>
+            </ion-col>
+            <ion-col col-12 col-sm col-md-3>
+              
+                <ion-item style="padding-left:2px;">
+                    <ion-label stacked color="custom">Platform Number</ion-label>
+                    <ion-input type="text"   
+                    
+                    ></ion-input>
+
+                   
+                  
+                   
+                  </ion-item>
+          </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-12 col-sm col-md-3 style="text-align:center;">
+                            <button ion-button small block color="custom"
+                            (click)="checklogin(f)"  >Login</button>
+
+                        </ion-col>
+
+                    </ion-row>
+              </ion-grid>
+            </form>
+       
+</ion-content>
