@@ -6,13 +6,13 @@ import { WebcamInitError, WebcamImage, WebcamUtil } from 'ngx-webcam';
 import { Subject, Observable } from 'rxjs';
 import { CameraOptions, Camera } from '@ionic-native/camera';
 import { FileTransfer } from '@ionic-native/file-transfer';
-import { StnComplaintModel } from '../../models/stncomplaintmodel';
-import { LoginPage } from '../login/login';
-import { NgForm } from '@angular/forms';
+import { TrainComplaintModel } from '../../models/traincomplaintmodel';
 import { ToastProvider } from '../../providers/toast/toast';
+import { NgForm } from '@angular/forms';
+import { ComplaintModel } from '../../models/complaintmodel';
 
 /**
- * Generated class for the ComplaintStationPage page.
+ * Generated class for the ComplaintTrainPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -20,15 +20,18 @@ import { ToastProvider } from '../../providers/toast/toast';
 
 @IonicPage()
 @Component({
-  selector: 'page-complaint-station',
-  templateUrl: 'complaint-station.html',
+  selector: 'page-complaint-train',
+  templateUrl: 'complaint-train.html',
 })
-export class ComplaintStationPage {
+export class ComplaintTrainPage {
+
   complaintArr=[];
   subcomplaintArr=[];
-  stationArr=[];
+  trainArr=[];
+  berthArr=[];
+  coachArr=[];
 
-  stncomplaint=<StnComplaintModel>{};
+  trncomplaint=<ComplaintModel>{};
 
 
   minDate:String;
@@ -39,8 +42,49 @@ export class ComplaintStationPage {
 
 
   myphoto:any;
-  username:string;
+  pnrFlag=false;
   ref:string="";
+
+  
+  fetchpnr()
+  {
+    if(this.trncomplaint.pnrUtsNo.length == 10)
+    {
+      var data="{\"trainNo\":\"12424 - DBRT RAJDHANI\",\"incomingSmsId\":0,\"complaintType\":0,\"berthCls\":\"2A\",\"boardingStn\":\"NDLS\",\"fromStation\":\"NDLS\",\"toStation\":\"DBRT\",\"totalAmount\":4810,\"totalPass\":1,\"selectCoachNo\":true,\"coachNoList\":[\"A2 \"],\"selectBerthNo\":true,\"berthNoList\":[\" 17\"],\"day\":9,\"month\":1,\"year\":2019,\"exSize\":false,\"fetchError\":false,\"passengerList\":[\"BALJINDER SINGH\"],\"selectName\":true,\"stationList\":[],\"trainList\":[],\"errMsg\":\"\"}"
+      data=JSON.parse(data);
+      this.pnrFlag=true;
+      this.trncomplaint.trainNo=(data as any).trainNo;
+      this.trncomplaint.berthClass=(data as any).berthCls;
+      this.trncomplaint.boardingStation=(data as any).boardingStn;
+      this.trncomplaint.fromStation=(data as any).fromStation;
+      this.trncomplaint.toStation=(data as any).toStation;
+      this.trncomplaint.totalFare=(data as any).totalAmount;
+      this.trncomplaint.psgnNo=(data as any).totalPass;
+      this.berthArr=(data as any).berthNoList;
+      this.coachArr=(data as any).coachNoList;
+      this.trncomplaint.journeyDay=(data as any).day;
+      this.trncomplaint.journeyMonth=(data as any).month;
+      this.trncomplaint.journeyYear=(data as any).year;
+
+    
+    }
+  }
+
+
+  resetvalues()
+  {
+    this.pnrFlag=false;
+    this.trncomplaint.trainNo=null;
+    this.trncomplaint.berthClass=null;
+    this.trncomplaint.boardingStation=null;
+    this.trncomplaint.fromStation=null;
+    this.trncomplaint.toStation=null;
+    this.trncomplaint.totalFare=null;
+    this.trncomplaint.psgnNo=null;
+    this.berthArr=null;
+    this.coachArr=null;
+    this.trncomplaint.pnrUtsNo=null;
+  }
 
   getImage() {
     const options: CameraOptions = {
@@ -81,7 +125,7 @@ export class ComplaintStationPage {
 
   ionViewWillEnter(){
     this.getComplaintList();
-    this.getStationList();
+    this.getTrainList();
 
     var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
     var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0,-1);
@@ -90,11 +134,10 @@ export class ComplaintStationPage {
     minusfivedays.setDate(minusfivedays.getDate()-5);
     var minTime =minusfivedays.toISOString().slice(0,-1);
    
-    this.stncomplaint.incident_date=localISOTime;
+    this.trncomplaint.incidentDate=localISOTime;
     this.minDate=minTime;
     this.maxDate=localISOTime;
-
-  
+   
   }
 
   ionViewDidLoad() {
@@ -103,7 +146,7 @@ export class ComplaintStationPage {
 
   getSubComplaintList()
   {
-    this.httpProvider.getMethod("coms/ComsSubHeadList?Id="+this.stncomplaint.stn_head).subscribe((data) => 
+    this.httpProvider.getMethod("coms/ComsSubHeadList?Id="+this.trncomplaint.complaint).subscribe((data) => 
     {
      
       if(data.length >0)
@@ -121,7 +164,7 @@ export class ComplaintStationPage {
   getComplaintList()
   {
     
-    this.httpProvider.getMethod("coms/ComsHeadListById?Id=\"s\"").subscribe((data) => 
+    this.httpProvider.getMethod("coms/ComsHeadListById?Id=\"t\"").subscribe((data) => 
     {
      
       if(data.length >0)
@@ -137,7 +180,7 @@ export class ComplaintStationPage {
   }
 
 
-  getStationList()
+  getTrainList()
   {
     
     this.httpProvider.getMethod("coms/StationList").subscribe((data) => 
@@ -145,11 +188,11 @@ export class ComplaintStationPage {
      
       if(data.length >0)
             {
-                this.stationArr=data; 
+                this.trainArr=data; 
 
             }
           else{
-                this.stationArr=[];
+                this.trainArr=[];
              
 
              }
@@ -160,17 +203,20 @@ export class ComplaintStationPage {
  
 
   search(event) {
-       if(event.query != "")
+    
+   
+    if(event.query != "")
     {
-    this.results = this.stationArr.filter(
+    this.results = this.trainArr.filter(
       station => station.station_name.toLowerCase().indexOf(event.query.toLowerCase()) != -1);
     }
 
     else
     {
-      this.results=this.stationArr;
+      this.results=this.trainArr;
     }
    
+ 
       
   }
   handleDropdown(event) {
@@ -201,6 +247,7 @@ numberonly(event) {
     
   }
 
+  calenderArr=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sept','Oct','Nov','Dec'];
 
   submitcomplaint(f:NgForm)
   {
@@ -210,23 +257,27 @@ numberonly(event) {
     }
     else
     {
-      this.stncomplaint.stn_code=(this.stncomplaint.stn_name as any).station_cd;
-      this.stncomplaint.stn_name=(this.stncomplaint.stn_name as any).station_name;
 
-      this.httpProvider.postMethod("complaint/station",this.stncomplaint).subscribe((data) => 
+      if(this.trncomplaint.pnrUtsNo=='P' && this.pnrFlag==false)
+      {
+        this.toastProvider.presentToast("Please enter a valid PNR.");
+
+      }
+      else
+      {
+      if(this.trncomplaint.journeyDay.length<2)
+      {
+        this.trncomplaint.journeyDay="0"+this.trncomplaint.journeyDay;
+      }
+    /*  this.httpProvider.getMethod1("https://enquiry.indianrail.gov.in/crisntes/"+
+      "Services?serviceType=SpotTrain&trainNo="+this.trncomplaint.trn_no.substring(0,this.trncomplaint.trn_no.indexOf('-')-1)
+      +"&jStation=NDLS&jDate="+this.trncomplaint.journeyDay+"-"+this.calenderArr[this.trncomplaint.journeyMonth]+"-"+this.trncomplaint.journeyYear+
+      "&jEvent=A&usrId=PRSUSR&paswd=ruby676"+this.trncomplaint.trn_head).subscribe((data) => 
       {
        
-        if(data.code== "0")
-              {
-                  this.toastProvider.presentToast("Some Error Occurred. Please try again.") ;
-  
-              }
-            else{
-                 this.ref=data.complaintReferenceNo;
-               
-  
-               }
-      });
+     console.log(data);
+      });*/
+    }
     }
   }
 }

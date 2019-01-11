@@ -21,9 +21,23 @@ export class HttpProvider {
 
   constructor(private  httpClient : HttpClient) { }
 
+  public  getMethod1(url): Observable<any> {
+       
+        
+    return  this.httpClient
+    
+    .get(url).timeout(35000)
+    
+    .map(response  => {
+    
+    return  response;
+    
+    });  
+  }
 
         public  getMethod(url): Observable<any> {
-
+       
+        
           return  this.httpClient
           
           .get(constants.BASE_URL+constants.CONTEXT_ROOT+url).timeout(35000)
@@ -37,7 +51,7 @@ export class HttpProvider {
      
       
         public  postMethod(url,data): Observable<any> {
-        
+         
           return  this.httpClient
           
           .post(constants.BASE_URL+constants.CONTEXT_ROOT+url,data).timeout(35000)

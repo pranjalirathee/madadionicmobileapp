@@ -1,7 +1,7 @@
 export class LoginModel
 {
   
-  username : string;
-  password: string;
+  uname : string;
+  upswd: string;
 
 }

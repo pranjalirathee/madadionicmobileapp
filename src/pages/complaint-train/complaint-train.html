@@ -1,0 +1,385 @@
+<ion-header>
+    <ion-navbar  color="custom">
+       
+      <ion-title>
+        Complaint Train
+      </ion-title>
+     
+    </ion-navbar>
+
+    
+  </ion-header>
+
+
+
+<ion-content no-padding>
+    
+            <form  #f="ngForm" novalidate>
+            
+              <ion-grid>
+                    <ion-row>
+                            <ion-col col-12 *ngIf="ref != ''" style="font-weight:bold;color:#a70a0a">
+                              Your complaint has been registered with Reference Number: {{ref}}.
+                            </ion-col>
+                          </ion-row>
+                  <ion-row>
+                      <ion-col col-12 col-sm col-md-3 style="padding:0px;">
+                       
+                          <ion-item 
+                           no-lines style="padding-left:2px;text-align: center;font-weight:bold;background-color:#f4f4f4">
+                              <ion-label stacked color="custom">Complaint Details</ion-label>
+                             
+                             
+                            
+                             
+                            </ion-item>
+                    </ion-col>
+                  
+                      <ion-col col-12 col-sm col-md-3>
+                          <ion-item style="padding-left:2px;">
+                              <ion-label stacked color="custom">Complaint *</ion-label>
+                              <ion-select   color="custom"
+                              (ionChange)="getSubComplaintList()"                
+                              [(ngModel)]="trncomplaint.complaint"  name="complaint"
+                              required
+                              >
+                              <ion-option 
+                              *ngFor="let v of complaintArr"
+                              value="{{v.id}}">{{v.head_en}}</ion-option>
+                                </ion-select>
+                             
+                            
+                             
+                            </ion-item>
+                    </ion-col>
+                    <ion-col col-12 col-sm col-md-3>
+                        <ion-item style="padding-left:2px;">
+                            <ion-label stacked color="custom">Sub Complaint *</ion-label>
+                            <ion-select   color="custom"
+                            [(ngModel)]="trncomplaint.subComplaint"  name="subComplaint"            
+                            
+                            required
+                            >
+                            <ion-option 
+                            *ngFor="let v of subcomplaintArr"
+                            value="{{v.id}}">{{v.head_en}}</ion-option>
+                              </ion-select>
+                           
+                          
+                           
+                          </ion-item>
+                  </ion-col>
+                  <ion-col col-12 col-sm col-md-3>
+                      <ion-item style="padding-left:2px;">
+                          <ion-label stacked color="custom">Incident Date *</ion-label>
+                          <ion-datetime displayFormat="MM/DD/YY HH:mm" 
+                          [max]="maxDate"
+                          [min]="minDate"  color="custom"
+                            required
+                          
+                          
+                          [(ngModel)]="trncomplaint.incidentDate"  name="incidentDate"    ></ion-datetime>
+                         
+                        
+                         
+                        </ion-item>
+                </ion-col>
+                <ion-col col-12 col-sm col-md-3>
+                    <ion-item style="padding-left:2px;">
+                        <ion-label stacked color="custom">Complaint Description</ion-label>
+                        <ion-textarea rows="3" type="text" 
+                        maxlength="500" 
+                        [(ngModel)]="trncomplaint.complaintDesc"  name="complaintDesc" 
+                        ></ion-textarea>
+  
+                       
+                      
+                       
+                      </ion-item>
+              </ion-col>
+           
+              <ion-col col-12 col-sm col-md-3>
+              
+                    <ion-item style="padding-left:2px;" >
+                        <ion-label stacked color="custom">Journey Details *</ion-label>
+                        <ion-select   color="custom"
+                        [(ngModel)]="trncomplaint.pnrUtsFlag"  name="pnrUtsFlag"               
+                        (ionChange)="resetvalues()"         
+                              required
+                              >
+                        <ion-option 
+                             
+                              value="P">PNR</ion-option>
+                              <ion-option 
+                             
+                              value="U">UTS</ion-option>
+                                </ion-select>
+    
+                       
+                      
+                       
+                      </ion-item>
+              </ion-col>
+              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P'">
+              
+                    <ion-item style="padding-left:2px;" >
+                        <ion-label stacked color="custom">PNR No *</ion-label>
+                        <ion-input type="text"   (input)="fetchpnr()" maxlength="10"   (keydown)="numberonly($event)"
+                        [(ngModel)]="trncomplaint.pnrUtsNo"  name="pnrUtsNo"  required
+                        ></ion-input>
+    
+                       
+                      
+                       
+                      </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item style="padding-left:2px;" *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true" no-lines>
+                         <ion-label stacked color="custom">Please confirm your journey details before proceeding...</ion-label>
+                 </ion-item>
+              </ion-col>
+              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'U'">
+                    <ion-item style="padding-left:2px;" no-lines>
+                            <ion-label stacked color="custom">Train Number *</ion-label>
+                      </ion-item>
+                         
+                          <p-autoComplete 
+                          [(ngModel)]="trncomplaint.trainNo"  name="trainNo" 
+                        
+                          item-content required
+                           [suggestions]="results" (completeMethod)="search($event)"
+                           [dropdown]="true"  [forceSelection]="true" field="station_name"></p-autoComplete>
+
+                   
+              </ion-col>
+              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true">
+              
+                    <ion-item style="padding-left:2px;" >
+                        <ion-label stacked color="custom">Train Number *</ion-label>
+                        <ion-input type="text"   required
+                        [(ngModel)]="trncomplaint.trainNo"  name="trainNo" readonly
+                        ></ion-input>
+    
+                       
+                      
+                       
+                      </ion-item>
+              </ion-col>
+              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true">
+              
+                    <ion-item style="padding-left:2px;" >
+                        <ion-label stacked color="custom">From Station</ion-label>
+                        <ion-input type="text"   
+                        [(ngModel)]="trncomplaint.fromStation"  name="fromStation" readonly
+                        ></ion-input>
+    
+                       
+                      
+                       
+                      </ion-item>
+              </ion-col>
+              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true">
+              
+                    <ion-item style="padding-left:2px;" >
+                        <ion-label stacked color="custom">To Station</ion-label>
+                        <ion-input type="text"   
+                        [(ngModel)]="trncomplaint.toStation"  name="toStation" readonly
+                        ></ion-input>
+    
+                       
+                      
+                       
+                      </ion-item>
+              </ion-col>
+              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true">
+              
+                    <ion-item style="padding-left:2px;" >
+                        <ion-label stacked color="custom">Boarding Station</ion-label>
+                        <ion-input type="text"   
+                        [(ngModel)]="trncomplaint.boardingStation"  name="boardingStation" readonly
+                        ></ion-input>
+    
+                       
+                      
+                       
+                      </ion-item>
+              </ion-col>
+              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true">
+              
+                    <ion-item style="padding-left:2px;" >
+                        <ion-label stacked color="custom">Berth Class</ion-label>
+                        <ion-input type="text"   
+                        [(ngModel)]="trncomplaint.berthClass"  name="berthClass" readonly
+                        ></ion-input>
+    
+                       
+                      
+                       
+                      </ion-item>
+              </ion-col>
+              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true">
+              
+                    <ion-item style="padding-left:2px;" >
+                        <ion-label stacked color="custom">Total Passenger</ion-label>
+                        <ion-input type="text"   
+                        [(ngModel)]="trncomplaint.psgnNo"  name="psgnNo" readonly
+                        ></ion-input>
+    
+                       
+                      
+                       
+                      </ion-item>
+              </ion-col>
+              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true">
+              
+                    <ion-item style="padding-left:2px;" >
+                        <ion-label stacked color="custom">Total Fare</ion-label>
+                        <ion-input type="text"   
+                        [(ngModel)]="trncomplaint.totalFare"  name="totalFare" readonly
+                        ></ion-input>
+    
+                       
+                      
+                       
+                      </ion-item>
+              </ion-col>
+              <ion-col col-12 col-sm col-md-3>
+                    <ion-item style="padding-left:2px;" *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true">
+                        <ion-label stacked color="custom">Coach No *</ion-label>
+                        <ion-select   color="custom"
+                        [(ngModel)]="trncomplaint.coachNo"  name="coachNo"            
+                        
+                        required
+                        >
+                        <ion-option 
+                        *ngFor="let v of coachArr"
+                        value="{{v}}">{{v}}</ion-option>
+                          </ion-select>
+                       
+                      
+                       
+                      </ion-item>
+              </ion-col>
+              <ion-col col-12 col-sm col-md-3>
+                    <ion-item style="padding-left:2px;" *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true">
+                        <ion-label stacked color="custom">Berth/Seat No. *</ion-label>
+                        <ion-select   color="custom"
+                        [(ngModel)]="trncomplaint.berthNo"  name="berthNo"            
+                        
+                        required
+                        >
+                        <ion-option 
+                        *ngFor="let v of berthArr"
+                        value="{{v}}">{{v}}</ion-option>
+                          </ion-select>
+                       
+                      
+                       
+                      </ion-item>
+              </ion-col>
+              <ion-col  col-12 col-sm col-md-3>
+                 
+              
+        
+                  <img [src]="myphoto" *ngIf="myphoto" />
+                  <ion-item style="padding-left:2px;" no-lines>
+                    <ion-label color="custom" stacked> 
+                         File
+  
+                      </ion-label>
+                      <button small item-end ion-button type="button" (click)="takePhoto()"  color="primary">Camera</button>
+                      <button small item-end ion-button  type="button" (click)="getImage()"  color="secondary">Upload</button>
+                      <ion-input readonly style="height:50px;"></ion-input>
+                     
+                   </ion-item>
+                     </ion-col>
+                     <ion-col col-12 col-sm col-md-3 style="padding:0px;">
+                       
+                        <ion-item no-lines style="padding-left:2px;text-align: center;font-weight:bold;background-color:#f4f4f4">
+                            <ion-label stacked color="custom">Passenger Details</ion-label>
+                           
+                           
+                          
+                           
+                          </ion-item>
+                  </ion-col>
+                  <ion-col col-12 col-sm col-md-3>
+              
+                      <ion-item style="padding-left:2px;" >
+                          <ion-label stacked color="custom">Name *</ion-label>
+                          <ion-input type="text"   maxlength="150" required
+                          [(ngModel)]="trncomplaint.complainantName"  name="complainantName" 
+                          ></ion-input>
+      
+                         
+                        
+                         
+                        </ion-item>
+                </ion-col>
+                <ion-col col-12 col-sm col-md-3>
+              
+                    <ion-item style="padding-left:2px;" >
+                        <ion-label stacked color="custom">Contact *</ion-label>
+                        <ion-select   color="custom"
+                        [(ngModel)]="trncomplaint.trn_complainant_type"  name="trn_complainant_type"               
+                              
+                              required
+                              >
+                        <ion-option 
+                             
+                              value="Mobile">Mobile</ion-option>
+                              <ion-option 
+                             
+                              value="Email">Email</ion-option>
+                                </ion-select>
+    
+                       
+                      
+                       
+                      </ion-item>
+              </ion-col>
+              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.trn_complainant_type == 'Mobile'">
+              
+                  <ion-item style="padding-left:2px;" >
+                      <ion-label stacked color="custom">Mobile *</ion-label>
+                      <ion-input type="text"    required maxlength="10"   (keydown)="numberonly($event)"
+                      [(ngModel)]="trncomplaint.complainantMobile"  name="complainantMobile" 
+                      ></ion-input>
+  
+                     
+                    
+                     
+                    </ion-item>
+            </ion-col>
+            <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.trn_complainant_type == 'Email'">
+              
+                <ion-item style="padding-left:2px;" >
+                    <ion-label stacked color="custom">Email *</ion-label>
+                    <ion-input type="text"    required  maxlength="100"
+                    pattern="[^ @]*@[^ @]+[.][^ @]+"  #email="ngModel"
+                    [(ngModel)]="trncomplaint.complainantEmail"  name="complainantEmail" 
+                    ></ion-input>
+
+                   
+                  
+                   
+                  </ion-item>
+                  <div ion-item no-lines 
+               style="color:red;"
+               *ngIf="email.invalid" class="invalid-feedback">
+               <div *ngIf="email.errors.pattern">Please enter a valid email</div>
+               </div>
+          </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-12 col-sm col-md-3 style="text-align:center;">
+                            <button ion-button small block color="custom"
+                            (click)="submitcomplaint(f)" >Submit</button>
+
+                        </ion-col>
+
+                    </ion-row>
+              </ion-grid>
+            </form>
+       
+</ion-content>

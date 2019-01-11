@@ -6,8 +6,23 @@
 // style for auth pages
 
 @import "../../node_modules/ionic2-auto-complete/auto-complete";
+@import "../theme/primeicons";
+@import "../theme/theme";
+@import "../theme/primeng.min";
 
 
+.ui-autocomplete {
+  width:100%;
+}
+.ui-autocomplete-dd input.ui-corner-all, .ui-autocomplete-dd .ui-autocomplete-multiple-container.ui-corner-all
+{
+  width:85%;
+}
+body .ui-button {
+  background-color: #a70a0a !important;
+  color: #ffffff;
+  border-color: #a70a0a !important;
+}
 ion-buttons {
   order: 1
   }

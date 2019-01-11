@@ -31,6 +31,15 @@ right: 0;
 position: absolute;
 z-index: 0;
 ">
+ <ion-row *ngIf="username != ''">
+    <ion-col col-12 style="text-align: right;margin:0px;">
+            <h3 class="tracking-in-expand" style="color:#000;   font: 15px 'Trebuchet MS';font-weight:550;margin:0px;"> 
+             Welcome: {{username}}</h3>
+
+           
+        
+    </ion-col>
+  </ion-row>
   <ion-row>
       <ion-col col-12 style="text-align: center;">
               <h3 class="tracking-in-expand" style="color:#000;   font: 20px 'Trebuchet MS';font-weight:550;"> 
@@ -48,7 +57,7 @@ z-index: 0;
     </ion-row>
     <ion-row style="margin-top:15px;">
       <ion-col class="mycol">
-          <button class="mybutton bg1" ion-button block  outline>
+          <button class="mybutton bg1" ion-button block  outline  [navPush]="complaintTrainPage">
               <ion-icon name="train"></ion-icon>&nbsp;&nbsp;
               Complaint - Train</button>
       </ion-col>

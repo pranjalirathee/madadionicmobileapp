@@ -28,11 +28,17 @@
             
               <ion-grid>
                   <ion-row>
+                        <ion-col col-12 col-sm col-md-3>
+                                <ion-item style="padding-left:2px;text-align:center;color:red;" *ngIf="msgFlag">
+                                    <ion-label stacked color="custom">Please enter correct credentials.</ion-label>
+                                   
+                                  </ion-item>
+                          </ion-col>
                       <ion-col col-12 col-sm col-md-3>
                           <ion-item style="padding-left:2px;">
                               <ion-label stacked color="custom">Username</ion-label>
-                              <ion-input type="text"  [(ngModel)]="login.username"  name="username"
-                              required></ion-input>
+                              <ion-input type="text"  [(ngModel)]="login.uname"  name="uname"
+                              required maxlength="50"></ion-input>
                             
                               <ion-icon color="custom" item-end name="person"></ion-icon>
                             </ion-item>
@@ -40,8 +46,8 @@
                     <ion-col col-12 col-sm col-md-3>
                         <ion-item style="padding-left:2px;">
                             <ion-label stacked color="custom">Password</ion-label>
-                            <ion-input type="password" [(ngModel)]="login.password"  name="password"
-                            required></ion-input>
+                            <ion-input type="password" [(ngModel)]="login.upswd"  name="upswd"
+                            required maxlength="50"></ion-input>
                           
                             <ion-icon color="custom" item-end name="key"></ion-icon>
                           </ion-item>
@@ -66,8 +72,8 @@
                       <ion-col col-12 col-sm col-md-3>
                           <ion-item style="padding-left:2px;">
                               <ion-label stacked color="custom">Name</ion-label>
-                              <ion-input type="text" [(ngModel)]="register.name"  name="name"
-                              required></ion-input>
+                              <ion-input type="text" [(ngModel)]="register.username"  name="username"
+                              required maxlength="150"></ion-input>
                             
                               <ion-icon color="custom" item-end name="person"></ion-icon>
                             </ion-item>
@@ -75,7 +81,10 @@
                     <ion-col col-12 col-sm col-md-3>
                         <ion-item style="padding-left:2px;">
                             <ion-label stacked color="custom">Mobile Number</ion-label>
-                            <ion-input type="text"  [(ngModel)]="register.mobile"  name="mobile"></ion-input>
+                            <ion-input type="text"  [(ngModel)]="register.uMobile"  name="uMobile"
+                            (keydown)="numberonly($event)"
+
+                            maxlength="10"></ion-input>
                           
                             <ion-icon color="custom" item-end name="call"></ion-icon>
                           </ion-item>
@@ -90,10 +99,19 @@
                 <ion-col col-12 col-sm col-md-3>
                     <ion-item style="padding-left:2px;">
                         <ion-label stacked color="custom">Email Address</ion-label>
-                        <ion-input type="text"  [(ngModel)]="register.email"  name="email"></ion-input>
+                        <ion-input type="text"  [(ngModel)]="register.uEmail"  name="uEmail"
+                        maxlength="100"
+                        pattern="[^ @]*@[^ @]+[.][^ @]+"  #email="ngModel"
+                        ></ion-input>
                       
                         <ion-icon color="custom" item-end name="mail"></ion-icon>
+                        
                       </ion-item>
+                      <div ion-item no-lines 
+               style="color:red;"
+               *ngIf="email.invalid" class="invalid-feedback">
+               <div *ngIf="email.errors.pattern">Please enter a valid email</div>
+               </div>
               </ion-col>
                     </ion-row>
                     <ion-row>

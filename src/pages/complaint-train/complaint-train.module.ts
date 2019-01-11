@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { CheckotpPage } from './checkotp';
+import { ComplaintTrainPage } from './complaint-train';
 
 @NgModule()
-export class CheckotpPageModule {}
+export class ComplaintTrainPageModule {}

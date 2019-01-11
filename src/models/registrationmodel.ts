@@ -1,8 +1,8 @@
 export class RegistrationModel
 {
   
-  name : string;
-  mobile: string;
-  email : string;
-
+  username : string;
+  uMobile: string;
+  uEmail : string;
+  rowId : string;
 }

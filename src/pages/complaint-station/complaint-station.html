@@ -13,22 +13,38 @@
 
 
 <ion-content no-padding>
-
+    
             <form  #f="ngForm" novalidate>
-            
               <ion-grid>
+                <ion-row>
+                  <ion-col col-12 *ngIf="ref != ''" style="font-weight:bold;color:#a70a0a">
+                    Your complaint has been registered with Reference Number: {{ref}}.
+                  </ion-col>
+                </ion-row>
                   <ion-row>
+                      <ion-col col-12 col-sm col-md-3 style="padding:0px;">
+                       
+                          <ion-item 
+                           no-lines style="padding-left:2px;text-align: center;font-weight:bold;background-color:#f4f4f4">
+                              <ion-label stacked color="custom">Complaint Details</ion-label>
+                             
+                             
+                            
+                             
+                            </ion-item>
+                    </ion-col>
+                  
                       <ion-col col-12 col-sm col-md-3>
                           <ion-item style="padding-left:2px;">
-                              <ion-label stacked color="custom">Complaint</ion-label>
+                              <ion-label stacked color="custom">Complaint *</ion-label>
                               <ion-select   color="custom"
                               (ionChange)="getSubComplaintList()"                
-                              
+                              [(ngModel)]="stncomplaint.stn_head"  name="stn_head"
                               required
                               >
                               <ion-option 
                               *ngFor="let v of complaintArr"
-                              value="{{v.id}}">{{v.headSubheadEn}}</ion-option>
+                              value="{{v.id}}">{{v.head_en}}</ion-option>
                                 </ion-select>
                              
                             
@@ -37,15 +53,15 @@
                     </ion-col>
                     <ion-col col-12 col-sm col-md-3>
                         <ion-item style="padding-left:2px;">
-                            <ion-label stacked color="custom">Sub Complaint</ion-label>
+                            <ion-label stacked color="custom">Sub Complaint *</ion-label>
                             <ion-select   color="custom"
-                                         
+                            [(ngModel)]="stncomplaint.stn_sub_head"  name="stn_sub_head"            
                             
                             required
                             >
                             <ion-option 
                             *ngFor="let v of subcomplaintArr"
-                            value="{{v.id}}">{{v.headSubheadEn}}</ion-option>
+                            value="{{v.id}}">{{v.head_en}}</ion-option>
                               </ion-select>
                            
                           
@@ -54,11 +70,14 @@
                   </ion-col>
                   <ion-col col-12 col-sm col-md-3>
                       <ion-item style="padding-left:2px;">
-                          <ion-label stacked color="custom">Incident Date</ion-label>
-                          <ion-datetime displayFormat="MM/DD/YY HH:mm" [(ngModel)]="myDate" 
+                          <ion-label stacked color="custom">Incident Date *</ion-label>
+                          <ion-datetime displayFormat="MM/DD/YY HH:mm" 
                           [max]="maxDate"
                           [min]="minDate"  color="custom"
-                          name="dd"></ion-datetime>
+                         
+                          
+                          
+                          [(ngModel)]="stncomplaint.incident_date"  name="incident_date"  required  ></ion-datetime>
                          
                         
                          
@@ -69,6 +88,7 @@
                         <ion-label stacked color="custom">Complaint Description</ion-label>
                         <ion-textarea rows="3" type="text" 
                         maxlength="500" 
+                        [(ngModel)]="stncomplaint.complaint_desc"  name="complaint_desc" 
                         ></ion-textarea>
   
                        
@@ -77,22 +97,30 @@
                       </ion-item>
               </ion-col>
               <ion-col col-12 col-sm col-md-3>
-                  <ion-item style="padding-left:2px;contain:none; overflow: visible;">
-                      <ion-label stacked color="custom">Station Name</ion-label>
-                      <ion-auto-complete [dataProvider]="completeTestService" item-content></ion-auto-complete>
-
+                  <ion-item style="padding-left:2px;" no-lines>
+                      <ion-label stacked color="custom">Station Name *</ion-label>
+                    <!--  <ion-auto-complete [dataProvider]="completeTestService" item-content></ion-auto-complete>-->
+                   
+                    
 
                      
                     
                      
                     </ion-item>
+                   
+                    <p-autoComplete 
+                    [(ngModel)]="stncomplaint.stn_name"  name="stn_name" 
+                  
+                    item-content required
+                     [suggestions]="results" (completeMethod)="search($event)"
+                     [dropdown]="true"  [forceSelection]="true" field="station_name"></p-autoComplete>
             </ion-col>
             <ion-col col-12 col-sm col-md-3>
               
-                <ion-item style="padding-left:2px;">
+                <ion-item style="padding-left:2px;" >
                     <ion-label stacked color="custom">Platform Number</ion-label>
                     <ion-input type="text"   
-                    
+                    [(ngModel)]="stncomplaint.stn_platform"  name="stn_platform" 
                     ></ion-input>
 
                    
@@ -100,11 +128,106 @@
                    
                   </ion-item>
           </ion-col>
+
+          
+              <ion-col  col-12 col-sm col-md-3>
+                 
+              
+        
+                  <img [src]="myphoto" *ngIf="myphoto" />
+                  <ion-item style="padding-left:2px;" no-lines>
+                    <ion-label color="custom" stacked> 
+                         File
+  
+                      </ion-label>
+                      <button small item-end ion-button type="button" (click)="takePhoto()"  color="primary">Camera</button>
+                      <button small item-end ion-button  type="button" (click)="getImage()"  color="secondary">Upload</button>
+                      <ion-input readonly style="height:50px;"></ion-input>
+                     
+                   </ion-item>
+                     </ion-col>
+                     <ion-col col-12 col-sm col-md-3 style="padding:0px;">
+                       
+                        <ion-item no-lines style="padding-left:2px;text-align: center;font-weight:bold;background-color:#f4f4f4">
+                            <ion-label stacked color="custom">Passenger Details</ion-label>
+                           
+                           
+                          
+                           
+                          </ion-item>
+                  </ion-col>
+                  <ion-col col-12 col-sm col-md-3>
+              
+                      <ion-item style="padding-left:2px;" >
+                          <ion-label stacked color="custom">Name *</ion-label>
+                          <ion-input type="text"   required maxlength="150"
+                          [(ngModel)]="stncomplaint.stn_complainant_name"  name="stn_complainant_name" 
+                          ></ion-input>
+      
+                         
+                        
+                         
+                        </ion-item>
+                </ion-col>
+                <ion-col col-12 col-sm col-md-3>
+              
+                    <ion-item style="padding-left:2px;" >
+                        <ion-label stacked color="custom">Contact *</ion-label>
+                        <ion-select   color="custom"
+                        [(ngModel)]="stncomplaint.stn_complainant_type"  name="stn_complainant_type"               
+                              
+                              required
+                              >
+                        <ion-option 
+                             
+                              value="Mobile">Mobile</ion-option>
+                              <ion-option 
+                             
+                              value="Email">Email</ion-option>
+                                </ion-select>
+    
+                       
+                      
+                       
+                      </ion-item>
+              </ion-col>
+              <ion-col col-12 col-sm col-md-3 *ngIf="stncomplaint.stn_complainant_type == 'Mobile'">
+              
+                  <ion-item style="padding-left:2px;" >
+                      <ion-label stacked color="custom">Mobile *</ion-label>
+                      <ion-input type="text"   required maxlength="10"   (keydown)="numberonly($event)"
+                      [(ngModel)]="stncomplaint.stn_complainant_mobile"  name="stn_complainant_mobile" 
+                      ></ion-input>
+  
+                     
+                    
+                     
+                    </ion-item>
+            </ion-col>
+            <ion-col col-12 col-sm col-md-3 *ngIf="stncomplaint.stn_complainant_type == 'Email'">
+              
+                <ion-item style="padding-left:2px;" >
+                    <ion-label stacked color="custom">Email *</ion-label>
+                    <ion-input type="text"   required  maxlength="100"
+                    pattern="[^ @]*@[^ @]+[.][^ @]+"  #email="ngModel"
+                    [(ngModel)]="stncomplaint.stn_complainant_email"  name="stn_complainant_email" 
+                    ></ion-input>
+
+                   
+                  
+                   
+                  </ion-item>
+                  <div ion-item no-lines 
+               style="color:red;"
+               *ngIf="email.invalid" class="invalid-feedback">
+               <div *ngIf="email.errors.pattern">Please enter a valid email</div>
+               </div>
+          </ion-col>
                     </ion-row>
                     <ion-row>
                         <ion-col col-12 col-sm col-md-3 style="text-align:center;">
                             <button ion-button small block color="custom"
-                            (click)="checklogin(f)"  >Login</button>
+                            (click)="submitcomplaint(f)"  >Submit</button>
 
                         </ion-col>
 
