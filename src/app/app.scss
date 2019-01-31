@@ -10,7 +10,21 @@
 @import "../theme/theme";
 @import "../theme/primeng.min";
 
+.alert-md .alert-radio-label {
+  white-space:normal !important;
+}
+.label .label-md{
+  white-space:normal !important;
+  }
 
+  .alert-ios .alert-radio-label {
+      white-space:normal !important;
+  }
+
+ 
+ion-label{
+  white-space:normal !important;
+  }
 .ui-autocomplete {
   width:100%;
 }

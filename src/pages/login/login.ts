@@ -7,6 +7,7 @@ import { RegistrationModel } from '../../models/registrationmodel';
 import { CheckotpPage } from '../checkotp/checkotp';
 import { HttpProvider } from '../../providers/http/http';
 import { HomePage } from '../home/home';
+import { LoadingProvider } from '../../providers/loading/loading';
 
 /**
  * Generated class for the LoginPage page.
@@ -26,9 +27,11 @@ export class LoginPage {
   login=<LoginModel>{};
   register=<RegistrationModel>{};
   msgFlag=false;
+  regDet:String="";
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public toastProvider:ToastProvider,public modalCtrl: ModalController,public httpProvider:HttpProvider) {
+    public toastProvider:ToastProvider,public modalCtrl: ModalController,public httpProvider:HttpProvider
+    ,public loadingProvider :LoadingProvider) {
   }
 
   ionViewDidLoad() {
@@ -37,6 +40,8 @@ export class LoginPage {
   }
   ionViewWillEnter(){
    this.appType='Login';
+   this.regDet="";
+
   }
 
   checklogin(f:NgForm)
@@ -47,12 +52,14 @@ export class LoginPage {
     }
     else
     {
-  
+      this.loadingProvider.presentLoadingDefault();
+
       this.httpProvider.postMethod("user/login",this.login).subscribe((data) => 
       {
        if(data.code =="0")
        {
         this.msgFlag=true;
+        localStorage.setItem('username',"");
        }
        else
        {
@@ -61,12 +68,22 @@ export class LoginPage {
         this.navCtrl.pop();
 
        }
+      },err=> {
+        console.log(err);
+        
+      this.toastProvider.presentToast("Some Error Occurred. Please Try Again.");
+      
+    },()=>
+      {
+        this.loadingProvider.dismissLoading();
       });
     }
   }
 
   registeruser(f:NgForm)
   {
+    this.regDet="";
+
     if(this.register.username == null || this.register.username =='')
     {
       this.toastProvider.presentToast("Please enter your name.");
@@ -90,11 +107,15 @@ export class LoginPage {
         }
         else
         {
+          console.log(this.register);
+          this.loadingProvider.presentLoadingDefault();
+
         this.httpProvider.postMethod("user/register",this.register).subscribe((data) => 
         {
          if(data.code =="0")
          {
           this.toastProvider.presentToast("Some Error Occurred. Please try again.");
+          this.regDet="";
          }
          else
          {
@@ -105,15 +126,24 @@ export class LoginPage {
               
               if(data != undefined)
               {
-                
+                this.regDet=data.msg;
+                this.toastProvider.presentToast(data.msg);
                 
               }
               
-        
+              f.resetForm();
         
             });
   
          }
+        },err=> {
+          console.log(err);
+          
+        this.toastProvider.presentToast("Some Error Occurred. Please Try Again.");
+        
+      },()=>
+        {
+          this.loadingProvider.dismissLoading();
         });
 
      
@@ -121,27 +151,18 @@ export class LoginPage {
       }
     }
   }
-
-  numberonly(event) {
-    let e = <KeyboardEvent> event;
-      if ([46, 8, 9, 27, 13, 110, 190].indexOf(e.keyCode) !== -1 ||
-        // Allow: Ctrl+A
-        (e.keyCode === 65 && (e.ctrlKey || e.metaKey)) ||
-        // Allow: Ctrl+C
-        (e.keyCode === 67 && (e.ctrlKey || e.metaKey)) ||
-        // Allow: Ctrl+V
-        (e.keyCode === 86 && (e.ctrlKey || e.metaKey)) ||
-        // Allow: Ctrl+X
-        (e.keyCode === 88 && (e.ctrlKey || e.metaKey)) ||
-        // Allow: home, end, left, right
-        (e.keyCode >= 35 && e.keyCode <= 39)) {
-          // let it happen, don't do anything
-          return;
-        }
-        // Ensure that it is a number and stop the keypress
-        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-            e.preventDefault();
-        }
-      
+  public numberonly(event: any) {
+    const pattern = /^[0-9]*$/;   
+    
+    if (!pattern.test(event.target.value)) {
+      event.target.value = event.target.value.replace(/[^0-9]/g, "");
+  
     }
+  
+    if(event.target.value.length >10)
+    {
+      event.target.value=event.target.value.substring(0,10);
+    }
+  }
+  
 }

@@ -1,0 +1,226 @@
+<ion-header>
+    <ion-navbar  color="custom">
+       
+      <ion-title>
+        Suggestion
+      </ion-title>
+      <ion-buttons right>
+          <button ion-button icon-only (click)="logout()">
+           
+          
+            <ion-icon name="log-out"></ion-icon>
+  
+                      
+          </button> 
+        </ion-buttons>
+    </ion-navbar>
+   
+    
+  </ion-header>
+
+
+
+<ion-content no-padding>
+    
+            <form  #f="ngForm" novalidate>
+              <ion-grid>
+                <ion-row>
+                  <ion-col col-12 *ngIf="ref != ''" style="font-weight:bold;color:#a70a0a">
+                    Your suggestion has been registered with Reference Number: {{ref}}.
+                  </ion-col>
+                </ion-row>
+                  <ion-row>
+                      <ion-col col-12 col-sm col-md-3 style="padding:0px;">
+                       
+                          <ion-item 
+                           no-lines style="padding-left:2px;text-align: center;font-weight:bold;background-color:#f4f4f4">
+                              <ion-label stacked color="custom">Suggestion Details</ion-label>
+                             
+                             
+                            
+                             
+                            </ion-item>
+                    </ion-col>
+                  
+                      <ion-col col-12 col-sm col-md-3>
+                          <ion-item style="padding-left:2px;">
+                              <ion-label stacked color="custom">Suggestion *</ion-label>
+                              <ion-select   color="custom"
+                              (ionChange)="getSuggestionList()"                
+                              [(ngModel)]="suggestionObj.suggestionId"  name="suggestionId"
+                              required
+                              >
+                              <ion-option 
+                              *ngFor="let v of suggestionArr"
+                              value="{{v.id}}">{{v.suggestion}}</ion-option>
+                                </ion-select>
+
+                            </ion-item>
+                    </ion-col>
+
+                    <ion-col col-12 col-sm col-md-3>
+                        <ion-item style="padding-left:2px;">
+                            <ion-label stacked color="custom">Description *</ion-label>
+                            <ion-textarea rows="3" type="text" 
+                            maxlength="500" 
+                            [(ngModel)]="suggestionObj.suggestionDesc"  name="suggestionDesc" 
+                            ></ion-textarea>
+      
+                           
+                          
+                           
+                          </ion-item>
+                  </ion-col>
+
+                  <ion-col col-12 col-sm col-md-3>
+              
+                      <ion-item style="padding-left:2px;" >
+                          <ion-label stacked color="custom">Journey Type *</ion-label>
+                          <ion-select   color="custom"
+                          [(ngModel)]="suggestionObj.jouneyType"  name="jouneyType"               
+                                
+                                required
+                                >
+                          <ion-option 
+                               
+                                value="T">Train</ion-option>
+                                <ion-option 
+                               
+                                value="S">Station</ion-option>
+                                  </ion-select>
+
+                        </ion-item>
+                </ion-col>
+                <ion-col col-12 col-sm col-md-3 *ngIf="suggestionObj.jouneyType == 'T'">
+                      <ion-item style="padding-left:2px;" no-lines>
+                            <ion-label stacked color="custom">Train Number *</ion-label>
+                            <select-searchable
+                            item-content
+                            [(ngModel)]="suggestionObj.trainName"  name="trainName" 
+                            [items]="trainArrMod"
+                            itemValueField="train_name"
+                            itemTextField="train_name"
+                            [canSearch]="true"
+                            [hasInfiniteScroll]="true"
+                            (onChange)="trainChange($event)"
+                            (onSearch)="searchTrain($event)"
+                            (onInfiniteScroll)="getMoreTrains($event)">
+                        </select-searchable>
+                      </ion-item>
+                         
+                         
+
+                   
+              </ion-col>
+              <ion-col col-12 col-sm col-md-3 *ngIf="suggestionObj.jouneyType == 'S'">
+                
+                    <ion-item style="padding-left:2px;" no-lines>
+                      <ion-label stacked color="custom">Station Name *</ion-label>
+                      <select-searchable
+                      item-content
+                      [(ngModel)]="suggestionObj.stationName"  name="stationName" 
+                      [items]="stationArrMod"
+                      itemValueField="station_name"
+                      itemTextField="station_name"
+                      [canSearch]="true"
+                      [hasInfiniteScroll]="true"
+                      (onChange)="stationChange($event)"
+                      (onSearch)="searchStation($event)"
+                      (onInfiniteScroll)="getMoreStations($event)">
+                  </select-searchable>
+                    </ion-item>
+                   
+                 
+
+            </ion-col>
+
+                     <ion-col col-12 col-sm col-md-3 style="padding:0px;">
+                       
+                        <ion-item no-lines style="padding-left:2px;text-align: center;font-weight:bold;background-color:#f4f4f4">
+                            <ion-label stacked color="custom">Passenger Details</ion-label>
+                           
+                           
+                          
+                           
+                          </ion-item>
+                  </ion-col>
+                  <ion-col col-12 col-sm col-md-3>
+              
+                      <ion-item style="padding-left:2px;" >
+                          <ion-label stacked color="custom">Name *</ion-label>
+                          <ion-input type="text"   required maxlength="150"
+                          [(ngModel)]="suggestionObj.name"  name="name" 
+                          ></ion-input>
+      
+                         
+                        
+                         
+                        </ion-item>
+                </ion-col>
+                <ion-col col-12 col-sm col-md-3>
+              
+                    <ion-item style="padding-left:2px;" >
+                        <ion-label stacked color="custom">Contact *</ion-label>
+                        <ion-select   color="custom"
+                        [(ngModel)]="suggestionObj.contact_type"  name="contact_type"               
+                              
+                              required
+                              >
+                        <ion-option 
+                             
+                              value="Mobile">Mobile</ion-option>
+                              <ion-option 
+                             
+                              value="Email">Email</ion-option>
+                                </ion-select>
+    
+                       
+                      
+                       
+                      </ion-item>
+              </ion-col>
+              <ion-col col-12 col-sm col-md-3 *ngIf="suggestionObj.contact_type == 'Mobile'">
+              
+                  <ion-item style="padding-left:2px;" >
+                      <ion-label stacked color="custom">Mobile *</ion-label>
+                      <ion-input type="text"   required maxlength="10"   (keyup)="numberonly($event)"
+                      [(ngModel)]="suggestionObj.mobile"  name="mobile" 
+                      ></ion-input>
+  
+                     
+                    
+                     
+                    </ion-item>
+            </ion-col>
+            <ion-col col-12 col-sm col-md-3 *ngIf="suggestionObj.contact_type == 'Email'">
+              
+                <ion-item style="padding-left:2px;" >
+                    <ion-label stacked color="custom">Email *</ion-label>
+                    <ion-input type="text"   required  maxlength="100"
+                    pattern="[^ @]*@[^ @]+[.][^ @]+"  #email="ngModel"
+                    [(ngModel)]="suggestionObj.email"  name="email" 
+                    ></ion-input>
+
+                   
+                  
+                   
+                  </ion-item>
+                  <div ion-item no-lines 
+               style="color:red;"
+               *ngIf="email.invalid" class="invalid-feedback">
+               <div *ngIf="email.errors.pattern">Please enter a valid email</div>
+               </div>
+          </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-12 col-sm col-md-3 style="text-align:center;">
+                            <button ion-button small block color="custom"
+                            (click)="submitsuggestion(f)">Submit</button>
+
+                        </ion-col>
+
+                    </ion-row>
+              </ion-grid>
+            </form>
+       
+</ion-content>

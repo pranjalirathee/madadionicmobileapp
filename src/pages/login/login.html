@@ -69,6 +69,12 @@
             
               <ion-grid>
                   <ion-row>
+                        <ion-col col-12 col-sm col-md-3  *ngIf="regDet.length > 0">
+                                <ion-item no-lines style="padding-left:2px;text-align:center;color:red;">
+                                    <ion-label stacked color="custom">{{regDet}}</ion-label>
+                                   
+                                  </ion-item>
+                          </ion-col>
                       <ion-col col-12 col-sm col-md-3>
                           <ion-item style="padding-left:2px;">
                               <ion-label stacked color="custom">Name</ion-label>
@@ -82,7 +88,7 @@
                         <ion-item style="padding-left:2px;">
                             <ion-label stacked color="custom">Mobile Number</ion-label>
                             <ion-input type="text"  [(ngModel)]="register.uMobile"  name="uMobile"
-                            (keydown)="numberonly($event)"
+                            (keyup)="numberonly($event)"
 
                             maxlength="10"></ion-input>
                           

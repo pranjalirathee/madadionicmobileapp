@@ -3,7 +3,6 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
@@ -22,6 +21,11 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
 import { File } from '@ionic-native/file';
 import { Camera } from '@ionic-native/camera';
 import { ComplaintTrainPage } from '../pages/complaint-train/complaint-train';
+import { ComplaintTrackPage } from '../pages/complaint-track/complaint-track';
+import { ComplaintSuggestionPage } from '../pages/complaint-suggestion/complaint-suggestion';
+import { CallNumber } from '@ionic-native/call-number';
+import { HelplinePage } from '../pages/helpline/helpline';
+import { SelectSearchableModule } from 'ionic-select-searchable';
 
 
 @NgModule({
@@ -31,7 +35,10 @@ import { ComplaintTrainPage } from '../pages/complaint-train/complaint-train';
     LoginPage,
     CheckotpPage,
     ComplaintStationPage,
-    ComplaintTrainPage
+    ComplaintTrainPage,
+    ComplaintTrackPage,
+    ComplaintSuggestionPage,
+    HelplinePage
   ],
   imports: [
     BrowserModule,
@@ -46,11 +53,14 @@ import { ComplaintTrainPage } from '../pages/complaint-train/complaint-train';
        { component: CheckotpPage, name: 'checkotp', segment: 'checkotp' },
        { component: ComplaintStationPage, name: 'complaintstation', segment: 'complaintstation' },
        { component: LoginPage, name: 'login', segment: 'login' },
-       { component: ComplaintTrainPage, name: 'complainttrain', segment: 'complainttrain' }
-
+       { component: ComplaintTrainPage, name: 'complainttrain', segment: 'complainttrain' },
+       { component: ComplaintTrackPage, name: 'complainttrack', segment: 'complainttrack' },
+       { component: ComplaintSuggestionPage, name: 'complaintsuggestion', segment: 'complaintsuggestion' },
+       { component: HelplinePage, name: 'helpline', segment: 'helpline' }
 
      ]
-   })
+   }),
+   SelectSearchableModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -59,7 +69,11 @@ import { ComplaintTrainPage } from '../pages/complaint-train/complaint-train';
     LoginPage,
     CheckotpPage,
     ComplaintStationPage,
-    ComplaintTrainPage
+    ComplaintTrainPage,
+    ComplaintTrackPage,
+    ComplaintSuggestionPage,
+    HelplinePage
+
   ],
   providers: [
     StatusBar,
@@ -72,7 +86,8 @@ import { ComplaintTrainPage } from '../pages/complaint-train/complaint-train';
     FileTransfer,
     FileTransferObject,
     File,
-    Camera
+    Camera,
+    CallNumber
   ]
 })
 export class AppModule {}

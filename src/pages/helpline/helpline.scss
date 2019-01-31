@@ -1,0 +1,33 @@
+page-helpline {
+
+    .bg{
+        width: 100%;
+        height: 100%;
+        
+        align-items:center;
+        justify-content:center;
+        background-size: cover;
+        background-image: url(../../assets/imgs/BannerImage5.jpg);
+        background-repeat: no-repeat;
+     
+       }
+
+       .label-ios {
+        margin:0px !important; 
+    }
+
+    .label-md {
+        margin:0px !important; 
+    }
+
+
+    .list-header-md {
+        margin-bottom: 0px !important;
+    }
+
+    .item-block
+    {
+     min-height: 3.4rem !important; 
+
+    }
+}

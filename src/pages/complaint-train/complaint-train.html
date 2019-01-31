@@ -4,9 +4,17 @@
       <ion-title>
         Complaint Train
       </ion-title>
-     
+      <ion-buttons right>
+            <button ion-button icon-only (click)="logout()">
+             
+            
+              <ion-icon name="log-out"></ion-icon>
+    
+                        
+            </button> 
+          </ion-buttons>
     </ion-navbar>
-
+  
     
   </ion-header>
 
@@ -124,7 +132,7 @@
               
                     <ion-item style="padding-left:2px;" >
                         <ion-label stacked color="custom">PNR No *</ion-label>
-                        <ion-input type="text"   (input)="fetchpnr()" maxlength="10"   (keydown)="numberonly($event)"
+                        <ion-input type="text"   (keyup)="fetchpnr($event)" maxlength="10"   
                         [(ngModel)]="trncomplaint.pnrUtsNo"  name="pnrUtsNo"  required
                         ></ion-input>
     
@@ -141,14 +149,21 @@
               <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'U'">
                     <ion-item style="padding-left:2px;" no-lines>
                             <ion-label stacked color="custom">Train Number *</ion-label>
+                            <select-searchable
+                            item-content
+                            [(ngModel)]="trncomplaint.trainNo"  name="trainNo" 
+                            [items]="trainArrMod"
+                            itemValueField="train_name"
+                            itemTextField="train_name"
+                            [canSearch]="true"
+                            [hasInfiniteScroll]="true"
+                            (onChange)="trainChange($event)"
+                            (onSearch)="searchTrain($event)"
+                            (onInfiniteScroll)="getMoreTrains($event)">
+                        </select-searchable>
                       </ion-item>
-                         
-                          <p-autoComplete 
-                          [(ngModel)]="trncomplaint.trainNo"  name="trainNo" 
-                        
-                          item-content required
-                           [suggestions]="results" (completeMethod)="search($event)"
-                           [dropdown]="true"  [forceSelection]="true" field="station_name"></p-autoComplete>
+                     
+                       
 
                    
               </ion-col>
@@ -342,7 +357,7 @@
               
                   <ion-item style="padding-left:2px;" >
                       <ion-label stacked color="custom">Mobile *</ion-label>
-                      <ion-input type="text"    required maxlength="10"   (keydown)="numberonly($event)"
+                      <ion-input type="text"    required maxlength="10"   (keyup)="numberonly($event)"
                       [(ngModel)]="trncomplaint.complainantMobile"  name="complainantMobile" 
                       ></ion-input>
   

@@ -4,9 +4,17 @@
       <ion-title>
         Complaint Station
       </ion-title>
-     
+      <ion-buttons right>
+          <button ion-button icon-only (click)="logout()">
+           
+          
+            <ion-icon name="log-out"></ion-icon>
+  
+                      
+          </button> 
+        </ion-buttons>
     </ion-navbar>
-
+   
     
   </ion-header>
 
@@ -19,11 +27,12 @@
                 <ion-row>
                   <ion-col col-12 *ngIf="ref != ''" style="font-weight:bold;color:#a70a0a">
                     Your complaint has been registered with Reference Number: {{ref}}.
+                  
                   </ion-col>
                 </ion-row>
                   <ion-row>
                       <ion-col col-12 col-sm col-md-3 style="padding:0px;">
-                       
+                          
                           <ion-item 
                            no-lines style="padding-left:2px;text-align: center;font-weight:bold;background-color:#f4f4f4">
                               <ion-label stacked color="custom">Complaint Details</ion-label>
@@ -97,23 +106,31 @@
                       </ion-item>
               </ion-col>
               <ion-col col-12 col-sm col-md-3>
+                  
                   <ion-item style="padding-left:2px;" no-lines>
                       <ion-label stacked color="custom">Station Name *</ion-label>
                     <!--  <ion-auto-complete [dataProvider]="completeTestService" item-content></ion-auto-complete>-->
                    
                     
-
+                    <select-searchable
+                    item-content
+                    [(ngModel)]="stncomplaint.stn_name"  
+                    name="stn_name" 
+                    [items]="stationArrMod"
+                    itemValueField="station_name"
+                    itemTextField="station_name"
+                    [canSearch]="true"
+                    [hasInfiniteScroll]="true"
+                    (onChange)="stationChange($event)"
+                    (onSearch)="searchStation($event)"
+                    (onInfiniteScroll)="getMoreStations($event)">
+                </select-searchable>
                      
                     
                      
                     </ion-item>
                    
-                    <p-autoComplete 
-                    [(ngModel)]="stncomplaint.stn_name"  name="stn_name" 
-                  
-                    item-content required
-                     [suggestions]="results" (completeMethod)="search($event)"
-                     [dropdown]="true"  [forceSelection]="true" field="station_name"></p-autoComplete>
+                   
             </ion-col>
             <ion-col col-12 col-sm col-md-3>
               
@@ -195,7 +212,7 @@
               
                   <ion-item style="padding-left:2px;" >
                       <ion-label stacked color="custom">Mobile *</ion-label>
-                      <ion-input type="text"   required maxlength="10"   (keydown)="numberonly($event)"
+                      <ion-input type="text"   required maxlength="10"   (keyup)="numberonly($event)"
                       [(ngModel)]="stncomplaint.stn_complainant_mobile"  name="stn_complainant_mobile" 
                       ></ion-input>
   
