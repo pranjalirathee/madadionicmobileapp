@@ -144,7 +144,7 @@ export class ComplaintTrainPage {
     if(this.trncomplaint.pnrUtsNo != null && this.trncomplaint.pnrUtsNo != undefined && this.trncomplaint.pnrUtsNo.length == 10)
     {
 
-      this.httpProvider.getMethod("coms/PnrData?PNR="+this.trncomplaint.pnrUtsNo).subscribe((data) => 
+      this.httpProvider.getMethod("common/PnrData?PNR="+this.trncomplaint.pnrUtsNo).subscribe((data) => 
       {this.berthArr=[];
         this.coachArr=[];
        
@@ -320,7 +320,7 @@ export class ComplaintTrainPage {
 
   getSubComplaintList()
   {
-    this.httpProvider.getMethod("coms/ComsSubHeadList?Id="+this.trncomplaint.complaint).subscribe((data) => 
+    this.httpProvider.getMethod("common/SubHeadList?Id="+this.trncomplaint.complaint).subscribe((data) => 
     {
      
       if(data.length >0)
@@ -338,7 +338,7 @@ export class ComplaintTrainPage {
   getComplaintList()
   {
     
-    this.httpProvider.getMethod("coms/ComsHeadListById?Id=\"t\"").subscribe((data) => 
+    this.httpProvider.getMethod("common/HeadListById?Id=\"t\"").subscribe((data) => 
     {
      
       if(data.length >0)
@@ -357,7 +357,7 @@ export class ComplaintTrainPage {
   getTrainList()
   {
     
-    this.httpProvider.getMethod("coms/TrainList").subscribe((data) => 
+    this.httpProvider.getMethod("common/TrainList").subscribe((data) => 
     {
      
       if(data.length >0)

@@ -176,7 +176,7 @@ export class ComplaintStationPage {
     minusfivedays.setDate(minusfivedays.getDate()-5);
     var minTime =minusfivedays.toISOString().slice(0,-1);
    
-    this.stncomplaint.incident_date=localISOTime;
+    this.stncomplaint.incidentDate=localISOTime;
     this.minDate=minTime;
     this.maxDate=localISOTime;
     this.myphoto="";
@@ -200,7 +200,7 @@ export class ComplaintStationPage {
 
   getSubComplaintList()
   {
-    this.httpProvider.getMethod("coms/ComsSubHeadList?Id="+this.stncomplaint.stn_head).subscribe((data) => 
+    this.httpProvider.getMethod("common/SubHeadList?Id="+this.stncomplaint.complaint).subscribe((data) => 
     {
      
       if(data.length >0)
@@ -218,7 +218,7 @@ export class ComplaintStationPage {
   getComplaintList()
   {
     
-    this.httpProvider.getMethod("coms/ComsHeadListById?Id=\"s\"").subscribe((data) => 
+    this.httpProvider.getMethod("common/HeadListById?Id=\"s\"").subscribe((data) => 
     {
      
       if(data.length >0)
@@ -237,7 +237,7 @@ export class ComplaintStationPage {
   getStationList()
   {
     
-    this.httpProvider.getMethod("coms/StationList").subscribe((data) => 
+    this.httpProvider.getMethod("common/StationList").subscribe((data) => 
     {
      
       if(data.length >0)
@@ -308,10 +308,10 @@ public numberonly(event: any) {
     }
     else
     {
-     console.log(this.stncomplaint.stn_name);
-      this.stncomplaint.stn_code=(this.stncomplaint.stn_name as any).station_name.split("-")[1];
-      this.stncomplaint.stn_name=(this.stncomplaint.stn_name as any).station_name.split("-")[0];
-      this.stncomplaint.stn_ufile=this.myphoto;
+     console.log(this.stncomplaint.stationName);
+      this.stncomplaint.stationCode=(this.stncomplaint.stationName as any).station_name.split("-")[1];
+      this.stncomplaint.stationName=(this.stncomplaint.stationName as any).station_name.split("-")[0];
+      this.stncomplaint.image=this.myphoto;
       this.loadingProvider.presentLoadingDefault();
 
       this.httpProvider.postMethod("complaint/station",this.stncomplaint).subscribe((data) => 

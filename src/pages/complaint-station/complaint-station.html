@@ -48,7 +48,7 @@
                               <ion-label stacked color="custom">Complaint *</ion-label>
                               <ion-select   color="custom"
                               (ionChange)="getSubComplaintList()"                
-                              [(ngModel)]="stncomplaint.stn_head"  name="stn_head"
+                              [(ngModel)]="stncomplaint.complaint"  name="complaint"
                               required
                               >
                               <ion-option 
@@ -64,7 +64,7 @@
                         <ion-item style="padding-left:2px;">
                             <ion-label stacked color="custom">Sub Complaint *</ion-label>
                             <ion-select   color="custom"
-                            [(ngModel)]="stncomplaint.stn_sub_head"  name="stn_sub_head"            
+                            [(ngModel)]="stncomplaint.subComplaint"  name="subComplaint"            
                             
                             required
                             >
@@ -86,7 +86,7 @@
                          
                           
                           
-                          [(ngModel)]="stncomplaint.incident_date"  name="incident_date"  required  ></ion-datetime>
+                          [(ngModel)]="stncomplaint.incidentDate"  name="incidentDate"  required  ></ion-datetime>
                          
                         
                          
@@ -97,7 +97,7 @@
                         <ion-label stacked color="custom">Complaint Description</ion-label>
                         <ion-textarea rows="3" type="text" 
                         maxlength="500" 
-                        [(ngModel)]="stncomplaint.complaint_desc"  name="complaint_desc" 
+                        [(ngModel)]="stncomplaint.complaintDesc"  name="complaintDesc" 
                         ></ion-textarea>
   
                        
@@ -114,8 +114,8 @@
                     
                     <select-searchable
                     item-content
-                    [(ngModel)]="stncomplaint.stn_name"  
-                    name="stn_name" 
+                    [(ngModel)]="stncomplaint.stationName"  
+                    name="stationName" 
                     [items]="stationArrMod"
                     itemValueField="station_name"
                     itemTextField="station_name"
@@ -137,7 +137,7 @@
                 <ion-item style="padding-left:2px;" >
                     <ion-label stacked color="custom">Platform Number</ion-label>
                     <ion-input type="text"   
-                    [(ngModel)]="stncomplaint.stn_platform"  name="stn_platform" 
+                    [(ngModel)]="stncomplaint.platformNo"  name="platformNo" 
                     ></ion-input>
 
                    
@@ -178,7 +178,7 @@
                       <ion-item style="padding-left:2px;" >
                           <ion-label stacked color="custom">Name *</ion-label>
                           <ion-input type="text"   required maxlength="150"
-                          [(ngModel)]="stncomplaint.stn_complainant_name"  name="stn_complainant_name" 
+                          [(ngModel)]="stncomplaint.complainantName"  name="complainantName" 
                           ></ion-input>
       
                          
@@ -213,7 +213,7 @@
                   <ion-item style="padding-left:2px;" >
                       <ion-label stacked color="custom">Mobile *</ion-label>
                       <ion-input type="text"   required maxlength="10"   (keyup)="numberonly($event)"
-                      [(ngModel)]="stncomplaint.stn_complainant_mobile"  name="stn_complainant_mobile" 
+                      [(ngModel)]="stncomplaint.complainantMobile"  name="complainantMobile" 
                       ></ion-input>
   
                      
@@ -227,7 +227,7 @@
                     <ion-label stacked color="custom">Email *</ion-label>
                     <ion-input type="text"   required  maxlength="100"
                     pattern="[^ @]*@[^ @]+[.][^ @]+"  #email="ngModel"
-                    [(ngModel)]="stncomplaint.stn_complainant_email"  name="stn_complainant_email" 
+                    [(ngModel)]="stncomplaint.complainantEmail"  name="complainantEmail" 
                     ></ion-input>
 
                    
@@ -244,7 +244,7 @@
                     <ion-row>
                         <ion-col col-12 col-sm col-md-3 style="text-align:center;">
                             <button ion-button small block color="custom"
-                            (click)="submitcomplaint(f)"  >Submit</button>
+                            (click)="submitcomplaint(f)">Submit</button>
 
                         </ion-col>
 

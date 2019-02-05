@@ -256,7 +256,7 @@ export class ComplaintSuggestionPage {
   getStationList()
   {
     
-    this.httpProvider.getMethod("coms/StationList").subscribe((data) => 
+    this.httpProvider.getMethod("common/StationList").subscribe((data) => 
     {
      
       if(data.length >0)
@@ -284,7 +284,7 @@ export class ComplaintSuggestionPage {
   getTrainList()
   {
     
-    this.httpProvider.getMethod("coms/TrainList").subscribe((data) => 
+    this.httpProvider.getMethod("common/TrainList").subscribe((data) => 
     {
      
       if(data.length >0)
