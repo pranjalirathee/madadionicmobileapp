@@ -102,6 +102,13 @@ export class LoginPage {
         this.toastProvider.presentToast("Please enter either mobile number or email.");
    
       }
+      else if(this.register.uMobile != null && this.register.uMobile !=''
+     && this.register.uMobile.substring(0,1) !='9' && this.register.uMobile.substring(0,1) !='7'
+      && this.register.uMobile.substring(0,1) !='8' && this.register.uMobile.substring(0,1) !='6')
+     {
+       this.toastProvider.presentToast("Please enter a valid mobile number.");
+  
+     }
 
       else
       {

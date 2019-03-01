@@ -176,7 +176,7 @@ export class ComplaintTrainPage {
         
              // data=JSON.parse(data)
                 console.log(data);
-               if(data.errormsg !+ "")
+               if(data.errormsg != "")
                {
                 this.pnrFlag=false;
                 this.toastProvider.presentToast(data.errormsg);
@@ -184,6 +184,8 @@ export class ComplaintTrainPage {
                }
                else
                {
+
+
                 this.trncomplaint.trainNo=data.lapList.trainNo[0]+" - "+data.lapList.trainName[0];
                 this.trncomplaint.berthClass=data.lapList.cls[0];
                 this.trncomplaint.boardingStation=data.lapList.brdpt[0];
@@ -196,6 +198,17 @@ export class ComplaintTrainPage {
                 this.trncomplaint.journeyMonth=data.lapList.month[0];
                 this.trncomplaint.journeyYear=data.lapList.year[0];
              
+
+                var today = new Date();
+                var journeyDate = new Date(data.lapList.year[0]+"-"+data.lapList.month[0]+"-"+data.lapList.day[0]);
+                console.log(journeyDate>today);
+                  if(journeyDate>today)
+                  {
+                    this.pnrFlag=false;
+                    this.toastProvider.presentToast("Future PNR not allowed");
+                  }
+                  else
+                {
                 if(Number(this.trncomplaint.psgnNo)>0)
                 {
                   for(var i=0;i<Number(this.trncomplaint.psgnNo);i++) {
@@ -228,20 +241,22 @@ export class ComplaintTrainPage {
 
                 }
                }
-
+               if(this.coachArr.length>0)
+               {
+                 this.pnrFlag=true;
+ 
+               }
+               else
+               {
+                 this.pnrFlag=false;
+                 this.toastProvider.presentToast("PNR in waiting list");
+ 
+ 
+               }
                
               }
-
-              if(this.coachArr.length>0)
-              {
-                this.pnrFlag=true;
-
-              }
-              else
-              {
-                this.pnrFlag=false;
-
-              }
+            }
+              
             }
             
       });
