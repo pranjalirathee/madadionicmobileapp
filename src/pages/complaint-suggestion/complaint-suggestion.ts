@@ -228,6 +228,11 @@ export class ComplaintSuggestionPage {
     
       this.navCtrl.push(LoginPage);
      }
+     else
+     {
+       this.suggestionObj.contact=localStorage.getItem('contact');
+       this.suggestionObj.name=localStorage.getItem('fullname');
+     }
   
   }
 
@@ -341,7 +346,15 @@ submitsuggestion(f:NgForm)
     this.toastProvider.presentToast("Please enter all the mandatory fields.");
   }
   else
-  {   
+  {    if(this.suggestionObj.contact.indexOf("@") != -1)
+  {
+    this.suggestionObj.email=this.suggestionObj.contact;
+  }
+  else
+  {
+    this.suggestionObj.mobile=this.suggestionObj.contact;
+
+  }
 
       this.suggestionObj.suggestionChannel='A';
       if(this.suggestionObj.jouneyType=='S'){
@@ -349,7 +362,9 @@ submitsuggestion(f:NgForm)
       this.suggestionObj.stationName=(this.suggestionObj.stationName as any).station_name.split("-")[0];
       }
       if(this.suggestionObj.jouneyType=='T'){
-      this.suggestionObj.trainNo=(this.suggestionObj.trainNo as any).train_name.split("-")[1];
+
+        console.log(this.suggestionObj.trainName);
+      this.suggestionObj.trainNo=(this.suggestionObj.trainName as any).train_name.split("-")[1];
       }
 
     console.log('Submit: Inside-Else');

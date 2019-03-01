@@ -12,5 +12,6 @@ export class StnComplaintModel
   complaintDesc : string;
   image : string;
   incidentDate : string;
+  contact:string;
 
 }

@@ -60,11 +60,17 @@ export class LoginPage {
        {
         this.msgFlag=true;
         localStorage.setItem('username',"");
+        localStorage.setItem('fullname',"");
+        localStorage.setItem('contact',"");
+
        }
        else
        {
         this.msgFlag=false;
         localStorage.setItem('username',data.username);
+        localStorage.setItem('fullname',data.name);
+        localStorage.setItem('contact',data.username);
+
         this.navCtrl.pop();
 
        }

@@ -31,7 +31,7 @@
                 </ion-row>
                   <ion-row>
                       <ion-col col-12 col-sm col-md-3 style="padding:0px;">
-                       
+                      
                           <ion-item 
                            no-lines style="padding-left:2px;text-align: center;font-weight:bold;background-color:#f4f4f4">
                               <ion-label stacked color="custom">Suggestion Details</ion-label>
@@ -62,7 +62,7 @@
                         <ion-item style="padding-left:2px;">
                             <ion-label stacked color="custom">Description *</ion-label>
                             <ion-textarea rows="3" type="text" 
-                            maxlength="500" 
+                            maxlength="500" required
                             [(ngModel)]="suggestionObj.suggestionDesc"  name="suggestionDesc" 
                             ></ion-textarea>
       
@@ -147,11 +147,10 @@
                   <ion-col col-12 col-sm col-md-3>
               
                       <ion-item style="padding-left:2px;" >
-                          <ion-label stacked color="custom">Name *</ion-label>
-                          <ion-input type="text"   required maxlength="150"
-                          [(ngModel)]="suggestionObj.name"  name="name" 
-                          ></ion-input>
-      
+                          <ion-label stacked color="custom">Name </ion-label>
+                          <ion-label  >{{suggestionObj.name}} </ion-label>
+
+                       
                          
                         
                          
@@ -160,57 +159,15 @@
                 <ion-col col-12 col-sm col-md-3>
               
                     <ion-item style="padding-left:2px;" >
-                        <ion-label stacked color="custom">Contact *</ion-label>
-                        <ion-select   color="custom"
-                        [(ngModel)]="suggestionObj.contact_type"  name="contact_type"               
-                              
-                              required
-                              >
-                        <ion-option 
-                             
-                              value="Mobile">Mobile</ion-option>
-                              <ion-option 
-                             
-                              value="Email">Email</ion-option>
-                                </ion-select>
-    
-                       
+                        <ion-label stacked color="custom">Contact </ion-label>
+                        <ion-label  >{{suggestionObj.contact}} </ion-label>
+
                       
                        
                       </ion-item>
               </ion-col>
-              <ion-col col-12 col-sm col-md-3 *ngIf="suggestionObj.contact_type == 'Mobile'">
-              
-                  <ion-item style="padding-left:2px;" >
-                      <ion-label stacked color="custom">Mobile *</ion-label>
-                      <ion-input type="text"   required maxlength="10"   (keyup)="numberonly($event)"
-                      [(ngModel)]="suggestionObj.mobile"  name="mobile" 
-                      ></ion-input>
-  
-                     
-                    
-                     
-                    </ion-item>
-            </ion-col>
-            <ion-col col-12 col-sm col-md-3 *ngIf="suggestionObj.contact_type == 'Email'">
-              
-                <ion-item style="padding-left:2px;" >
-                    <ion-label stacked color="custom">Email *</ion-label>
-                    <ion-input type="text"   required  maxlength="100"
-                    pattern="[^ @]*@[^ @]+[.][^ @]+"  #email="ngModel"
-                    [(ngModel)]="suggestionObj.email"  name="email" 
-                    ></ion-input>
-
-                   
-                  
-                   
-                  </ion-item>
-                  <div ion-item no-lines 
-               style="color:red;"
-               *ngIf="email.invalid" class="invalid-feedback">
-               <div *ngIf="email.errors.pattern">Please enter a valid email</div>
-               </div>
-          </ion-col>
+            
+           
                     </ion-row>
                     <ion-row>
                         <ion-col col-12 col-sm col-md-3 style="text-align:center;">

@@ -176,10 +176,9 @@
                   <ion-col col-12 col-sm col-md-3>
               
                       <ion-item style="padding-left:2px;" >
-                          <ion-label stacked color="custom">Name *</ion-label>
-                          <ion-input type="text"   required maxlength="150"
-                          [(ngModel)]="stncomplaint.complainantName"  name="complainantName" 
-                          ></ion-input>
+                          <ion-label stacked color="custom">Name </ion-label>
+                          <ion-label  >{{stncomplaint.complainantName}} </ion-label>
+                        
       
                          
                         
@@ -189,57 +188,16 @@
                 <ion-col col-12 col-sm col-md-3>
               
                     <ion-item style="padding-left:2px;" >
-                        <ion-label stacked color="custom">Contact *</ion-label>
-                        <ion-select   color="custom"
-                        [(ngModel)]="stncomplaint.stn_complainant_type"  name="stn_complainant_type"               
-                              
-                              required
-                              >
-                        <ion-option 
-                             
-                              value="Mobile">Mobile</ion-option>
-                              <ion-option 
-                             
-                              value="Email">Email</ion-option>
-                                </ion-select>
-    
+                        <ion-label stacked color="custom">Contact </ion-label>
+                        <ion-label  >{{stncomplaint.contact}} </ion-label>
+
                        
                       
                        
                       </ion-item>
               </ion-col>
-              <ion-col col-12 col-sm col-md-3 *ngIf="stncomplaint.stn_complainant_type == 'Mobile'">
-              
-                  <ion-item style="padding-left:2px;" >
-                      <ion-label stacked color="custom">Mobile *</ion-label>
-                      <ion-input type="text"   required maxlength="10"   (keyup)="numberonly($event)"
-                      [(ngModel)]="stncomplaint.complainantMobile"  name="complainantMobile" 
-                      ></ion-input>
-  
-                     
-                    
-                     
-                    </ion-item>
-            </ion-col>
-            <ion-col col-12 col-sm col-md-3 *ngIf="stncomplaint.stn_complainant_type == 'Email'">
-              
-                <ion-item style="padding-left:2px;" >
-                    <ion-label stacked color="custom">Email *</ion-label>
-                    <ion-input type="text"   required  maxlength="100"
-                    pattern="[^ @]*@[^ @]+[.][^ @]+"  #email="ngModel"
-                    [(ngModel)]="stncomplaint.complainantEmail"  name="complainantEmail" 
-                    ></ion-input>
-
-                   
-                  
-                   
-                  </ion-item>
-                  <div ion-item no-lines 
-               style="color:red;"
-               *ngIf="email.invalid" class="invalid-feedback">
-               <div *ngIf="email.errors.pattern">Please enter a valid email</div>
-               </div>
-          </ion-col>
+             
+          
                     </ion-row>
                     <ion-row>
                         <ion-col col-12 col-sm col-md-3 style="text-align:center;">

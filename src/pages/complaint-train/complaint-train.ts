@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 import { StationNameProvider } from '../../providers/station-name/station-name';
 import { WebcamInitError, WebcamImage, WebcamUtil } from 'ngx-webcam';
@@ -13,6 +13,7 @@ import { ComplaintModel } from '../../models/complaintmodel';
 import { LoginPage } from '../login/login';
 import { LoadingProvider } from '../../providers/loading/loading';
 import { SelectSearchableComponent } from 'ionic-select-searchable';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the ComplaintTrainPage page.
@@ -36,6 +37,30 @@ export class ComplaintTrainPage {
   trainArrGlobal=[];
 
 
+  presentConfirm() {
+    let alert = this.alertCtrl.create({
+      title: 'Confirm purchase',
+      message: 'Do you want to register more complaint?',
+      buttons: [
+        {
+          text: 'Yes',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'No',
+          handler: () => {
+            console.log('Buy clicked');
+            this.navCtrl.push(HomePage);
+
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
   searchTrain(event: {
     component: SelectSearchableComponent,
     text: string
@@ -184,13 +209,19 @@ export class ComplaintTrainPage {
 						}
 						else{
 
-              if(psgnCoachStatus.indexOf("R") != -1){							
+              if(psgnCoachStatus.indexOf("R") != -1){	
+              if(this.coachArr.indexOf(psgnCoachStatus.substring(1, psgnCoachStatus.indexOf(" "))) == -1)
+              {
                 this.coachArr.push(psgnCoachStatus.substring(1, psgnCoachStatus.indexOf(" ")));
+              }
                 this.berthArr.push(psgnCoachStatus.substring(psgnCoachStatus.indexOf(" ") + 3, psgnCoachStatus.length));
 
 							}
 							else{
-                this.coachArr.push(psgnCoachStatus.substring(0, psgnCoachStatus.indexOf(",") - 1));
+                if(this.coachArr.indexOf(psgnCoachStatus.substring(0, psgnCoachStatus.indexOf(",") - 1)) == -1)
+                {
+                  this.coachArr.push(psgnCoachStatus.substring(0, psgnCoachStatus.indexOf(",") - 1));
+                }
                 this.berthArr.push(psgnCoachStatus.substring(psgnCoachStatus.indexOf(",") + 1, psgnCoachStatus.length));
 
 							}
@@ -280,7 +311,8 @@ export class ComplaintTrainPage {
  
   constructor(public navCtrl: NavController, public navParams: NavParams,public httpProvider:HttpProvider,
     public completeTestService: StationNameProvider,  private transfer: FileTransfer,
-    private camera: Camera,private toastProvider:ToastProvider,public loadingProvider :LoadingProvider) {
+    private camera: Camera,private toastProvider:ToastProvider,public loadingProvider :LoadingProvider,
+    private alertCtrl: AlertController) {
    
   }
 
@@ -311,6 +343,13 @@ export class ComplaintTrainPage {
    {
    
      this.navCtrl.push(LoginPage);
+    }
+
+
+    else
+    {
+      this.trncomplaint.contact=localStorage.getItem('contact');
+      this.trncomplaint.complainantName=localStorage.getItem('fullname');
     }
   }
 
@@ -436,6 +475,16 @@ export class ComplaintTrainPage {
     else
     {
 
+
+      if(this.trncomplaint.contact.indexOf("@") != -1)
+      {
+        this.trncomplaint.complainantEmail=this.trncomplaint.contact;
+      }
+      else
+      {
+        this.trncomplaint.complainantMobile=this.trncomplaint.contact;
+
+      }
       if(this.trncomplaint.pnrUtsNo=='P' && this.pnrFlag==false)
       {
         this.toastProvider.presentToast("Please enter a valid PNR.");
@@ -465,6 +514,7 @@ export class ComplaintTrainPage {
 
                   f.resetForm();
                   this.resetdet();
+                  this.presentConfirm();
                  }
         },err=> {
           console.log(err);

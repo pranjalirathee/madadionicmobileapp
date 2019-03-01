@@ -38,6 +38,8 @@ export class ComplaintModel
        journeyYear :string;
        
        trn_complainant_type:string;
+
+       contact:string;
    
 
 }

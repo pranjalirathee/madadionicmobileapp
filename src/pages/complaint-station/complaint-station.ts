@@ -1,5 +1,6 @@
+import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 import { StationNameProvider } from '../../providers/station-name/station-name';
 
@@ -31,7 +32,31 @@ export class ComplaintStationPage {
   stationArrMod=[];
   stationArrGlobal=[];
 
+  presentConfirm() {
+    let alert = this.alertCtrl.create({
+      title: 'Confirm purchase',
+      message: 'Do you want to register more complaint?',
+      buttons: [
+        {
+          text: 'Yes',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'No',
+          handler: () => {
+            console.log('Buy clicked');
+            this.navCtrl.push(HomePage);
 
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+  
   searchStation(event: {
     component: SelectSearchableComponent,
     text: string
@@ -159,7 +184,8 @@ export class ComplaintStationPage {
  
   constructor(public navCtrl: NavController, public navParams: NavParams,public httpProvider:HttpProvider,
     public completeTestService: StationNameProvider,  private transfer: FileTransfer,
-    private camera: Camera,private toastProvider:ToastProvider,public loadingProvider :LoadingProvider) {
+    private camera: Camera,private toastProvider:ToastProvider,public loadingProvider :LoadingProvider,
+    private alertCtrl: AlertController) {
    
   }
 
@@ -192,6 +218,12 @@ export class ComplaintStationPage {
     
       this.navCtrl.push(LoginPage);
      }
+
+     else
+    {
+      this.stncomplaint.contact=localStorage.getItem('contact');
+      this.stncomplaint.complainantName=localStorage.getItem('fullname');
+    }
   }
 
   ionViewDidLoad() {
@@ -308,6 +340,15 @@ public numberonly(event: any) {
     }
     else
     {
+      if(this.stncomplaint.contact.indexOf("@") != -1)
+      {
+        this.stncomplaint.complainantEmail=this.stncomplaint.contact;
+      }
+      else
+      {
+        this.stncomplaint.complainantMobile=this.stncomplaint.contact;
+
+      }
      console.log(this.stncomplaint.stationName);
       this.stncomplaint.stationCode=(this.stncomplaint.stationName as any).station_name.split("-")[1];
       this.stncomplaint.stationName=(this.stncomplaint.stationName as any).station_name.split("-")[0];
@@ -327,7 +368,7 @@ public numberonly(event: any) {
 
                  f.resetForm();
                  this.resetdet();
-
+                this.presentConfirm();
                }
       },err=> {
         console.log(err);

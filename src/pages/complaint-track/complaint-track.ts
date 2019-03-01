@@ -55,7 +55,7 @@ export class ComplaintTrackPage {
     if(this.trackcomplaint.complaintReferenceNo !=null)
     {
       this.loadingProvider.presentLoadingDefault();
-
+      this.trackcomplaint.username=localStorage.getItem('username');
       this.httpProvider.postMethod("user/tracking",this.trackcomplaint).subscribe((data) => 
       {
 

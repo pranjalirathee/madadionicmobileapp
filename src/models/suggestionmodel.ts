@@ -18,6 +18,7 @@ export class SuggestionModel
   slaFlag: string;
   trainName: string;
   contact_type:string;
+  contact:string;
 
 
 }
