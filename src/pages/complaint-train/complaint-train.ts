@@ -39,7 +39,6 @@ export class ComplaintTrainPage {
 
   presentConfirm() {
     let alert = this.alertCtrl.create({
-      title: 'Confirm purchase',
       message: 'Do you want to register more complaint?',
       buttons: [
         {
@@ -380,6 +379,7 @@ export class ComplaintTrainPage {
       if(data.length >0)
             {
                 this.subcomplaintArr=data; 
+                this.trncomplaint.subComplaint=data[0].id;
             }
           else{
                 this.subcomplaintArr=[];
@@ -500,7 +500,7 @@ export class ComplaintTrainPage {
         this.trncomplaint.complainantMobile=this.trncomplaint.contact;
 
       }
-      if(this.trncomplaint.pnrUtsNo=='P' && this.pnrFlag==false)
+      if(this.trncomplaint.pnrUtsFlag=='P' && this.pnrFlag==false)
       {
         this.toastProvider.presentToast("Please enter a valid PNR.");
 
@@ -513,14 +513,19 @@ export class ComplaintTrainPage {
           this.trncomplaint.trainName=(this.trncomplaint.trainNo as any).train_name.split(':-')[0];
           this.trncomplaint.trainNo=(this.trncomplaint.trainNo as any).train_name.split(':-')[1];
         }
+        else{
+          this.trncomplaint.trainName=this.trncomplaint.trainNo.split('-')[1].trim();
+          this.trncomplaint.trainNo=this.trncomplaint.trainNo.split('-')[0].trim();
+        }
         this.loadingProvider.presentLoadingDefault();
 
         this.httpProvider.postMethod("complaint/train",this.trncomplaint).subscribe((data) => 
         {
+
          
           if(data.code== "" || data.code== "0")
                 {
-                    this.toastProvider.presentToast("Some Error Occurred. Please try again.") ;
+                    this.toastProvider.presentToast(data.message) ;
     
                 }
               else{
@@ -534,7 +539,7 @@ export class ComplaintTrainPage {
         },err=> {
           console.log(err);
           
-        this.toastProvider.presentToast("Some Error Occurred. Please Try Again.");
+        this.toastProvider.presentToast("Check Error "+err);
         
       },()=>
         {

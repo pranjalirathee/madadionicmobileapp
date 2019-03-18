@@ -26,7 +26,7 @@ export class HttpProvider {
         
     return  this.httpClient
     
-    .get(url).timeout(65000)
+    .get(url).timeout(10000000)
     
     .map(response  => {
     
@@ -40,7 +40,7 @@ export class HttpProvider {
         
           return  this.httpClient
           
-          .get(constants.BASE_URL+constants.CONTEXT_ROOT+url).timeout(65000)
+          .get(constants.BASE_URL+constants.CONTEXT_ROOT+url).timeout(10000000)
           
           .map(response  => {
           
@@ -54,7 +54,7 @@ export class HttpProvider {
          
           return  this.httpClient
           
-          .post(constants.BASE_URL+constants.CONTEXT_ROOT+url,data).timeout(65000)
+          .post(constants.BASE_URL+constants.CONTEXT_ROOT+url,data).timeout(10000000)
           
           .map(response  => {
           
@@ -70,7 +70,7 @@ export class HttpProvider {
 
             return  this.httpClient
             
-            .put(constants.BASE_URL+constants.CONTEXT_ROOT+url,data).timeout(65000)
+            .put(constants.BASE_URL+constants.CONTEXT_ROOT+url,data).timeout(10000000)
             
             .map(response  => {
             
@@ -87,7 +87,7 @@ export class HttpProvider {
 
               return  this.httpClient
               
-              .patch(constants.BASE_URL+constants.CONTEXT_ROOT+url,data).timeout(65000)
+              .patch(constants.BASE_URL+constants.CONTEXT_ROOT+url,data).timeout(10000000)
               
               .map(response  => {
               

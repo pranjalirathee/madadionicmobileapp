@@ -34,7 +34,6 @@ export class ComplaintStationPage {
 
   presentConfirm() {
     let alert = this.alertCtrl.create({
-      title: 'Confirm purchase',
       message: 'Do you want to register more complaint?',
       buttons: [
         {
@@ -238,6 +237,8 @@ export class ComplaintStationPage {
       if(data.length >0)
             {
                 this.subcomplaintArr=data; 
+                this.stncomplaint.subComplaint=data[0].id;
+
             }
           else{
                 this.subcomplaintArr=[];
@@ -359,7 +360,7 @@ public numberonly(event: any) {
       {
         if(data.code== "0" || data.code== "")
               {
-                  this.toastProvider.presentToast("Some Error Occurred. Please try again.") ;
+                  this.toastProvider.presentToast(data.message) ;
   
               }
             else{

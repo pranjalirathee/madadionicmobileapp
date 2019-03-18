@@ -128,6 +128,19 @@
                        
                       </ion-item>
               </ion-col>
+              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'U'">
+              
+                <ion-item style="padding-left:2px;" >
+                    <ion-label stacked color="custom">UTS No *</ion-label>
+                    <ion-input type="text"    maxlength="10"   
+                    [(ngModel)]="trncomplaint.pnrUtsNo"  name="pnrUtsNo"  required
+                    ></ion-input>
+
+                   
+                  
+                   
+                  </ion-item>
+          </ion-col>
               <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P'">
               
                     <ion-item style="padding-left:2px;" >

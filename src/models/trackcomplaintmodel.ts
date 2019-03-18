@@ -1,4 +1,4 @@
 export class TrackComplaintModel {
     complaintReferenceNo : string;
-    username:string;
+    userName:string;
 }

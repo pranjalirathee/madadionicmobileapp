@@ -127,7 +127,7 @@ export class LoginPage {
         {
          if(data.code =="0")
          {
-          this.toastProvider.presentToast("Some Error Occurred. Please try again.");
+          this.toastProvider.presentToast(data.message);
           this.regDet="";
          }
          else

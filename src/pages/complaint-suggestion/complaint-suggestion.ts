@@ -393,7 +393,7 @@ submitsuggestion(f:NgForm)
       if(data.code== "0")
             {
                 console.log('Submit: Inside-Error');
-                this.toastProvider.presentToast("Some Error Occurred. Please try again.") ;
+                this.toastProvider.presentToast(data.message) ;
 
             }
           else{
