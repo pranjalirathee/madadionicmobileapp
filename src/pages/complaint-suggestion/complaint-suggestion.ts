@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 import { StationNameProvider } from '../../providers/station-name/station-name';
 import { WebcamInitError, WebcamImage, WebcamUtil } from 'ngx-webcam';
@@ -27,6 +27,29 @@ import { SelectSearchableComponent } from 'ionic-select-searchable';
   templateUrl: 'complaint-suggestion.html',
 })
 export class ComplaintSuggestionPage {
+  presentLogout() {
+    let alert = this.alertCtrl.create({
+      message: 'Do you want to Logout?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            localStorage.setItem('username',"");
+            this.navCtrl.push(LoginPage);
+
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
 
   suggestionArr=[];
   stationArr=[];
@@ -199,7 +222,7 @@ export class ComplaintSuggestionPage {
   suggestionObj=<SuggestionModel>{};
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public httpProvider:HttpProvider,
-    private toastProvider:ToastProvider,public loadingProvider :LoadingProvider) {
+    private toastProvider:ToastProvider,public loadingProvider :LoadingProvider,public alertCtrl:AlertController) {
   }
 
   ngOnInit() { 
@@ -417,8 +440,7 @@ submitsuggestion(f:NgForm)
 
 logout()
 {
-  localStorage.setItem('username',"");
-  this.navCtrl.push(LoginPage);
+ this.presentLogout();
 }
 
 }

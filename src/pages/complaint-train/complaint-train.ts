@@ -567,7 +567,30 @@ export class ComplaintTrainPage {
   
   logout()
   {
-    localStorage.setItem('username',"");
-    this.navCtrl.push(LoginPage);
+   this.presentLogout();
+  }
+  
+  presentLogout() {
+    let alert = this.alertCtrl.create({
+      message: 'Do you want to Logout?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            localStorage.setItem('username',"");
+            this.navCtrl.push(LoginPage);
+
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 }

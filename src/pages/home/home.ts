@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { ComplaintStationPage } from '../complaint-station/complaint-station';
 import { HttpProvider } from '../../providers/http/http';
@@ -24,7 +24,7 @@ export class HomePage {
   helplinePage:any=HelplinePage;
   username:String;
 
-  constructor(public navCtrl: NavController,private callNumber: CallNumber) {
+  constructor(public navCtrl: NavController,private callNumber: CallNumber,public alertCtrl:AlertController) {
   
   }
 
@@ -57,10 +57,32 @@ export class HomePage {
   
   logout()
   {
-    localStorage.setItem('username',"");
-    this.navCtrl.push(LoginPage);
+    this.presentLogout();
   }
+  
+  presentLogout() {
+    let alert = this.alertCtrl.create({
+      message: 'Do you want to Logout?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            localStorage.setItem('username',"");
+            this.navCtrl.push(LoginPage);
 
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
   dialnumber()
   {
     this.callNumber.callNumber("9717630982", true)

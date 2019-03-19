@@ -32,6 +32,30 @@ export class ComplaintStationPage {
   stationArrMod=[];
   stationArrGlobal=[];
 
+  presentLogout() {
+    let alert = this.alertCtrl.create({
+      message: 'Do you want to Logout?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            localStorage.setItem('username',"");
+            this.navCtrl.push(LoginPage);
+
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
   presentConfirm() {
     let alert = this.alertCtrl.create({
       message: 'Do you want to register more complaint?',
@@ -386,7 +410,6 @@ public numberonly(event: any) {
 
   logout()
   {
-    localStorage.setItem('username',"");
-    this.navCtrl.push(LoginPage);
+   this.presentLogout();
   }
 }

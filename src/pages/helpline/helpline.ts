@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { CallNumber } from '@ionic-native/call-number';
 
@@ -17,7 +17,7 @@ import { CallNumber } from '@ionic-native/call-number';
 })
 export class HelplinePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private callNumber: CallNumber) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private callNumber: CallNumber,public alertCtrl:AlertController) {
   }
 
   ionViewDidLoad() {
@@ -37,10 +37,32 @@ export class HelplinePage {
 
   logout()
 {
-  localStorage.setItem('username',"");
-  this.navCtrl.push(LoginPage);
+ this.presentLogout();
 }
 
+presentLogout() {
+  let alert = this.alertCtrl.create({
+    message: 'Do you want to Logout?',
+    buttons: [
+      {
+        text: 'No',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      },
+      {
+        text: 'Yes',
+        handler: () => {
+          localStorage.setItem('username',"");
+          this.navCtrl.push(LoginPage);
+
+        }
+      }
+    ]
+  });
+  alert.present();
+}
 dialnumber(num)
   {
     this.callNumber.callNumber(num, true)
