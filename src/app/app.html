@@ -10,25 +10,30 @@
          
           <ion-row>
             <ion-col col-12 style="text-align: center;">
-                    <h1 class="tracking-in-expand" style="color:#000;   font: 33px 'Trebuchet MS';font-weight:550;"> RAIL MADAD</h1>
+                    <h1 class="tracking-in-expand" style="color:#000;   font: 33px 'Trebuchet MS';font-weight:550;margin:5px;"> RAIL MADAD</h1>
     
             </ion-col>
           </ion-row>
-          
+          <ion-row >
+                        <ion-col col-4 style="text-align:center;">
+                                        <img   src="../../assets/imgs/irlogo.png" style="height:80px;">
+                                            
+                                </ion-col>
+                                <ion-col col-8 *ngIf="username != ''" style="text-align: right;margin:0px;color:#000;   font: 15px 'Trebuchet MS';font-weight:550;">
+                                                <p style="margin:0px;"> <img class="a" src="../../assets/imgs/abc.png" width="40" height="20"
+                                                        style="vertical-align:sub;"> {{username}}</p> 
+                                   
+                        
+                                   
+                                
+                            </ion-col>
+               
+              </ion-row>
         </ion-grid>
     <ion-grid>
           
             <ion-row>
-                <ion-col style="text-align:center;">
-                        <img   src="../assets/imgs/irlogo.png" style="height:80px;">
-                <!--
-                <p class="tracking-in-expand" style="color:#000;   font: 25px 'Trebuchet MS';font-weight:550;margin:2px;"> COMS
-                </p>
-               -->
-          
-                <p class="tracking-in-expand" style="color:#000;   font: 20px 'Trebuchet MS';font-weight:550;margin:2px;"> 
-                        भारतीय रेल</p>             
-                </ion-col>
+               
             </ion-row>
         </ion-grid>
            
@@ -40,5 +45,32 @@
     </div>
       
 
-  
-  <ion-nav id="nav" [root]="rootPage"></ion-nav>
+    
+    <ion-menu [content]="content" id="menu1">
+           
+                              <ion-content>
+                                <ion-list>
+                                 <ion-list-header color="custom">
+                                  MENU
+                                 </ion-list-header>
+                                 <ion-item  *ngIf="username!=''" (click)="pushNextPage(updateProfilePage)" >
+                                   <ion-icon name="contact" item-start color="custom"></ion-icon>
+                                   <ion-label>Update Profile</ion-label>
+                                                               
+                              </ion-item>
+                              <ion-item  *ngIf="username==''"  (click)="pushNextPage(loginPage)">
+                                <ion-icon name="log-in" item-start color="custom"></ion-icon>
+                                <ion-label>Log In</ion-label>
+                               
+                             </ion-item>
+                             <ion-item  *ngIf="username!=''" (click)="logout()">
+                                        <ion-icon name="log-out" item-start color="custom"></ion-icon>
+                                        <ion-label>Log Out</ion-label>
+                                       
+                                     </ion-item>
+                                </ion-list>
+                              </ion-content>
+      
+      </ion-menu>
+      
+  <ion-nav id="nav" #content swipeBackEnabled="false" [root]="rootPage"></ion-nav>

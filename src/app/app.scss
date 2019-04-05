@@ -10,6 +10,17 @@
 @import "../theme/theme";
 @import "../theme/primeng.min";
 
+
+
+
+@font-face {
+  font-family: Germania One;
+  src:url('../assets/fonts/Fh4yPjrqIyv2ucM2qzBjeS3uywhP.woff2');
+}
+ .button-md {
+   text-transform: none;
+ }
+
 .alert-md .alert-radio-label {
   white-space:normal !important;
 }
@@ -20,7 +31,12 @@
   .alert-ios .alert-radio-label {
       white-space:normal !important;
   }
-
+  .alert-md .alert-title {
+    font-size: 16px;
+}
+.alert-ios .alert-title {
+  font-size: 16px;
+}
  
 ion-label{
   white-space:normal !important;
@@ -47,13 +63,13 @@ ion-buttons {
 }
 .toolbar-title-md {
   padding: 0 5px;
-  font-size: 1.8rem;
+  font-size: 23px;
   font-weight: 500;
   color: #424242;
 }
 .toolbar-title-ios {
   text-align: center;
-  font-size: 1.8rem;
+  font-size: 23px;
   font-weight: 600;
   color: #000;
   pointer-events: auto;

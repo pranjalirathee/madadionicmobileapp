@@ -1,21 +1,26 @@
 <ion-header>
-    <ion-navbar  color="custom">
-       
-      <ion-title>
-        Helpline Number
-      </ion-title>
-      <ion-buttons right>
-          <button ion-button icon-only (click)="logout()">
-           
+    <ion-navbar  color="headercustom">
+        <ion-buttons left>
+            <button ion-button [menuToggle]="activeMenu">
+                <ion-icon name="menu"></ion-icon>
+            </button>
           
-            <ion-icon name="log-out"></ion-icon>
+          </ion-buttons>
+          <ion-buttons middle>
+              <img src="../../assets/imgs/madadh.png"  style="height:30px;"/>
+  <br>
+              <img src="../../assets/imgs/madade.png"  style="height:25px;"/>
+       
   
-                      
-          </button> 
+            </ion-buttons>
+          
+  
+      <ion-buttons right>
+          <img src="../../assets/imgs/rail madad.gif" style="width:50px;" />
+  
+        
         </ion-buttons>
     </ion-navbar>
-   
-    
   </ion-header>
 
 

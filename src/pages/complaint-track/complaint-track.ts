@@ -27,6 +27,7 @@ import { LoadingProvider } from '../../providers/loading/loading';
   templateUrl: 'complaint-track.html',
 })
 export class ComplaintTrackPage {
+  activeMenu: string="menu1";
 
   trackcomplaint=<TrackComplaintModel>{};
   complaintdetail=<ComplaintDetail>{};

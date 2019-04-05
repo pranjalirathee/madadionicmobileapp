@@ -27,6 +27,8 @@ import { SelectSearchableComponent } from 'ionic-select-searchable';
   templateUrl: 'complaint-suggestion.html',
 })
 export class ComplaintSuggestionPage {
+  activeMenu: string="menu1";
+
   presentLogout() {
     let alert = this.alertCtrl.create({
       message: 'Do you want to Logout?',
@@ -422,6 +424,15 @@ submitsuggestion(f:NgForm)
           else{
                console.log('Submit: Inside-Success-Code: '+data.code);
                this.ref=data.suggestionReferenceNo;
+
+               
+                let alert = this.alertCtrl.create({
+                  title: 'Your Suggestion has been registered.',
+                 
+                  buttons: ['Dismiss']
+                });
+                alert.present();
+              
                f.resetForm();
 
              }

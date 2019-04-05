@@ -16,6 +16,7 @@ import { CallNumber } from '@ionic-native/call-number';
   templateUrl: 'helpline.html',
 })
 export class HelplinePage {
+  activeMenu: string="menu1";
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private callNumber: CallNumber,public alertCtrl:AlertController) {
   }

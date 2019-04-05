@@ -1,20 +1,26 @@
 <ion-header>
-    <ion-navbar  color="custom">
-       
-      <ion-title>
-        Suggestion
-      </ion-title>
-      <ion-buttons right>
-          <button ion-button icon-only (click)="logout()">
-           
+    <ion-navbar  color="headercustom">
+        <ion-buttons left>
+            <button ion-button [menuToggle]="activeMenu">
+                <ion-icon name="menu"></ion-icon>
+            </button>
           
-            <ion-icon name="log-out"></ion-icon>
+          </ion-buttons>
+          <ion-buttons middle>
+              <img src="../../assets/imgs/madadh.png"  style="height:30px;"/>
+  <br>
+              <img src="../../assets/imgs/madade.png"  style="height:25px;"/>
+       
   
-                      
-          </button> 
+            </ion-buttons>
+          
+  
+      <ion-buttons right>
+          <img src="../../assets/imgs/rail madad.gif" style="width:50px;" />
+  
+        
         </ion-buttons>
     </ion-navbar>
-   
     
   </ion-header>
 
@@ -24,23 +30,26 @@
     
             <form  #f="ngForm" novalidate>
               <ion-grid>
+                  <ion-row>
+                        <ion-col col-12 col-sm col-md-3 style="padding:0px;">
+                          
+                                <ion-item color="custom" 
+                                 no-lines style="padding-left:2px;text-align: center;font-weight:bold;">
+                                    <ion-label stacked color="light" style="letter-spacing:2px;font-size:12pt;">Suggestions</ion-label>
+                                   
+                                   
+                                  
+                                   
+                                  </ion-item>
+                          </ion-col>
+                  </ion-row>
                 <ion-row>
                   <ion-col col-12 *ngIf="ref != ''" style="font-weight:bold;color:#a70a0a">
-                    Your suggestion has been registered with Reference Number: {{ref}}.
+                        Your Suggestion has been registered.
                   </ion-col>
                 </ion-row>
                   <ion-row>
-                      <ion-col col-12 col-sm col-md-3 style="padding:0px;">
                       
-                          <ion-item 
-                           no-lines style="padding-left:2px;text-align: center;font-weight:bold;background-color:#f4f4f4">
-                              <ion-label stacked color="custom">Suggestion Details</ion-label>
-                             
-                             
-                            
-                             
-                            </ion-item>
-                    </ion-col>
                   
                       <ion-col col-12 col-sm col-md-3>
                           <ion-item style="padding-left:2px;">
@@ -62,7 +71,7 @@
                         <ion-item style="padding-left:2px;">
                             <ion-label stacked color="custom">Description *</ion-label>
                             <ion-textarea rows="3" type="text" 
-                            maxlength="500" required
+                            maxlength="2500" required
                             [(ngModel)]="suggestionObj.suggestionDesc"  name="suggestionDesc" 
                             ></ion-textarea>
       
@@ -134,7 +143,7 @@
 
             </ion-col>
 
-                     <ion-col col-12 col-sm col-md-3 style="padding:0px;">
+                   <!-- <ion-col col-12 col-sm col-md-3 style="padding:0px;">
                        
                         <ion-item no-lines style="padding-left:2px;text-align: center;font-weight:bold;background-color:#f4f4f4">
                             <ion-label stacked color="custom">Passenger Details</ion-label>
@@ -167,7 +176,7 @@
                       </ion-item>
               </ion-col>
             
-           
+            -->
                     </ion-row>
                     <ion-row>
                         <ion-col col-12 col-sm col-md-3 style="text-align:center;">

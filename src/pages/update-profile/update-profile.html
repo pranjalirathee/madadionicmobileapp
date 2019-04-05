@@ -1,0 +1,110 @@
+<!--
+  Generated template for the UpdateProfilePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+        <ion-navbar  color="headercustom">
+                <ion-buttons left>
+                    <button ion-button [menuToggle]="activeMenu">
+                        <ion-icon name="menu"></ion-icon>
+                    </button>
+                  
+                  </ion-buttons>
+                  <ion-buttons middle>
+                      <img src="../../assets/imgs/madadh.png"  style="height:30px;"/>
+          <br>
+                      <img src="../../assets/imgs/madade.png"  style="height:25px;"/>
+               
+          
+                    </ion-buttons>
+                  
+          
+              <ion-buttons right>
+                  <img src="../../assets/imgs/rail madad.gif" style="width:50px;" />
+          
+                
+                </ion-buttons>
+            </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding>
+    <form  #f="ngForm" novalidate>
+        <ion-grid>
+            
+          <ion-row>
+                <ion-col col-12 col-sm col-md-3 style="padding:0px;">
+                          
+                        <ion-item color="custom" 
+                         no-lines style="padding-left:2px;text-align: center;font-weight:bold;">
+                            <ion-label stacked color="light" style="letter-spacing:2px;font-size:12pt;">Update Profile</ion-label>
+                           
+                           
+                          
+                           
+                          </ion-item>
+                  </ion-col>
+              <ion-col col-12 col-sm col-md-3>
+                  <ion-item no-lines>
+                      <ion-avatar item-start>
+                          <ion-icon color="custom" item-end name="contact"></ion-icon>
+                      </ion-avatar>
+                      <ion-label>{{fullname}}</ion-label>
+                    </ion-item>
+         
+                    
+            </ion-col>
+            <ion-col col-12>
+                Please enter alpha numeric with min length 6 only
+        </ion-col>
+              <ion-col col-12 col-sm col-md-3>
+                  <ion-item style="padding-left:2px;">
+                      <ion-label stacked color="custom">Password</ion-label>
+                      <ion-input type="password" [(ngModel)]="updateprofile.password"
+                      #password="ngModel" 
+                      name="password"
+                      required pattern="^[a-zA-Z0-9]{6,}"></ion-input>
+                    
+                      <ion-icon color="custom" item-end name="key"></ion-icon>
+                    </ion-item>
+                    <div ion-item no-lines 
+                    style="color:red;"
+                    *ngIf="updateprofile.password != null && updateprofile.password != undefined && 
+                    updateprofile.password != '' && password.invalid" class="invalid-feedback">
+                    
+                    <div *ngIf="password.errors.pattern">Please enter a valid password</div>
+                    </div>
+            </ion-col>
+            <ion-col col-12 col-sm col-md-3>
+                  <ion-item style="padding-left:2px;">
+                      <ion-label stacked color="custom">Confirm Password</ion-label>
+                      <ion-input type="password" [(ngModel)]="updateprofile.cpassword"  name="cpassword"
+                      #cpassword="ngModel" 
+                      required pattern="^[a-zA-Z0-9]{6,}"></ion-input>
+                      <ion-icon color="custom" item-end name="key"></ion-icon>
+                    </ion-item>
+                    
+                    <div ion-item no-lines 
+                    style="color:red;"
+                    *ngIf="updateprofile.cpassword != null && updateprofile.cpassword != undefined && 
+                    updateprofile.cpassword != '' && cpassword.invalid" class="invalid-feedback">
+                    
+                    <div *ngIf="cpassword.errors.pattern">Please enter a valid password</div>
+                    </div>
+            </ion-col>
+
+          </ion-row>
+          <ion-row>
+              <ion-col col-12 col-sm col-md-3 style="text-align:center;">
+                  <button ion-button small block color="custom" 
+                  (click)="update(f)" >Update</button>
+
+              </ion-col>
+
+          </ion-row>
+          </ion-grid>
+          </form>
+</ion-content>

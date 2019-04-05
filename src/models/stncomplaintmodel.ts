@@ -13,5 +13,8 @@ export class StnComplaintModel
   image : string;
   incidentDate : string;
   contact:string;
-
+  prrNo:string;
+  pnrTicketTdrNo:string;
+  counterNo:string;
+  stall:string;
 }

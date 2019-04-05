@@ -1,3 +1,4 @@
+import { UpdateProfilePage } from './../pages/update-profile/update-profile';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -38,7 +39,8 @@ import { SelectSearchableModule } from 'ionic-select-searchable';
     ComplaintTrainPage,
     ComplaintTrackPage,
     ComplaintSuggestionPage,
-    HelplinePage
+    HelplinePage,
+    UpdateProfilePage
   ],
   imports: [
     BrowserModule,
@@ -72,7 +74,8 @@ import { SelectSearchableModule } from 'ionic-select-searchable';
     ComplaintTrainPage,
     ComplaintTrackPage,
     ComplaintSuggestionPage,
-    HelplinePage
+    HelplinePage,
+    UpdateProfilePage
 
   ],
   providers: [

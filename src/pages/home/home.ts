@@ -1,3 +1,4 @@
+import { UpdateProfilePage } from './../update-profile/update-profile';
 import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
@@ -14,6 +15,7 @@ import { HelplinePage } from '../helpline/helpline';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  activeMenu: string="menu1";
 
 
   loginPage:any=LoginPage;
@@ -22,6 +24,7 @@ export class HomePage {
   complaintTrackPage:any=ComplaintTrackPage;
   complaintSuggestionPage:any=ComplaintSuggestionPage;
   helplinePage:any=HelplinePage;
+  updateProfilePage:any=UpdateProfilePage;
   username:String;
 
   constructor(public navCtrl: NavController,private callNumber: CallNumber,public alertCtrl:AlertController) {
@@ -30,21 +33,27 @@ export class HomePage {
 
 
   ionViewWillEnter(){
-   if(localStorage.getItem('username') != null &&
-   localStorage.getItem('username') != undefined &&
-   localStorage.getItem('username') != "")   
+   if(localStorage.getItem('fullname') != null &&
+   localStorage.getItem('fullname') != undefined &&
+   localStorage.getItem('fullname') != "")   
    {
-    this.username=localStorage.getItem('username');
+    this.username=localStorage.getItem('fullname');
     }
     else{
       this.username="";
     }
   }
    
+  pushPage(page)
+  {
+   
+    this.navCtrl.push(page);
+    
+  }
 
   pushNextPage(page)
   {
-    if(this.username=="")
+    if(this.username=="" && page != 'helplinePage')
     {
       this.navCtrl.push(LoginPage);
     }
@@ -75,6 +84,8 @@ export class HomePage {
           text: 'Yes',
           handler: () => {
             localStorage.setItem('username',"");
+            localStorage.setItem('fullname',"");
+
             this.navCtrl.push(LoginPage);
 
           }

@@ -28,6 +28,7 @@ export class LoginPage {
   register=<RegistrationModel>{};
   msgFlag=false;
   regDet:String="";
+  activeMenu: string="menu1";
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toastProvider:ToastProvider,public modalCtrl: ModalController,public httpProvider:HttpProvider
@@ -62,6 +63,7 @@ export class LoginPage {
         localStorage.setItem('username',"");
         localStorage.setItem('fullname',"");
         localStorage.setItem('contact',"");
+        localStorage.setItem('password',"");
 
        }
        else
@@ -70,6 +72,7 @@ export class LoginPage {
         localStorage.setItem('username',data.username);
         localStorage.setItem('fullname',data.name);
         localStorage.setItem('contact',data.username);
+        localStorage.setItem('password',this.login.upswd);
 
         this.navCtrl.pop();
 
@@ -109,7 +112,11 @@ export class LoginPage {
        this.toastProvider.presentToast("Please enter a valid mobile number.");
   
      }
+    else if(this.register.password != this.register.cpassword)
+     {
+      this.toastProvider.presentToast("Password and confirm password are different.");
 
+     }
       else
       {
 

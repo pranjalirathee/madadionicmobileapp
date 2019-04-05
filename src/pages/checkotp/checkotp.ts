@@ -18,6 +18,7 @@ import { LoadingProvider } from '../../providers/loading/loading';
   templateUrl: 'checkotp.html',
 })
 export class CheckotpPage {
+  activeMenu: string="menu1";
 
   otp:string;
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -42,7 +43,8 @@ export class CheckotpPage {
     }
     else
     {
-    var json="{\"row_id\": \""+this.navParams.data.rowId+"\" ,\"otp\":"+this.otp+"}";
+    var json="{\"row_id\": \""+this.navParams.data.rowId+"\" ,\"otp\":\""+this.otp+"\"}";
+    console.log(json);
     this.loadingProvider.presentLoadingDefault();
 
     this.httpProvider.postMethod("user/otp",JSON.parse(json)).subscribe((data) => 

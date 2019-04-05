@@ -1,3 +1,4 @@
+import { StationConditionModel } from './../../models/stationconditionmodel';
 import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
@@ -26,11 +27,63 @@ import { SelectSearchableComponent } from 'ionic-select-searchable';
   templateUrl: 'complaint-station.html',
 })
 export class ComplaintStationPage {
+  activeMenu: string="menu1";
+
   complaintArr=[];
   subcomplaintArr=[];
   stationArr=[];
   stationArrMod=[];
   stationArrGlobal=[];
+  stationcondition=<StationConditionModel>{};
+  
+
+
+  getconditions()
+  {
+    var stationcondition=new StationConditionModel();
+    stationcondition.platformFlag="1";
+    stationcondition.stationFlag="0";
+    stationcondition.stallFlag="2";
+    stationcondition.counterFlag="2";
+    stationcondition.pnrTrnFlag="2";
+    stationcondition.prrFlag="2";
+    this.httpProvider.getMethod("common/stationcondition?subComplaint="+this.stncomplaint.subComplaint).subscribe(
+      (data)=>
+      {
+        console.log(data);
+        if(data.error==false)
+        {
+          console.log("tsse");
+          stationcondition=data;
+        }
+        
+    var arr=["platform","station","stall","counter","pnrTrn","prr"];
+    arr.forEach(element => {
+
+      switch (stationcondition[element+"Flag"])
+      {
+        case "0":
+        this.stationcondition[element+"showFlag"]=true;
+        this.stationcondition[element+"reqFlag"]=true;
+        break;
+        case "1":
+        this.stationcondition[element+"showFlag"]=true;
+        this.stationcondition[element+"reqFlag"]=false;
+        break;
+        case "2":
+        this.stationcondition[element+"showFlag"]=false;
+        this.stationcondition[element+"reqFlag"]=false;
+        break;
+      }
+      
+    });
+      }
+    );
+
+    
+
+
+  }
 
   presentLogout() {
     let alert = this.alertCtrl.create({
@@ -56,20 +109,33 @@ export class ComplaintStationPage {
     alert.present();
   }
 
-  presentConfirm() {
+  presentConfirm(ref,f) {
+  
+
     let alert = this.alertCtrl.create({
-      message: 'Do you want to register more complaint?',
+      
+
+      title: 'Your complaint is successfully registered and your complaint ref. no. is :'+ref+'',
+
+      subTitle: 'Do you want to register more complaint, If yes press yes else no',
       buttons: [
         {
           text: 'Yes',
-          role: 'cancel',
           handler: () => {
+            f.resetForm();
+            this.resetdet();
+            this.stncomplaint.subComplaint=null;
+            console.log(this.stncomplaint.subComplaint);
+            this.subcomplaintArr=[];
+            console.log(this.subcomplaintArr);
             console.log('Cancel clicked');
           }
         },
         {
           text: 'No',
           handler: () => {
+            f.resetForm();
+            this.resetdet();
             console.log('Buy clicked');
             this.navCtrl.push(HomePage);
 
@@ -178,11 +244,11 @@ export class ComplaintStationPage {
       sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM,
       saveToPhotoAlbum:false,
       encodingType:this.camera.EncodingType.PNG,
-      mediaType:0
+      mediaType:this.camera.MediaType.PICTURE
     }
-  
     this.camera.getPicture(options).then((imageData) => {
       this.myphoto = 'data:image/jpeg;base64,' + imageData;
+     
     }, (err) => {
       console.log(err);
    
@@ -229,10 +295,25 @@ export class ComplaintStationPage {
     this.minDate=minTime;
     this.maxDate=localISOTime;
     this.myphoto="";
+   
+
   }
 
   ionViewWillEnter(){
-   
+    this.stationcondition.stationshowFlag=false;
+    this.stationcondition.stationreqFlag=false;
+    this.stationcondition.platformshowFlag=false;
+    this.stationcondition.platformreqFlag=false;
+    this.stationcondition.stallreqFlag=false;
+    this.stationcondition.stallshowFlag=false;
+    this.stationcondition.countershowFlag=false;
+    this.stationcondition.counterreqFlag=false;
+    this.stationcondition.prrshowFlag=false;
+    this.stationcondition.prrreqFlag=false;
+    this.stationcondition.pnrTrnshowFlag=false;
+    this.stationcondition.pnrTrnreqFlag=false;
+
+
     this.resetdet();
     if(localStorage.getItem('username') == null ||
     localStorage.getItem('username') == undefined ||
@@ -255,14 +336,26 @@ export class ComplaintStationPage {
 
   getSubComplaintList()
   {
+
+    if(this.stncomplaint.complaint=='8'||
+    this.stncomplaint.complaint=='10'||
+    this.stncomplaint.complaint=='11')
+    {
+      var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+    
+    var minusfivedays=new Date(Date.now() - tzoffset);
+    minusfivedays.setDate(minusfivedays.getDate()-600);
+    var minTime =minusfivedays.toISOString().slice(0,-1);
+   
+    this.minDate=minTime;
+    }
     this.httpProvider.getMethod("common/SubHeadList?Id="+this.stncomplaint.complaint).subscribe((data) => 
     {
-     
-      if(data.length >0)
+      if(data.length >0 && this.stncomplaint.complaint != null)
             {
                 this.subcomplaintArr=data; 
                 this.stncomplaint.subComplaint=data[0].id;
-
+                this.getconditions();
             }
           else{
                 this.subcomplaintArr=[];
@@ -374,7 +467,6 @@ public numberonly(event: any) {
         this.stncomplaint.complainantMobile=this.stncomplaint.contact;
 
       }
-     console.log(this.stncomplaint.stationName);
       this.stncomplaint.stationCode=(this.stncomplaint.stationName as any).station_name.split("-")[1];
       this.stncomplaint.stationName=(this.stncomplaint.stationName as any).station_name.split("-")[0];
       this.stncomplaint.image=this.myphoto;
@@ -389,11 +481,11 @@ public numberonly(event: any) {
               }
             else{
                  this.ref=data.complaintReferenceNo;
-                 this.toastProvider.presentToast("Your complaint has been registered with Reference Number: "+this.ref+".") ;
-
-                 f.resetForm();
-                 this.resetdet();
-                this.presentConfirm();
+                 //this.toastProvider.presentToast("Your complaint has been registered with Reference Number: "+this.ref+".") ;
+                 var tempstation={"station_name":this.stncomplaint.stationName+"-"+this.stncomplaint.stationCode}
+                 this.stncomplaint.stationName=tempstation as any;
+               
+                this.presentConfirm(this.ref,f);
                }
       },err=> {
         console.log(err);

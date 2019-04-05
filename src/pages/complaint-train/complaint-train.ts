@@ -28,6 +28,7 @@ import { HomePage } from '../home/home';
   templateUrl: 'complaint-train.html',
 })
 export class ComplaintTrainPage {
+  activeMenu: string="menu1";
 
   complaintArr=[];
   subcomplaintArr=[];
@@ -37,9 +38,12 @@ export class ComplaintTrainPage {
   trainArrGlobal=[];
 
 
-  presentConfirm() {
+  presentConfirm(ref,f) {
     let alert = this.alertCtrl.create({
-      message: 'Do you want to register more complaint?',
+      title: 'Your complaint is successfully registered and your complaint ref. no. is :'+ref+'',
+
+      subTitle: 'Do you want to register more complaint, If yes press yes else no',
+    
       buttons: [
         {
           text: 'Yes',
@@ -52,6 +56,8 @@ export class ComplaintTrainPage {
           text: 'No',
           handler: () => {
             console.log('Buy clicked');
+            f.resetForm();
+            this.resetdet();
             this.navCtrl.push(HomePage);
 
           }
@@ -302,6 +308,7 @@ export class ComplaintTrainPage {
     this.camera.getPicture(options).then((imageData) => {
       this.myphoto = 'data:image/jpeg;base64,' + imageData;
     }, (err) => {
+     
       console.log(err);
    
     });
@@ -530,11 +537,18 @@ export class ComplaintTrainPage {
                 }
               else{
                    this.ref=data.complaintReferenceNo;
-                   this.toastProvider.presentToast("Your complaint has been registered with Reference Number: "+this.ref+".") ;
+                   if(this.trncomplaint.pnrUtsFlag=='U')
+                   { 
+                    var temptrain={"train_name":this.trncomplaint.trainNo+"-"+this.trncomplaint.trainName}
+                    this.trncomplaint.trainNo=temptrain as any;
+                   }
+                   else{
+                  this.trncomplaint.trainNo=this.trncomplaint.trainNo+"-"+this.trncomplaint.trainName;
+                    
+                   }
 
-                  f.resetForm();
-                  this.resetdet();
-                  this.presentConfirm();
+                  
+                  this.presentConfirm(this.ref,f);
                  }
         },err=> {
           console.log(err);

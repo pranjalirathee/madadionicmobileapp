@@ -1,31 +1,24 @@
 <ion-header>
-  <ion-navbar hideBackButton="true" color="custom">
+  <ion-navbar hideBackButton="true" color="headercustom">
       <ion-buttons left>
-          <button ion-button image-only >
-            <img src="../../assets/icon/emblem.ico" style="height:40px;">
-          
-  
-                      
-          </button> 
+          <button ion-button [menuToggle]="activeMenu">
+              <ion-icon name="menu"></ion-icon>
+          </button>
+        
         </ion-buttons>
-    <ion-title  style=" font: 30px 'Trebuchet MS' !important;font-weight:550;">
-     RAIL MADAD
-    </ion-title>
-    <ion-buttons right>
-        <button *ngIf="username==''" ion-button icon-only [navPush]="loginPage">
-         
-        
-          <ion-icon name="log-in"></ion-icon>
+        <ion-buttons middle>
+            <img src="../../assets/imgs/madadh.png"  style="height:30px;"/>
+<br>
+            <img src="../../assets/imgs/madade.png"  style="height:25px;"/>
+     
 
-                    
-        </button> 
-        <button  *ngIf="username!=''" ion-button icon-only (click)="logout()">
-         
+          </ion-buttons>
         
-            <ion-icon name="log-out"></ion-icon>
-  
-                      
-          </button> 
+
+    <ion-buttons right>
+        <img src="../../assets/imgs/rail madad.gif" style="width:50px;" />
+
+      
       </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -38,70 +31,46 @@ right: 0;
 position: absolute;
 z-index: 0;
 ">
- <!-- <ion-row *ngIf="username != ''">
-    <ion-col col-12 style="text-align: right;margin:0px;">
-            <h3 class="tracking-in-expand" style="color:#000;   font: 15px 'Trebuchet MS';font-weight:550;margin:0px;"> 
-             Welcome: {{username}}</h3>
-
-           
-        
-    </ion-col>
-  </ion-row> -->
+ 
   <ion-row>
-      <!-- <ion-col col-6 style="text-align: center;">
-              <h1 class="tracking-in-expand" style="color:#000;   font: 20px 'Trebuchet MS';font-weight:550;"> 
-                <b>RAIL MADAD</b></h1>
-
-             
-          
-      </ion-col> -->
-    <!-- </ion-row>
-    <ion-row> -->
+    
         <ion-col col-4 style="text-align:center;">
                 <img   src="../../assets/imgs/irlogo.png" style="height:80px;">
                     
         </ion-col>
-        <ion-col col-8 *ngIf="username != ''" style="text-align: right;margin:0px;">
-            <h3 class="tracking-in-expand" style="color:#000;   font: 15px 'Trebuchet MS';font-weight:550;margin:0px;"> 
-             Welcome: {{username}}</h3>
-
+        <ion-col col-8 *ngIf="username != ''" style="text-align: right;margin:0px;display:inline;color:#000;   font: 15px 'Trebuchet MS';font-weight:550;">
            
-        
+            <p style="margin:0px;"> <img class="a" src="../../assets/imgs/abc.png" width="40" height="20"
+              style="vertical-align:sub;"> {{username}}</p> 
+              
+            
     </ion-col>
 
 
     </ion-row>
-    <ion-row style="margin-top:135px;">
+    <div style="position: absolute; bottom: 0px; width: 100%">
 
-        <ion-col >
-            <button class="mybutton bg4" style="background-color:rgb(144, 94, 144) ; border-radius:20px;" 
-              ion-button block  outline (click)="pushNextPage(complaintSuggestionPage)" >
-                <ion-icon name="thumbs-down"></ion-icon>
-                <ion-icon name="thumbs-up"></ion-icon>&nbsp;&nbsp;
-                Suggestions</button>
-        </ion-col>
-      </ion-row>
-    <ion-row style="margin-top:2px;">
+    <ion-row style="margin-top:1px;">
       <!-- <ion-col class="mycol"> -->
-      <ion-col>
+      <ion-col style="padding:1px;" col-10 offset-1>
           <button class="mybutton bg1" style="background-color:rgb(224, 160, 81) ;  border-radius:20px;" 
                ion-button block  outline (click)="pushNextPage(complaintTrainPage)" >
               <ion-icon name="train"></ion-icon>&nbsp;&nbsp;
               Train Complaint</button>
       </ion-col>
     </ion-row>
-    <ion-row style="margin-top:2px;">
-      <ion-col>
+    <ion-row style="margin-top:1px;">
+      <ion-col style="padding:1px;" col-10 offset-1>
           <button class="mybutton bg2" style="background-color:rgb(0, 128, 128) ; border-radius:20px; " 
                   ion-button block  outline (click)="pushNextPage(complaintStationPage)" >
               <ion-icon name="train"></ion-icon>&nbsp;&nbsp;
               Station Complaint</button>
       </ion-col>
     </ion-row>
-    <ion-row style="margin-top:2px;">
+    <ion-row style="margin-top:1px;">
 
    
-      <ion-col>
+      <ion-col style="padding:1px;" col-10 offset-1>
           <button class="mybutton bg3" style="background-color:rgb(214, 101, 123) ; border-radius:20px;" 
                    ion-button block  outline (click)="pushNextPage(complaintTrackPage)">
               <ion-icon name="stats"></ion-icon>&nbsp;&nbsp;
@@ -109,16 +78,28 @@ z-index: 0;
       </ion-col>
     </ion-row>
    
-    <ion-row style="margin-top:2px;">
+    <ion-row style="margin-top:1px;">
 
-        <ion-col >
+        <ion-col style="padding:1px;" col-10 offset-1>
             <button class="mybutton bg5" style="background-color:rgb(57, 118, 191) ; border-radius:20px; "
-                                ion-button block  outline (click)="pushNextPage(helplinePage)">
+                                ion-button block  outline (click)="pushPage(helplinePage)">
                 <ion-icon name="call"></ion-icon>
              &nbsp;&nbsp;
                 Helpline Number</button>
         </ion-col>
       </ion-row>
+      
+    <ion-row  style="margin-top:1px;">
+
+        <ion-col style="padding:1px;" col-10 offset-1>
+            <button class="mybutton bg4" style="background-color:rgb(144, 94, 144) ; border-radius:20px;" 
+              ion-button block  outline (click)="pushNextPage(complaintSuggestionPage)" >
+                <ion-icon name="thumbs-down"></ion-icon>
+                <ion-icon name="thumbs-up"></ion-icon>&nbsp;&nbsp;
+                Suggestions</button>
+        </ion-col>
+      </ion-row>
+      </div>
 </ion-grid>
  
   

@@ -1,18 +1,29 @@
 
 <ion-header>
     
-    <ion-navbar color="custom">
-        <ion-buttons left>
-            <button navPop ion-button icon-only >
-                <ion-icon name="arrow-back"></ion-icon>
-    
-            </button>
-          </ion-buttons>
-      <ion-title>
-        Validate Otp
-      </ion-title>
-    
-    </ion-navbar>
+        <ion-navbar  color="headercustom">
+                
+                <ion-buttons left>
+                        <button ion-button icon-only (click)="viewCtrl.dismiss()">
+                                <ion-icon name="arrow-back"></ion-icon>
+                            </button>
+                    
+                  </ion-buttons>
+                  <ion-buttons middle>
+                      <img src="../../assets/imgs/madadh.png"  style="height:30px;"/>
+          <br>
+                      <img src="../../assets/imgs/madade.png"  style="height:25px;"/>
+               
+          
+                    </ion-buttons>
+                  
+          
+              <ion-buttons right>
+                  <img src="../../assets/imgs/rail madad.gif" style="width:50px;" />
+          
+                
+                </ion-buttons>
+            </ion-navbar>
   </ion-header>
 
 
