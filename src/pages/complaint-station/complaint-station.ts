@@ -4,6 +4,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 import { StationNameProvider } from '../../providers/station-name/station-name';
+import { FilePath } from '@ionic-native/file-path/ngx';
+import { File } from '@ionic-native/file';
 
 import { CameraOptions, Camera } from '@ionic-native/camera';
 import { FileTransfer } from '@ionic-native/file-transfer';
@@ -13,6 +15,7 @@ import { NgForm } from '@angular/forms';
 import { ToastProvider } from '../../providers/toast/toast';
 import { LoadingProvider } from '../../providers/loading/loading';
 import { SelectSearchableComponent } from 'ionic-select-searchable';
+import { FileEntry } from '@ionic-native/file';
 
 /**
  * Generated class for the ComplaintStationPage page.
@@ -114,11 +117,10 @@ export class ComplaintStationPage {
 
     let alert = this.alertCtrl.create({
       
+      title: 'Your complaint is registered; your complaint reference number is '+ref+'',
 
-      title: 'Your complaint is successfully registered and your complaint ref. no. is :'+ref+'',
-
-      subTitle: 'Do you want to register more complaint, If yes press yes else no',
-      buttons: [
+      subTitle: 'If you want to register another complaint,press yes or else press no',
+       buttons: [
         {
           text: 'Yes',
           handler: () => {
@@ -244,9 +246,18 @@ export class ComplaintStationPage {
       sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM,
       saveToPhotoAlbum:false,
       encodingType:this.camera.EncodingType.PNG,
-      mediaType:this.camera.MediaType.PICTURE
+      mediaType:this.camera.MediaType.ALLMEDIA
     }
     this.camera.getPicture(options).then((imageData) => {
+      var data=imageData;
+      if(!data.includes('file://')) 
+      {
+      data = 'file://' + data; }
+       this.file.resolveLocalFilesystemUrl(data).then((entry: FileEntry) => 
+       { alert( entry); 
+      });
+
+
       this.myphoto = 'data:image/jpeg;base64,' + imageData;
      
     }, (err) => {
@@ -274,7 +285,7 @@ export class ComplaintStationPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,public httpProvider:HttpProvider,
     public completeTestService: StationNameProvider,  private transfer: FileTransfer,
     private camera: Camera,private toastProvider:ToastProvider,public loadingProvider :LoadingProvider,
-    private alertCtrl: AlertController) {
+    private alertCtrl: AlertController,private file:File) {
    
   }
 

@@ -40,9 +40,9 @@ export class ComplaintTrainPage {
 
   presentConfirm(ref,f) {
     let alert = this.alertCtrl.create({
-      title: 'Your complaint is successfully registered and your complaint ref. no. is :'+ref+'',
+      title: 'Your complaint is registered; your complaint reference number is '+ref+'',
 
-      subTitle: 'Do you want to register more complaint, If yes press yes else no',
+      subTitle: 'If you want to register another complaint,press yes or else press no',
     
       buttons: [
         {
