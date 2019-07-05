@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Events } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 import { StationNameProvider } from '../../providers/station-name/station-name';
 import { WebcamInitError, WebcamImage, WebcamUtil } from 'ngx-webcam';
@@ -333,7 +333,7 @@ export class ComplaintTrainPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,public httpProvider:HttpProvider,
     public completeTestService: StationNameProvider,  private transfer: FileTransfer,
     private camera: Camera,private toastProvider:ToastProvider,public loadingProvider :LoadingProvider,
-    private alertCtrl: AlertController) {
+    private alertCtrl: AlertController,public events: Events) {
    
   }
 
@@ -599,6 +599,8 @@ export class ComplaintTrainPage {
           text: 'Yes',
           handler: () => {
             localStorage.setItem('username',"");
+            this.events.publish('user:menu',"false");
+
             this.navCtrl.push(LoginPage);
 
           }

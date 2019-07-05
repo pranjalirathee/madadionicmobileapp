@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Events } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 import { StationNameProvider } from '../../providers/station-name/station-name';
 import { WebcamInitError, WebcamImage, WebcamUtil } from 'ngx-webcam';
@@ -44,6 +44,8 @@ export class ComplaintSuggestionPage {
           text: 'Yes',
           handler: () => {
             localStorage.setItem('username',"");
+            this.events.publish('user:menu',"false");
+
             this.navCtrl.push(LoginPage);
 
           }
@@ -54,12 +56,57 @@ export class ComplaintSuggestionPage {
   }
 
   suggestionArr=[];
-  stationArr=[];
-  stationArrMod=[];
+  
   stationArrGlobal=[];
+  tstationArr=[];
+  tstationArrMod=[];
 
+   prioritystationsearch(text):any[]{
+      var topcode={};
+      var codearr=[];
+      var namearr=[];
+      var finalarr=[];
+     
+      this.stationArrGlobal.forEach(element => {
+        if(element.station_cd.toLowerCase()==text.toLowerCase())
+        {
+          topcode=element;
+        }
+        else if(element.station_cd.toLowerCase().indexOf(text.toLowerCase())==0)
+				{
+			  codearr.push(element);
+				}
+				else{
+        var names=element.station_name.toLowerCase().split(" ");
+        var flag=false;
+        names.forEach(name=>
+          {
+            if(name.indexOf(text.toLowerCase())==0)
+            {
+              flag=true;             
+            }
+          });
+          if(flag)
+          {
+        namearr.push(element);
+          }
+				}
+      });
+      if((topcode as any).station_name != undefined && (topcode as any).station_cd != undefined)
+      {
+        finalarr.push(topcode);
+      }
+      codearr.forEach(function(codeitem){	    	
+         finalarr.push(codeitem);
+      });
+      
+      namearr.forEach(function(nameitem){
+         finalarr.push(nameitem);
+      });
+      return finalarr;
+  }
 
-  searchStation(event: {
+  tsearchStation(event: {
     component: SelectSearchableComponent,
     text: string
   }) {
@@ -67,20 +114,23 @@ export class ComplaintSuggestionPage {
 
     if (text != '') {
       event.component.startSearch();
+      
+      
+      this.tstationArr =this.prioritystationsearch(text);
    
-      this.stationArr = this.stationArrGlobal.filter(
+    /*  this.tstationArr = this.stationArrGlobal.filter(
         station => (station.station_name.toLowerCase().indexOf(text.toLowerCase()) != -1
-        || station.station_cd.toLowerCase().indexOf(text.toLowerCase()) != -1));
-        this.stationArrMod=[];
-        var maxlen = (15>(this.stationArr.length)) ? this.stationArr.length : 15;
+        || station.station_cd.toLowerCase().indexOf(text.toLowerCase()) != -1));*/
+        this.tstationArrMod=[];
+        var maxlen = (15>(this.tstationArr.length)) ? this.tstationArr.length : 15;
         if(maxlen>0){
        
         for(var i=0;i<maxlen;i++)
         {
-          this.stationArrMod.push({'station_name':(this.stationArr[i] as any).station_name+'-'+(this.stationArr[i] as any).station_cd});
+          this.tstationArrMod.push({'station_name':(this.tstationArr[i] as any).station_name+'-'+(this.tstationArr[i] as any).station_cd});
         }
       }
-      event.component.items = this.stationArrMod;
+      event.component.items = this.tstationArrMod;
 
       event.component.endSearch();
      
@@ -89,14 +139,14 @@ export class ComplaintSuggestionPage {
     else
     {
       event.component.startSearch();
-      this.stationArrMod=[];
+      this.tstationArrMod=[];
       var maxlen = (15>(this.stationArrGlobal.length)) ? this.stationArrGlobal.length : 15;
       if(maxlen>0){
       
 
       for(var i=0;i<maxlen;i++)
       {
-        this.stationArrMod.push({'station_name':(this.stationArrGlobal[i] as any).station_name+'-'+(this.stationArrGlobal[i] as any).station_cd});
+        this.tstationArrMod.push({'station_name':(this.stationArrGlobal[i] as any).station_name+'-'+(this.stationArrGlobal[i] as any).station_cd});
 
       }
     }
@@ -107,21 +157,21 @@ export class ComplaintSuggestionPage {
 
 
   }
-  getMoreStations(event: {
+  tgetMoreStations(event: {
     component: SelectSearchableComponent,
     text: string
   }) {
    
-    if(this.stationArrMod.length != this.stationArr.length)
+    if(this.tstationArrMod.length != this.tstationArr.length)
     {
-      var lennew=this.stationArrMod.length;
-      var maxlen = (15>(this.stationArr.length-lennew)) ? (this.stationArr.length-lennew) : 15;
+      var lennew=this.tstationArrMod.length;
+      var maxlen = (15>(this.tstationArr.length-lennew)) ? (this.tstationArr.length-lennew) : 15;
      
       for(var i=lennew;i<lennew+maxlen;i++)
       {
-        this.stationArrMod.push({'station_name':(this.stationArr[i] as any).station_name+'-'+(this.stationArr[i] as any).station_cd});
+        this.tstationArrMod.push({'station_name':(this.tstationArr[i] as any).station_name+'-'+(this.tstationArr[i] as any).station_cd});
       }
-      event.component.items = this.stationArrMod;
+      event.component.items = this.tstationArrMod;
       event.component.endInfiniteScroll();
     }
     else{
@@ -130,11 +180,170 @@ export class ComplaintSuggestionPage {
     }
 
   }
-  stationChange(event: {
+  tstationChange(event: {
     component: SelectSearchableComponent,
     value: any 
 }) {
     console.log('port:', event.value);
+}
+
+fstationArr=[];
+  fstationArrMod=[];
+
+  fsearchStation(event: {
+    component: SelectSearchableComponent,
+    text: string
+  }) {
+    let text = event.text.trim().toLowerCase();
+
+    if (text != '') {
+      event.component.startSearch();
+   
+      this.fstationArr = this.prioritystationsearch(text);
+        this.fstationArrMod=[];
+        var maxlen = (15>(this.fstationArr.length)) ? this.fstationArr.length : 15;
+        if(maxlen>0){
+       
+        for(var i=0;i<maxlen;i++)
+        {
+          this.fstationArrMod.push({'station_name':(this.fstationArr[i] as any).station_name+'-'+(this.fstationArr[i] as any).station_cd});
+        }
+      }
+      event.component.items = this.fstationArrMod;
+
+      event.component.endSearch();
+     
+      
+    }
+    else
+    {
+      event.component.startSearch();
+      this.fstationArrMod=[];
+      var maxlen = (15>(this.stationArrGlobal.length)) ? this.stationArrGlobal.length : 15;
+      if(maxlen>0){
+      
+
+      for(var i=0;i<maxlen;i++)
+      {
+        this.fstationArrMod.push({'station_name':(this.stationArrGlobal[i] as any).station_name+'-'+(this.stationArrGlobal[i] as any).station_cd});
+
+      }
+    }
+      event.component.endSearch();
+
+    }
+   
+
+
+  }
+  fgetMoreStations(event: {
+    component: SelectSearchableComponent,
+    text: string
+  }) {
+   
+    if(this.fstationArrMod.length != this.fstationArr.length)
+    {
+      var lennew=this.fstationArrMod.length;
+      var maxlen = (15>(this.fstationArr.length-lennew)) ? (this.fstationArr.length-lennew) : 15;
+     
+      for(var i=lennew;i<lennew+maxlen;i++)
+      {
+        this.fstationArrMod.push({'station_name':(this.fstationArr[i] as any).station_name+'-'+(this.fstationArr[i] as any).station_cd});
+      }
+      event.component.items = this.fstationArrMod;
+      event.component.endInfiniteScroll();
+    }
+    else{
+      event.component.disableInfiniteScroll();
+      return;
+    }
+
+  }
+  fstationChange(event: {
+    component: SelectSearchableComponent,
+    value: any 
+}) {
+    console.log('port:', event.value);
+}
+
+stationArr=[];
+stationArrMod=[];
+
+
+searchStation(event: {
+  component: SelectSearchableComponent,
+  text: string
+}) {
+  let text = event.text.trim().toLowerCase();
+
+  if (text != '') {
+    event.component.startSearch();
+ 
+    this.stationArr =this.prioritystationsearch(text);
+      this.stationArrMod=[];
+      var maxlen = (15>(this.stationArr.length)) ? this.stationArr.length : 15;
+      if(maxlen>0){
+     
+      for(var i=0;i<maxlen;i++)
+      {
+        this.stationArrMod.push({'station_name':(this.stationArr[i] as any).station_name+'-'+(this.stationArr[i] as any).station_cd});
+      }
+    }
+    event.component.items = this.stationArrMod;
+
+    event.component.endSearch();
+   
+    
+  }
+  else
+  {
+    event.component.startSearch();
+    this.stationArrMod=[];
+    var maxlen = (15>(this.stationArrGlobal.length)) ? this.stationArrGlobal.length : 15;
+    if(maxlen>0){
+    
+
+    for(var i=0;i<maxlen;i++)
+    {
+      this.stationArrMod.push({'station_name':(this.stationArrGlobal[i] as any).station_name+'-'+(this.stationArrGlobal[i] as any).station_cd});
+
+    }
+  }
+    event.component.endSearch();
+
+  }
+ 
+
+
+}
+getMoreStations(event: {
+  component: SelectSearchableComponent,
+  text: string
+}) {
+ 
+  if(this.stationArrMod.length != this.stationArr.length)
+  {
+    var lennew=this.stationArrMod.length;
+    var maxlen = (15>(this.stationArr.length-lennew)) ? (this.stationArr.length-lennew) : 15;
+   
+    for(var i=lennew;i<lennew+maxlen;i++)
+    {
+      this.stationArrMod.push({'station_name':(this.stationArr[i] as any).station_name+'-'+(this.stationArr[i] as any).station_cd});
+    }
+    event.component.items = this.stationArrMod;
+    event.component.endInfiniteScroll();
+  }
+  else{
+    event.component.disableInfiniteScroll();
+    return;
+  }
+
+}
+stationChange(event: {
+  component: SelectSearchableComponent,
+  value: any 
+}) {
+  console.log('port:', event.value);
 }
   trainArr=[];
   trainArrMod=[];
@@ -224,7 +433,8 @@ export class ComplaintSuggestionPage {
   suggestionObj=<SuggestionModel>{};
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public httpProvider:HttpProvider,
-    private toastProvider:ToastProvider,public loadingProvider :LoadingProvider,public alertCtrl:AlertController) {
+    private toastProvider:ToastProvider,public loadingProvider :LoadingProvider,public alertCtrl:AlertController
+    ,public events: Events) {
   }
 
   ngOnInit() { 
@@ -261,6 +471,39 @@ export class ComplaintSuggestionPage {
   
   }
 
+
+
+  selectType=false;
+  fromStationFlag=false;
+  toStationFlag=false;
+  trainNoFlag=false;
+
+
+  getFlagValue(event,f:NgForm)
+  {
+    f.resetForm();
+    this.selectType=false;
+    this.fromStationFlag=false;
+    this.toStationFlag=false;
+    this.trainNoFlag=false;
+    if(event.selectType=='1')
+    {
+    this.selectType=true;
+    }
+    if(event.fromStation=='1')
+    {
+      this.fromStationFlag=true;
+    }
+    if(event.toStation=='1')
+    {
+      this.toStationFlag=true;
+    }
+    if(event.trainNo=='1')
+    {
+      this.trainNoFlag=true;
+    }
+  }
+
   getSuggestionList()
   {
     //console.log('JSON: getSuggestionList')
@@ -272,6 +515,7 @@ export class ComplaintSuggestionPage {
             {
                 //console.log(JSON.stringify('JSON: ' + data.data))
                 this.suggestionArr=data.data; 
+                
 
             }
           else{
@@ -292,21 +536,28 @@ export class ComplaintSuggestionPage {
       if(data.length >0)
             {
               this.stationArr=data; 
+              this.fstationArr=data; 
+              this.tstationArr=data; 
               this.stationArrGlobal=data;
               this.stationArrMod=[];
+              this.fstationArrMod=[];
+              this.tstationArrMod=[];
               var maxlen = (15>(this.stationArr.length)) ? this.stationArr.length : 15;
               if(maxlen>0){
               for(var i=0;i<maxlen;i++)
               {
                 this.stationArrMod.push({'station_name':(this.stationArr[i] as any).station_name+'-'+(this.stationArr[i] as any).station_cd});
+                this.fstationArrMod.push({'station_name':(this.stationArr[i] as any).station_name+'-'+(this.stationArr[i] as any).station_cd});
+                this.tstationArrMod.push({'station_name':(this.stationArr[i] as any).station_name+'-'+(this.stationArr[i] as any).station_cd});
+
               }
             }
 
             }
           else{
                 this.stationArr=[];
-             
-
+                this.fstationArr=[];
+                this.tstationArr=[];
              }
     });
   }
@@ -382,6 +633,21 @@ submitsuggestion(f:NgForm)
   }
 
       this.suggestionObj.suggestionChannel='A';
+      if(this.fromStationFlag==true)
+      {
+        this.suggestionObj.fromStation=(this.suggestionObj.fromStation as any).station_name.split("-")[1];
+
+      }
+      if(this.toStationFlag==true)
+      {
+        this.suggestionObj.toStation=(this.suggestionObj.toStation as any).station_name.split("-")[1];
+
+      }
+
+      if(this.trainNoFlag==true)
+      {
+        this.suggestionObj.jouneyType='T';
+      }
       if(this.suggestionObj.jouneyType=='S'){
       this.suggestionObj.stationCode=(this.suggestionObj.stationName as any).station_name.split("-")[1];
       this.suggestionObj.stationName=(this.suggestionObj.stationName as any).station_name.split("-")[0];
@@ -394,22 +660,6 @@ submitsuggestion(f:NgForm)
 
     console.log('Submit: Inside-Else');
     console.log('suggestionReferenceNo: '+JSON.stringify(this.suggestionObj));
-    // console.log('suggestionId : ' +this.suggestionObj.suggestionId);
-    // console.log('suggestionDesc : ' +this.suggestionObj. suggestionDesc);
-    // console.log('jouneyType : ' +this.suggestionObj.jouneyType);
-    // console.log('trainNo  : ' +this.suggestionObj.trainNo);
-    // console.log('stationCode  : ' +this.suggestionObj.stationCode);
-    // console.log('stationName   : ' +this.suggestionObj.stationName);
-    // console.log('suggestionChannel   : ' +this.suggestionObj.suggestionChannel);
-    // console.log('name   : ' +this.suggestionObj.name);
-    // console.log('mobile   : ' +this.suggestionObj.mobile);
-    // console.log('email   : ' +this.suggestionObj.email);
-    // console.log('zoneCode   : ' +this.suggestionObj.zoneCode);
-    // console.log('divisionCode    : ' +this.suggestionObj.divisionCode);
-    // console.log('departmentCode   : ' +this.suggestionObj.departmentCode);
-    // console.log('userGroupId    : ' +this.suggestionObj.userGroupId);
-    // console.log('slaFlag    : ' +this.suggestionObj.slaFlag);
-    // console.log('trainName    : ' +this.suggestionObj.trainName);
     this.loadingProvider.presentLoadingDefault();
 
     this.httpProvider.postMethod("complaint/suggestion",this.suggestionObj).subscribe((data) => 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Events } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { RegistrationModel } from '../../models/registrationmodel';
 import { NgForm } from '@angular/forms';
@@ -31,7 +31,7 @@ export class UpdateProfilePage {
   constructor(public navCtrl: NavController, public navParams: NavParams, 
     private alertCtrl: AlertController,private toastProvider:ToastProvider,
     public httpProvider:HttpProvider
-    ,public loadingProvider :LoadingProvider) {
+    ,public loadingProvider :LoadingProvider,public events: Events) {
   }
 
   ionViewDidLoad() {
@@ -74,6 +74,8 @@ export class UpdateProfilePage {
           text: 'Yes',
           handler: () => {
             localStorage.setItem('username',"");
+            this.events.publish('user:menu',"false");
+
             this.navCtrl.push(LoginPage);
 
           }

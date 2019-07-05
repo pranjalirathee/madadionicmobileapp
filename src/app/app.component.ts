@@ -1,5 +1,6 @@
+import { UserSession } from './../providers/usersession';
 import { Component, ViewChild } from '@angular/core';
-import { Platform, NavController, AlertController, Nav, MenuController } from 'ionic-angular';
+import { Platform, NavController, AlertController, Nav, MenuController, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {timer} from 'rxjs/observable/timer';
@@ -19,7 +20,15 @@ export class MyApp {
   updateProfilePage:any=UpdateProfilePage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
-    private alertCtrl:AlertController,private menu: MenuController) {
+    private alertCtrl:AlertController,private menu: MenuController,public events: Events) {
+
+      events.subscribe('user:menu', (menu) => {
+
+        this.changemenu(menu);
+      });
+
+
+
     if(localStorage.getItem('fullname') != null &&
    localStorage.getItem('fullname') != undefined &&
    localStorage.getItem('fullname') != "")   
@@ -37,7 +46,19 @@ export class MyApp {
 
     });
   }
+changemenu(menu:string) {
+  console.log(menu);
+  if(menu=="true")
+  {
+    this.username=localStorage.getItem('fullname');
+  }
+  else
+  {
+    this.username="";
+  }
+  console.log(this.username);
 
+}
   pushNextPage(page)
   {
     if(this.username=="" && page != 'helplinePage')
@@ -73,6 +94,7 @@ export class MyApp {
           handler: () => {
             localStorage.setItem('username',"");
             localStorage.setItem('fullname',"");
+            this.events.publish('user:menu',"false");
 
             this.navCtrl.push(LoginPage);
             this.menu.close("menu1");

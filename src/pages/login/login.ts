@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, Events } from 'ionic-angular';
 import { LoginModel } from '../../models/LoginModel';
 import { NgForm } from '@angular/forms';
 import { ToastProvider } from '../../providers/toast/toast';
@@ -8,6 +8,7 @@ import { CheckotpPage } from '../checkotp/checkotp';
 import { HttpProvider } from '../../providers/http/http';
 import { HomePage } from '../home/home';
 import { LoadingProvider } from '../../providers/loading/loading';
+import { UserSession } from '../../providers/usersession';
 
 /**
  * Generated class for the LoginPage page.
@@ -32,7 +33,7 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toastProvider:ToastProvider,public modalCtrl: ModalController,public httpProvider:HttpProvider
-    ,public loadingProvider :LoadingProvider) {
+    ,public loadingProvider :LoadingProvider,public userSession:UserSession, public events:Events) {
   }
 
   ionViewDidLoad() {
@@ -60,20 +61,24 @@ export class LoginPage {
        if(data.code =="0")
        {
         this.msgFlag=true;
+       
+
         localStorage.setItem('username',"");
         localStorage.setItem('fullname',"");
         localStorage.setItem('contact',"");
         localStorage.setItem('password',"");
-
+        this.events.publish('user:menu',"false");
        }
        else
        {
         this.msgFlag=false;
+        
+
         localStorage.setItem('username',data.username);
         localStorage.setItem('fullname',data.name);
         localStorage.setItem('contact',data.username);
         localStorage.setItem('password',this.login.upswd);
-
+        this.events.publish('user:menu',"true");
         this.navCtrl.pop();
 
        }

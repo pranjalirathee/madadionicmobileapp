@@ -27,6 +27,7 @@ import { ComplaintSuggestionPage } from '../pages/complaint-suggestion/complaint
 import { CallNumber } from '@ionic-native/call-number';
 import { HelplinePage } from '../pages/helpline/helpline';
 import { SelectSearchableModule } from 'ionic-select-searchable';
+import { UserSession } from '../providers/usersession';
 
 
 @NgModule({
@@ -90,7 +91,8 @@ import { SelectSearchableModule } from 'ionic-select-searchable';
     FileTransferObject,
     File,
     Camera,
-    CallNumber
+    CallNumber,
+    UserSession
   ]
 })
 export class AppModule {}

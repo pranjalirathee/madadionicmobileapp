@@ -52,18 +52,19 @@
                       
                   
                       <ion-col col-12 col-sm col-md-3>
+                        
                           <ion-item style="padding-left:2px;">
                               <ion-label stacked color="custom">Suggestion *</ion-label>
                               <ion-select   color="custom"
-                              (ionChange)="getSuggestionList()"                
+                                      
                               [(ngModel)]="suggestionObj.suggestionId"  name="suggestionId"
                               required
                               >
-                              <ion-option 
+                              <ion-option (ionSelect)="getFlagValue(v,f)"
                               *ngFor="let v of suggestionArr"
                               value="{{v.id}}">{{v.suggestion}}</ion-option>
                                 </ion-select>
-
+                                
                             </ion-item>
                     </ion-col>
 
@@ -81,7 +82,7 @@
                           </ion-item>
                   </ion-col>
 
-                  <ion-col col-12 col-sm col-md-3>
+                  <ion-col col-12 col-sm col-md-3 *ngIf="selectType == true">
               
                       <ion-item style="padding-left:2px;" >
                           <ion-label stacked color="custom">Journey Type *</ion-label>
@@ -100,7 +101,7 @@
 
                         </ion-item>
                 </ion-col>
-                <ion-col col-12 col-sm col-md-3 *ngIf="suggestionObj.jouneyType == 'T'">
+                <ion-col col-12 col-sm col-md-3 *ngIf="suggestionObj.jouneyType == 'T' || trainNoFlag == true">
                       <ion-item style="padding-left:2px;" no-lines>
                             <ion-label stacked color="custom">Train Number *</ion-label>
                             <select-searchable
@@ -142,6 +143,49 @@
                  
 
             </ion-col>
+            <ion-col col-12 col-sm col-md-3  *ngIf="fromStationFlag == true">
+                
+                <ion-item style="padding-left:2px;" no-lines>
+                  <ion-label stacked color="custom">From Station Name *</ion-label>
+                  <select-searchable required
+                  item-content
+                  [(ngModel)]="suggestionObj.fromStation"  name="fromStation" 
+                  [items]="fstationArrMod"
+                  itemValueField="station_name"
+                  itemTextField="station_name"
+                  [canSearch]="true"
+                  [hasInfiniteScroll]="true"
+                  (onChange)="fstationChange($event)"
+                  (onSearch)="fsearchStation($event)"
+                  (onInfiniteScroll)="fgetMoreStations($event)">
+              </select-searchable>
+                </ion-item>
+               
+             
+
+        </ion-col>
+        <ion-col col-12 col-sm col-md-3 *ngIf="toStationFlag == true">
+                
+            <ion-item style="padding-left:2px;" no-lines>
+              <ion-label stacked color="custom">To Station Name *</ion-label>
+              <select-searchable
+              item-content required
+              [(ngModel)]="suggestionObj.toStation"  name="toStation" 
+              [items]="tstationArrMod"
+              itemValueField="station_name"
+              itemTextField="station_name"
+              [canSearch]="true"
+              [hasInfiniteScroll]="true"
+              (onChange)="tstationChange($event)"
+              (onSearch)="tsearchStation($event)"
+              (onInfiniteScroll)="tgetMoreStations($event)">
+          </select-searchable>
+            </ion-item>
+           
+         
+
+    </ion-col>
+
 
                    <!-- <ion-col col-12 col-sm col-md-3 style="padding:0px;">
                        

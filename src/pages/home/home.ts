@@ -1,6 +1,6 @@
 import { UpdateProfilePage } from './../update-profile/update-profile';
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, Events } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { ComplaintStationPage } from '../complaint-station/complaint-station';
 import { HttpProvider } from '../../providers/http/http';
@@ -27,7 +27,7 @@ export class HomePage {
   updateProfilePage:any=UpdateProfilePage;
   username:String;
 
-  constructor(public navCtrl: NavController,private callNumber: CallNumber,public alertCtrl:AlertController) {
+  constructor(public navCtrl: NavController,private callNumber: CallNumber,public alertCtrl:AlertController,public events: Events) {
   
   }
 
@@ -85,6 +85,7 @@ export class HomePage {
           handler: () => {
             localStorage.setItem('username',"");
             localStorage.setItem('fullname',"");
+            this.events.publish('user:menu',"false");
 
             this.navCtrl.push(LoginPage);
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Events } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { CallNumber } from '@ionic-native/call-number';
 
@@ -18,7 +18,8 @@ import { CallNumber } from '@ionic-native/call-number';
 export class HelplinePage {
   activeMenu: string="menu1";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private callNumber: CallNumber,public alertCtrl:AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private callNumber: CallNumber,public alertCtrl:AlertController,
+    public events: Events) {
   }
 
   ionViewDidLoad() {
@@ -56,6 +57,8 @@ presentLogout() {
         text: 'Yes',
         handler: () => {
           localStorage.setItem('username',"");
+          this.events.publish('user:menu',"false");
+
           this.navCtrl.push(LoginPage);
 
         }

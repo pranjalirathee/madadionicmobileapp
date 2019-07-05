@@ -1,7 +1,7 @@
 import { StationConditionModel } from './../../models/stationconditionmodel';
 import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Events } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 import { StationNameProvider } from '../../providers/station-name/station-name';
 import { FilePath } from '@ionic-native/file-path/ngx';
@@ -103,6 +103,8 @@ export class ComplaintStationPage {
           text: 'Yes',
           handler: () => {
             localStorage.setItem('username',"");
+            this.events.publish('user:menu',"false");
+
             this.navCtrl.push(LoginPage);
 
           }
@@ -147,7 +149,50 @@ export class ComplaintStationPage {
     });
     alert.present();
   }
-  
+  prioritystationsearch(text):any[]{
+    var topcode={};
+    var codearr=[];
+    var namearr=[];
+    var finalarr=[];
+   
+    this.stationArrGlobal.forEach(element => {
+      if(element.station_cd.toLowerCase()==text.toLowerCase())
+      {
+        topcode=element;
+      }
+      else if(element.station_cd.toLowerCase().indexOf(text.toLowerCase())==0)
+      {
+      codearr.push(element);
+      }
+      else{
+      var names=element.station_name.toLowerCase().split(" ");
+      var flag=false;
+      names.forEach(name=>
+        {
+          if(name.indexOf(text.toLowerCase())==0)
+          {
+            flag=true;             
+          }
+        });
+        if(flag)
+        {
+      namearr.push(element);
+        }
+      }
+    });
+    if((topcode as any).station_name != undefined && (topcode as any).station_cd != undefined)
+    {
+      finalarr.push(topcode);
+    }
+    codearr.forEach(function(codeitem){	    	
+       finalarr.push(codeitem);
+    });
+    
+    namearr.forEach(function(nameitem){
+       finalarr.push(nameitem);
+    });
+    return finalarr;
+}
   searchStation(event: {
     component: SelectSearchableComponent,
     text: string
@@ -157,9 +202,7 @@ export class ComplaintStationPage {
     if (text != '') {
       event.component.startSearch();
    
-      this.stationArr = this.stationArrGlobal.filter(
-        station => (station.station_name.toLowerCase().indexOf(text.toLowerCase()) != -1
-        || station.station_cd.toLowerCase().indexOf(text.toLowerCase()) != -1));
+      this.stationArr =this.prioritystationsearch(text);
         this.stationArrMod=[];
         var maxlen = (15>(this.stationArr.length)) ? this.stationArr.length : 15;
         if(maxlen>0){
@@ -285,7 +328,7 @@ export class ComplaintStationPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,public httpProvider:HttpProvider,
     public completeTestService: StationNameProvider,  private transfer: FileTransfer,
     private camera: Camera,private toastProvider:ToastProvider,public loadingProvider :LoadingProvider,
-    private alertCtrl: AlertController,private file:File) {
+    private alertCtrl: AlertController,private file:File,public events: Events) {
    
   }
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Events } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 import { StationNameProvider } from '../../providers/station-name/station-name';
 import { WebcamInitError, WebcamImage, WebcamUtil } from 'ngx-webcam';
@@ -31,10 +31,11 @@ export class ComplaintTrackPage {
 
   trackcomplaint=<TrackComplaintModel>{};
   complaintdetail=<ComplaintDetail>{};
+  complaintHistory:any[]=[];
 
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,public httpProvider:HttpProvider,public loadingProvider :LoadingProvider,
-    private toastProvider:ToastProvider,public alertCtrl:AlertController) {
+    private toastProvider:ToastProvider,public alertCtrl:AlertController,public events: Events) {
   }
 
   ionViewDidLoad() {
@@ -49,6 +50,31 @@ export class ComplaintTrackPage {
     
       this.navCtrl.push(LoginPage);
      }
+
+
+
+
+     this.trackcomplaint.userName=localStorage.getItem('username');
+     if(this.trackcomplaint.userName.indexOf("@")!=-1)
+     {
+       this.trackcomplaint.userType="E";
+     }
+     else
+     {
+      this.trackcomplaint.userType="M";
+     }
+     this.httpProvider.postMethod("user/complainthistory",this.trackcomplaint).subscribe((data) => 
+     {
+             console.log(JSON.stringify(data));
+            
+           this.complaintHistory=data;
+
+     },err=> {
+       console.log(err);
+       
+     this.toastProvider.presentToast("Some Error Occurred. Please Try Again.");
+     
+   });
   }
 
   submittrack(f:NgForm)
@@ -115,6 +141,8 @@ export class ComplaintTrackPage {
           text: 'Yes',
           handler: () => {
             localStorage.setItem('username',"");
+            this.events.publish('user:menu',"false");
+
             this.navCtrl.push(LoginPage);
 
           }

@@ -1,3 +1,16 @@
 page-complaint-track {
-   
+    .card-ios {
+        margin: 6px !important;
+        
+        width: calc(100% - 12px) !important;
+    }
+
+    .card-content-md {
+        padding: 10px 10px !important;
+       
+    }
+    .card-content-ios {
+        padding: 10px 10px !important;
+       
+    }
 }

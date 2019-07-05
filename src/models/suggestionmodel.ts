@@ -19,6 +19,8 @@ export class SuggestionModel
   trainName: string;
   contact_type:string;
   contact:string;
+  fromStation:string;
+  toStation:string;
 
 
 }

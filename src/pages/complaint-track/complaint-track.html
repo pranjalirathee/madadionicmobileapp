@@ -44,7 +44,49 @@
                                    
                                   </ion-item>
                           </ion-col>
-                      <ion-col col-12 col-sm col-md-3>
+                          <ion-col col-12 col-sm col-md-3>
+              
+                           
+                                    <ion-card *ngFor="let complaint of complaintHistory">
+
+                                            <ion-item>
+                                              
+                                              <h2>Ref. No: {{complaint.complaintReferenceNo}}</h2>
+                                             
+                                            </ion-item>
+                                          
+                                           
+                                          
+                                            <ion-card-content>
+                                              <p><b>Complaint Type:</b> {{complaint.complaint}}</p>
+                                              <p><b>Sub Type:</b> {{complaint.subComplaint}}</p>
+                                            </ion-card-content>
+                                          
+                                            <ion-row>
+                                              <ion-col col-6>
+                                                <button ion-button icon-start clear small>
+                                                  <ion-icon name="clipboard"></ion-icon>
+                                                   <div *ngIf="complaint.status == 'Closed'">{{complaint.remark}}</div>
+                                                  <div *ngIf="complaint.status != 'Closed'"> Under Process</div>
+                                                </button>
+                                              </ion-col>
+                                              <ion-col col-6>
+                                                <button ion-button icon-start clear small>
+                                                  <ion-icon name="information-circle"></ion-icon>
+                                                  <div> {{complaint.status}}</div>
+                                                </button>
+                                              </ion-col>
+                                              <ion-col align-self-center text-center>
+                                                <ion-note>
+                                                        {{complaint.incidentDate | date :'dd/MM/yyyy hh:mm a' }}
+                                                </ion-note>
+                                              </ion-col>
+                                            </ion-row>
+                                          
+                                          </ion-card>
+                          
+                        </ion-col>
+                   <!--   <ion-col col-12 col-sm col-md-3>
               
                           <ion-item style="padding-left:2px;" >
                               <ion-label stacked color="custom">Complaint Reference No *</ion-label>
@@ -53,9 +95,9 @@
                               </ion-input>
       
                             </ion-item>
-                      </ion-col>
+                      </ion-col>-->
                     </ion-row>
-                    <ion-row>
+                    <!--<ion-row>
                         <ion-col col-12 col-sm col-md-3 style="text-align:center;">
                             <button ion-button small block color="custom"
                             (click)="submittrack(f)"  >Submit</button>
@@ -78,7 +120,7 @@
                                 <ion-label stacked color="custom">Registration Date:
                                         {{complaintdetail.incidentDate | date :'dd/MM/yyyy hh:mm a' }}</ion-label>
                             </ion-item>
-                            <!--<ion-item>
+                            <ion-item>
                                 <ion-label stacked color="custom">Department: {{complaintdetail.department}}</ion-label>
                             </ion-item>
                             <ion-item>
@@ -86,7 +128,7 @@
                             </ion-item>
                             <ion-item>
                                 <ion-label stacked color="custom">Zone: {{complaintdetail.zone}}</ion-label>
-                            </ion-item>-->
+                            </ion-item>
                            
                             <ion-item>
                                 <ion-label stacked color="custom">Status: {{complaintdetail.status}}</ion-label>
@@ -96,12 +138,12 @@
                              <ion-label *ngIf="complaintdetail.status != 'Closed'" stacked color="custom">Remarks: Under Process</ion-label>
 
                                 </ion-item>
-                            <!--
+                           
                             <ion-item>
                                 <ion-label stacked color="custom">Pending/Closed By: {{complaintdetail.pending_closed_by}}</ion-label>
-                            </ion-item>-->
+                            </ion-item>
                         </ion-list>
-                    </ion-row>
+                    </ion-row>-->
               </ion-grid>
             </form>
        
