@@ -40,6 +40,9 @@ export class ComplaintTrackPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ComplaintTrackPage');
+  }
+
+  ionViewCanEnter(){
     if(localStorage.getItem('username') == null ||
     localStorage.getItem('username') == undefined ||
     localStorage.getItem('username') == "")   
@@ -72,10 +75,6 @@ export class ComplaintTrackPage {
      this.toastProvider.presentToast("Some Error Occurred. Please Try Again.");
      
    });
-  }
-
-  ionViewCanEnter(){
-   
   }
 
   submittrack(f:NgForm)
