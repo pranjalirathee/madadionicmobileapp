@@ -60,16 +60,11 @@
                                             <ion-card-content>
                                               <p><b>Complaint Type:</b> {{complaint.complaint}}</p>
                                               <p><b>Sub Type:</b> {{complaint.subComplaint}}</p>
-
-                                              <ion-row>
-                                                   
-                                                   
-                                                    <ion-col align-self-center text-center>
-                                                      <ion-note>
-                                                              {{complaint.incidentDate | date :'dd/MM/yyyy hh:mm a' }}
-                                                      </ion-note>
-                                                    </ion-col>
-                                                  </ion-row>
+                                              <button ion-button icon-start clear small>
+                                                    <ion-icon name="information-circle"></ion-icon>
+                                                    <div> {{complaint.status}}</div>
+                                                  </button>
+                                              
                                             </ion-card-content>
                                           
                                             
