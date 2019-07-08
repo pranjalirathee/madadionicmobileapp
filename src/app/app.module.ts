@@ -51,7 +51,7 @@ import { UserSession } from '../providers/usersession';
     BrowserAnimationsModule,
     WebcamModule,
     IonicModule.forRoot(MyApp, { tabsPlacement: 'top',
-    backButtonText: ''}, {
+    backButtonText: '',preloadModules:true}, {
       links: [
        { component: CheckotpPage, name: 'checkotp', segment: 'checkotp' },
        { component: ComplaintStationPage, name: 'complaintstation', segment: 'complaintstation' },
