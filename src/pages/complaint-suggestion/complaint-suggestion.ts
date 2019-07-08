@@ -444,18 +444,14 @@ stationChange(event: {
   ionViewDidLoad() {
     console.log('ionViewDidLoad ComplaintSuggestionPage');
   }
+  
 
-  ionViewWillEnter(){
+  ionViewCanEnter(){
     this.getSuggestionList();
     this.getStationList();
     this.getTrainList();
 
-    var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
-    var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0,-1);
-    
-    var minusfivedays=new Date(Date.now() - tzoffset);
-    minusfivedays.setDate(minusfivedays.getDate()-5);
-    var minTime =minusfivedays.toISOString().slice(0,-1);
+ 
     if(localStorage.getItem('username') == null ||
     localStorage.getItem('username') == undefined ||
     localStorage.getItem('username') == "")   
