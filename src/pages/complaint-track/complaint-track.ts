@@ -42,7 +42,7 @@ export class ComplaintTrackPage {
     console.log('ionViewDidLoad ComplaintTrackPage');
   }
 
-  ionViewWillEnter(){
+  ionViewCanEnter(){
     if(localStorage.getItem('username') == null ||
     localStorage.getItem('username') == undefined ||
     localStorage.getItem('username') == "")   
