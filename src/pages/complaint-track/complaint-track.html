@@ -62,13 +62,7 @@
                                               <p><b>Sub Type:</b> {{complaint.subComplaint}}</p>
 
                                               <ion-row>
-                                                    <ion-col col-6>
-                                                      <button ion-button icon-start clear small>
-                                                        <ion-icon name="clipboard"></ion-icon>
-                                                         <div *ngIf="complaint.status == 'Closed'">{{complaint.remark}}</div>
-                                                        <div *ngIf="complaint.status != 'Closed'"> Under Process</div>
-                                                      </button>
-                                                    </ion-col>
+                                                   
                                                     <ion-col col-6>
                                                       <button ion-button icon-start clear small>
                                                         <ion-icon name="information-circle"></ion-icon>
