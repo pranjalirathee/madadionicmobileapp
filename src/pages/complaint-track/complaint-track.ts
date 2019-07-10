@@ -66,7 +66,12 @@ export class ComplaintTrackPage {
      this.httpProvider.postMethod("user/complainthistory",this.trackcomplaint).subscribe((data) => 
      {
              console.log(JSON.stringify(data));
-            
+            data.forEach(element => {
+              var temp=element.incidentDate.split(" ");
+              var date=temp[0].split("-");
+              var time=temp[1].split(":");
+              console.log(date[2]+"/"+date[1]+"/"+date[0]+" "+time[0]+":"+time[1]);
+            });
            this.complaintHistory=data;
 
      },err=> {

@@ -71,7 +71,8 @@
                                                       </button>
                                                      <p>
                                                       <ion-note>
-                                                            {{complaint.incidentDate  }}
+                                                          {{complaint.incidentDate | amLocal | amDateFormat:'MMMM Do YYYY, h:mm:ss a'}}
+                                                           
                                                     </ion-note>
                                             </p>
                                             </ion-card-content>

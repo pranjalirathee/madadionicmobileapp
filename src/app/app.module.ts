@@ -28,7 +28,7 @@ import { CallNumber } from '@ionic-native/call-number';
 import { HelplinePage } from '../pages/helpline/helpline';
 import { SelectSearchableModule } from 'ionic-select-searchable';
 import { UserSession } from '../providers/usersession';
-
+import { MomentModule } from 'angular2-moment';
 
 @NgModule({
   declarations: [
@@ -63,7 +63,8 @@ import { UserSession } from '../providers/usersession';
 
      ]
    }),
-   SelectSearchableModule
+   SelectSearchableModule,
+   MomentModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
