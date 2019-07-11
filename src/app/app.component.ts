@@ -14,7 +14,7 @@ import { UpdateProfilePage } from '../pages/update-profile/update-profile';
 export class MyApp {
   @ViewChild(Nav) navCtrl: Nav;
   rootPage:any = HomePage;
-  showSplash=true;
+  showSplash=false;
   username:String="";
   loginPage:any=LoginPage;
   updateProfilePage:any=UpdateProfilePage;
@@ -43,7 +43,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       splashScreen.hide();
       statusBar.styleDefault();
-      timer(5000).subscribe(()=>this.showSplash=false)
+     // timer(5000).subscribe(()=>this.showSplash=false)
 
     });
   }
