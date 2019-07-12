@@ -43,7 +43,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       splashScreen.hide();
       statusBar.styleDefault();
-     // timer(5000).subscribe(()=>this.showSplash=false)
+     //git push --verbose timer(5000).subscribe(()=>this.showSplash=false)
 
     });
   }

@@ -194,9 +194,9 @@
 <ion-col col-12 col-sm col-md-3 *ngIf="stationcondition.pnrTrnshowFlag">
               
     <ion-item style="padding-left:2px;" >
-        <ion-label stacked color="custom">PNR/Ticket/TDR No.<font  *ngIf="stationcondition.pnrTrnreqFlag">&nbsp;*</font></ion-label>
+        <ion-label stacked color="custom">PNR/Ticket/TDR No./Txn Id<font  *ngIf="stationcondition.pnrTrnreqFlag">&nbsp;*</font></ion-label>
         <ion-input type="text"   
-        [required]="stationcondition.pnrTrnreqFlag"
+        [required]="stationcondition.pnrTrnreqFlag" maxlength="15"
         [(ngModel)]="stncomplaint.pnrTicketTdrNo"  name="pnrTicketTdrNo" 
         ></ion-input>
 

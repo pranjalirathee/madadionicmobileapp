@@ -60,6 +60,8 @@
                                             <ion-card-content>
                                               <p><b>Complaint Type:</b> {{complaint.complaint}}</p>
                                               <p><b>Sub Type:</b> {{complaint.subComplaint}}</p>
+                                             
+                                            
                                               <button ion-button icon-start clear small>
                                                     <ion-icon name="clipboard"></ion-icon>
                                                      <div *ngIf="complaint.status == 'Closed'">{{complaint.remark}}</div>

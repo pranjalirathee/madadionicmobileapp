@@ -521,8 +521,11 @@ public numberonly(event: any) {
         this.stncomplaint.complainantMobile=this.stncomplaint.contact;
 
       }
+      if(this.stncomplaint.stationName != undefined)
+      {
       this.stncomplaint.stationCode=(this.stncomplaint.stationName as any).station_name.split("-")[1];
       this.stncomplaint.stationName=(this.stncomplaint.stationName as any).station_name.split("-")[0];
+      }
       this.stncomplaint.image=this.myphoto;
       this.loadingProvider.presentLoadingDefault();
 
