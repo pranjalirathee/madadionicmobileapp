@@ -1,8 +1,8 @@
 {
-  "name": "comsv2",
+  "name": "Rail Madad",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "author": "Rail Madad",
+  "homepage": "http://madad.indianrailways.gov.in/",
   "private": true,
   "scripts": {
     "start": "ionic-app-scripts serve",
@@ -63,7 +63,7 @@
     "angular-file": "^0.5.9",
     "typescript": "~2.6.2"
   },
-  "description": "An Ionic project",
+  "description": "Rail Madad",
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},
