@@ -517,8 +517,10 @@ export class ComplaintTrainPage {
         this.trncomplaint.image=this.myphoto;
         if(this.trncomplaint.pnrUtsFlag=='U')
         { 
+         
           this.trncomplaint.trainName=(this.trncomplaint.trainNo as any).train_name.split(':-')[0];
           this.trncomplaint.trainNo=(this.trncomplaint.trainNo as any).train_name.split(':-')[1];
+          
         }
         else{
           this.trncomplaint.trainName=this.trncomplaint.trainNo.split('-')[1].trim();
@@ -533,6 +535,8 @@ export class ComplaintTrainPage {
           if(data.code== "" || data.code== "0")
                 {
                     this.toastProvider.presentToast(data.message) ;
+                    this.trncomplaint.trainName=null;
+                    this.trncomplaint.trainNo=null;
     
                 }
               else{
