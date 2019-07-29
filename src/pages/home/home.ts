@@ -95,9 +95,9 @@ export class HomePage {
     });
     alert.present();
   }
-  dialnumber()
+  dialnumber(num)
   {
-    this.callNumber.callNumber("9717630982", true)
+    this.callNumber.callNumber(num, true)
     .then(res => console.log('Launched dialer!', res))
     .catch(err => console.log('Error launching dialer', err));
   }

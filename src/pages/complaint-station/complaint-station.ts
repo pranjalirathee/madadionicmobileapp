@@ -297,7 +297,7 @@ export class ComplaintStationPage {
       {
       data = 'file://' + data; }
        this.file.resolveLocalFilesystemUrl(data).then((entry: FileEntry) => 
-       { alert( entry); 
+       { //alert( entry); 
       });
 
 
