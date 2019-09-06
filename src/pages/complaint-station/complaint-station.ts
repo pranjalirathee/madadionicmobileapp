@@ -390,7 +390,10 @@ export class ComplaintStationPage {
 
   getSubComplaintList()
   {
-
+    if(this.stncomplaint.complaint=='14')
+    {
+      alert("For faster redressal of grievance, kindly choose miscellaneous category only if your complaint does not fall in any of the categories mentioned above.");
+    }
     if(this.stncomplaint.complaint=='8'||
     this.stncomplaint.complaint=='10'||
     this.stncomplaint.complaint=='11')

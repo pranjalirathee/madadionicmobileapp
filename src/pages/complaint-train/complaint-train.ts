@@ -380,6 +380,10 @@ export class ComplaintTrainPage {
 
   getSubComplaintList()
   {
+    if(this.trncomplaint.complaint=='90')
+    {
+      alert("For faster redressal of grievance, kindly choose miscellaneous category only if your complaint does not fall in any of the categories mentioned above.");
+    }
     this.httpProvider.getMethod("common/SubHeadList?Id="+this.trncomplaint.complaint).subscribe((data) => 
     {
      

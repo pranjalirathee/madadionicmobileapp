@@ -35,6 +35,20 @@ export class HttpProvider {
     });  
   }
 
+  public  getMethodNotAPI(url): Observable<any> {
+       
+        
+    return  this.httpClient
+    
+    .get(constants.BASE_URL+url).timeout(10000000)
+    
+    .map(response  => {
+    
+    return  response;
+    
+    });  
+  }
+
         public  getMethod(url): Observable<any> {
        
         

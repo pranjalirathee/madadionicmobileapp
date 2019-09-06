@@ -29,6 +29,7 @@ import { HelplinePage } from '../pages/helpline/helpline';
 import { SelectSearchableModule } from 'ionic-select-searchable';
 import { UserSession } from '../providers/usersession';
 import { MomentModule } from 'angular2-moment';
+import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { MomentModule } from 'angular2-moment';
     ComplaintTrackPage,
     ComplaintSuggestionPage,
     HelplinePage,
-    UpdateProfilePage
+    UpdateProfilePage,
+    ForgotPasswordPage
   ],
   imports: [
     BrowserModule,
@@ -77,7 +79,8 @@ import { MomentModule } from 'angular2-moment';
     ComplaintTrackPage,
     ComplaintSuggestionPage,
     HelplinePage,
-    UpdateProfilePage
+    UpdateProfilePage,
+    ForgotPasswordPage
 
   ],
   providers: [

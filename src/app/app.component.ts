@@ -1,3 +1,4 @@
+import { ForgotPasswordPage } from './../pages/forgot-password/forgot-password';
 import { UserSession } from './../providers/usersession';
 import { Component, ViewChild } from '@angular/core';
 import { Platform, NavController, AlertController, Nav, MenuController, Events } from 'ionic-angular';
@@ -17,6 +18,9 @@ export class MyApp {
   showSplash=false;
   username:String="";
   loginPage:any=LoginPage;
+
+  forgotPasswordPage:any=ForgotPasswordPage;
+
   updateProfilePage:any=UpdateProfilePage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
@@ -60,9 +64,18 @@ changemenu(menu:string) {
   console.log(this.username);
 
 }
+
+pushNextPageWithoutLogin(page)
+{
+  this.navCtrl.push(page);
+  this.menu.close("menu1");
+
+
+}
   pushNextPage(page)
   {
-    if(this.username=="" && page != 'helplinePage')
+
+    if(this.username=="" && page != 'helplinePage' && page != 'forgotPasswordPage')
     {
       this.navCtrl.push(LoginPage);
     }
