@@ -96,16 +96,14 @@
     <plugin name="cordova-plugin-file-transfer" spec="^1.7.1" />
     <plugin name="cordova-plugin-filepath" spec="^1.5.1" />
     <edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
-        <string>need camera access to take pictures</string>
+        <string>Complainant can take pictures as proof and upload them</string>
     </edit-config>
     <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryUsageDescription">
-        <string>need photo library access to get pictures from there</string>
+        <string>Complainant can take pictures as proof and upload them</string>
     </edit-config>
-    <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
-        <string>need location access to find things nearby</string>
-    </edit-config>
+ 
     <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryAddUsageDescription">
-        <string>need photo library access to save pictures there</string>
+        <string>Complainant can take pictures as proof and upload them</string>
     </edit-config>
     <engine name="browser" spec="5.0.4" />
     <engine name="android" spec="7.1.4" />
