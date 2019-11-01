@@ -7,34 +7,57 @@
         
         </ion-buttons>
         <ion-buttons middle>
-            <img src="../../assets/imgs/madadh.png"  style="height:30px;"/>
+          <font style="font-size: 37px;font-weight: 500;">RailMadad </font>
 <br>
-            <img src="../../assets/imgs/madade.png"  style="height:25px;"/>
+<span><font style="font-size: 12px;
+  text-transform: none;
+  color: #069;font-weight: 500;" class="CaptionL">A Grievance Redressal Mechanism</font></span>
+          
      
 
           </ion-buttons>
         
 
     <ion-buttons right>
-        <img src="../../assets/imgs/rail madad.gif" style="width:50px;" />
+        <img src="../../assets/imgs/ntes.png" style="width:40px;" />
 
       
       </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content no-padding class="bg" >
-<ion-grid style=" top: 0;
-left: 0;
-bottom: 0;
-right: 0;
-position: absolute;
-z-index: 0;
-">
- 
+<ion-content no-padding class="bg" scroll-y="false" >
+<ion-grid style="height:100%;padding:10px;" >
+    <ion-row >
+        <ion-col (click)="dialnumber('139')" col-12 style="text-align:center;background:red;padding:10px;font-size:17px;border-radius: 10px 10px 0 0;">
+            <span style="background: white;
+            padding: 5px;
+            border-radius: 5px;color:red;"> <ion-icon name="call"></ion-icon> 139</span> &nbsp;&nbsp;
+            <font class="medical" style="color:white;">for medical assistance</font> 
+        </ion-col>
+    </ion-row>
+    <ion-row style="height:100%">
+        
+        <ion-col col-12 style="text-align:center;" style="height:100%">
+          
+<ion-tabs tabsPlacement="top">
+   
+  <ion-tab [root]="tab1Root" tabTitle="Train Complaint " tabIcon="train">
+
+
+    
+  </ion-tab>
+  <ion-tab [root]="tab2Root" tabTitle="Station Complaint" tabIcon="document"></ion-tab>
+  <ion-tab [root]="tab3Root" tabTitle="Track Complaint" tabIcon="analytics"></ion-tab>
+  <ion-tab [root]="tab4Root" tabTitle="Suggestions " tabIcon="help-circle"></ion-tab>
+
+</ion-tabs>
+</ion-col>
+    </ion-row>
+ <!-- 
   <ion-row>
     
-        <ion-col col-4 style="text-align:center;">
+       <ion-col col-4 style="text-align:center;">
                 <img   src="../../assets/imgs/irlogo.png" style="height:80px;">
                     
         </ion-col>
@@ -47,11 +70,13 @@ z-index: 0;
     </ion-col>
 
 
-    </ion-row>
-    <div style="position: absolute; bottom: 0px; width: 100%">
+    </ion-row>-->
+ 
+ 
+ <!--   <div style="position: absolute; bottom: 0px; width: 100%">
 
     <ion-row style="margin-top:1px;">
-      <!-- <ion-col class="mycol"> -->
+      <ion-col class="mycol"> 
       <ion-col style="padding:1px;" col-10 offset-1>
           <button class="mybutton bg1" style="background-color:rgb(224, 160, 81) ;  border-radius:20px;" 
                ion-button block  outline (click)="pushNextPage(complaintTrainPage)" >
@@ -99,7 +124,7 @@ z-index: 0;
                 Suggestions</button>
         </ion-col>
       </ion-row>
-      </div>
+      </div>-->
 </ion-grid>
  
   

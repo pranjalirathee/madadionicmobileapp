@@ -33,6 +33,13 @@ export class ComplaintTrackPage {
   complaintdetail=<ComplaintDetail>{};
   complaintHistory:any[]=[];
 
+
+  checksession()
+  {
+    this.events.publish('user:login',"true");
+
+
+  }  
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,public httpProvider:HttpProvider,public loadingProvider :LoadingProvider,
     private toastProvider:ToastProvider,public alertCtrl:AlertController,public events: Events) {
@@ -48,12 +55,12 @@ export class ComplaintTrackPage {
     localStorage.getItem('username') == "")   
     {
     
-      this.navCtrl.push(LoginPage);
+     // this.navCtrl.push(LoginPage);
      }
 
 
 
-
+     else {
      this.trackcomplaint.userName=localStorage.getItem('username');
      if(this.trackcomplaint.userName.indexOf("@")!=-1)
      {
@@ -80,6 +87,10 @@ export class ComplaintTrackPage {
      this.toastProvider.presentToast("Some Error Occurred. Please Try Again.");
      
    });
+  }
+
+
+
   }
 
   submittrack(f:NgForm)

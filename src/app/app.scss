@@ -11,8 +11,73 @@
 @import "../theme/primeng.min";
 
 
+* ::-webkit-scrollbar {
+  display: none;
+}
+.item-md-custom, .item-divider-md-custom {
+  color: #fff;
+  background-color: #0c455a;
+}
+
+.item-ios-custom, .item-divider-ios-custom {
+  color: #fff;
+  background-color: #0c455a;
+}
+
+.icon-md-custom {
+  color: #0c455a;
+}
+
+.tabs-md .tab-button-icon {
+  white-space: normal;
+  font-size:18px;
+  margin-top: 7px;
+}
+
+.button{
+  white-space: normal;
 
 
+}
+.tabs-ios .tab-button[aria-selected=true] {
+  color: #0c455a;
+  
+}
+
+
+.tabs-ios .tab-button[aria-selected=true] .tab-button-icon {
+  color: #0c455a;
+}
+.tabs-md .tab-button[aria-selected=true] {
+  color: #0c455a;
+  
+}
+
+
+.tabs-md .tab-button[aria-selected=true] .tab-button-icon {
+  color: #0c455a;
+}
+
+.tabs-ios .tab-button-text 
+{
+  font-size:12px;
+
+}
+.tab-button-text, .tab-button-icon{
+  white-space: normal;
+
+}
+
+.item-block
+{
+  min-height:2rem;
+}
+.tabs-md .tab-button .tab-button-text
+{
+  white-space: normal;
+  font-size:13px;
+  display:table;
+}
 @font-face {
   font-family: Germania One;
   src:url('../assets/fonts/Fh4yPjrqIyv2ucM2qzBjeS3uywhP.woff2');
@@ -37,7 +102,14 @@
 .alert-ios .alert-title {
   font-size: 16px;
 }
- 
+
+.picker-md .picker-opt {
+  font-size: 18px;
+}
+ .label-md{
+   margin-top:6px !important;
+   margin-bottom:6px !important;
+ }
 ion-label{
   white-space:normal !important;
   }
@@ -218,7 +290,7 @@ ion-buttons {
    align-items:center;
    justify-content:center;
    background-size: cover;
-   background-image: url(../assets/imgs/kashmir.png);
+   background-image: url(../assets/imgs/bg.jpeg);
    background-repeat: no-repeat;
 
   }

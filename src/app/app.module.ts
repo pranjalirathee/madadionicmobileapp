@@ -26,6 +26,9 @@ import { ComplaintTrackPage } from '../pages/complaint-track/complaint-track';
 import { ComplaintSuggestionPage } from '../pages/complaint-suggestion/complaint-suggestion';
 import { CallNumber } from '@ionic-native/call-number';
 import { HelplinePage } from '../pages/helpline/helpline';
+import { ServicesPage } from '../pages/services/services';
+
+
 import { SelectSearchableModule } from 'ionic-select-searchable';
 import { UserSession } from '../providers/usersession';
 import { MomentModule } from 'angular2-moment';
@@ -43,7 +46,8 @@ import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
     ComplaintSuggestionPage,
     HelplinePage,
     UpdateProfilePage,
-    ForgotPasswordPage
+    ForgotPasswordPage,
+    ServicesPage
   ],
   imports: [
     BrowserModule,
@@ -53,7 +57,9 @@ import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
     BrowserAnimationsModule,
     WebcamModule,
     IonicModule.forRoot(MyApp, { tabsPlacement: 'top',
-    backButtonText: '',preloadModules:true}, {
+    backButtonText: '',preloadModules:true, scrollPadding: false,
+    scrollAssist: true,
+    autoFocusAssist: false}, {
       links: [
        { component: CheckotpPage, name: 'checkotp', segment: 'checkotp' },
        { component: ComplaintStationPage, name: 'complaintstation', segment: 'complaintstation' },
@@ -61,7 +67,8 @@ import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
        { component: ComplaintTrainPage, name: 'complainttrain', segment: 'complainttrain' },
        { component: ComplaintTrackPage, name: 'complainttrack', segment: 'complainttrack' },
        { component: ComplaintSuggestionPage, name: 'complaintsuggestion', segment: 'complaintsuggestion' },
-       { component: HelplinePage, name: 'helpline', segment: 'helpline' }
+       { component: HelplinePage, name: 'helpline', segment: 'helpline'},
+       { component: ServicesPage, name: 'services', segment: 'services' }
 
      ]
    }),
@@ -80,7 +87,8 @@ import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
     ComplaintSuggestionPage,
     HelplinePage,
     UpdateProfilePage,
-    ForgotPasswordPage
+    ForgotPasswordPage,
+    ServicesPage
 
   ],
   providers: [

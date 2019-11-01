@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, Events } from 'ionic-angular';
 import { LoginPage } from '../login/login';
+import { HomePage } from '../home/home';
+
 import { RegistrationModel } from '../../models/registrationmodel';
 import { NgForm } from '@angular/forms';
 import { ToastProvider } from '../../providers/toast/toast';
@@ -73,10 +75,10 @@ export class UpdateProfilePage {
         {
           text: 'Yes',
           handler: () => {
-            localStorage.setItem('username',"");
-            this.events.publish('user:menu',"false");
+            //localStorage.setItem('username',"");
+          //  this.events.publish('user:menu',"false");
 
-            this.navCtrl.push(LoginPage);
+          //  this.navCtrl.push(HomePage);
 
           }
         }
@@ -121,7 +123,9 @@ export class UpdateProfilePage {
               role: 'cancel',
               handler: () => {
                 console.log('Cancel clicked');
-                this.navCtrl.push(LoginPage);
+                this.updateprofile.password='';
+                this.updateprofile.cpassword='';
+               // this.navCtrl.push(HomePage);
               }
             }
           ]

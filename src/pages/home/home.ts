@@ -16,7 +16,17 @@ import { HelplinePage } from '../helpline/helpline';
 })
 export class HomePage {
   activeMenu: string="menu1";
+  checksession()
+  {
+    if(localStorage.getItem('username') == null ||
+   localStorage.getItem('username') == undefined ||
+   localStorage.getItem('username') == "")   
+   {
+   this.navCtrl.push(LoginPage);
+     //this.navCtrl.push(LoginPage);
+    }
 
+  }
 
   loginPage:any=LoginPage;
   complaintStationPage:any=ComplaintStationPage;
@@ -26,6 +36,15 @@ export class HomePage {
   helplinePage:any=HelplinePage;
   updateProfilePage:any=UpdateProfilePage;
   username:String;
+
+
+
+  tab1Root = ComplaintTrainPage;
+  tab2Root = ComplaintStationPage;
+  tab3Root = ComplaintTrackPage;
+  tab4Root = ComplaintSuggestionPage;
+
+
 
   constructor(public navCtrl: NavController,private callNumber: CallNumber,public alertCtrl:AlertController,public events: Events) {
   
@@ -87,7 +106,7 @@ export class HomePage {
             localStorage.setItem('fullname',"");
             this.events.publish('user:menu',"false");
 
-            this.navCtrl.push(LoginPage);
+          //  this.navCtrl.push(HomePage);
 
           }
         }

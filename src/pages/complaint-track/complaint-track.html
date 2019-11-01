@@ -1,3 +1,5 @@
+
+<!--
 <ion-header>
         <ion-navbar  color="headercustom">
                 <ion-buttons left>
@@ -23,27 +25,28 @@
             </ion-navbar>
    
     
-  </ion-header>
+  </ion-header>-->
 
 
 
-<ion-content no-padding>
+<ion-content no-padding tappable (tap)="checksession()">
     
             <form  #f="ngForm" novalidate>
               <ion-grid>
                
                   <ion-row>
-                        <ion-col col-12 col-sm col-md-3 style="padding:0px;">
+                      <ion-col col-12 col-sm col-md-3 style="padding:0px;">
                           
-                                <ion-item color="custom" 
-                                 no-lines style="padding-left:2px;text-align: center;font-weight:bold;">
-                                    <ion-label stacked color="light" style="letter-spacing:2px;font-size:12pt;">Track Your Complaint</ion-label>
-                                   
-                                   
-                                  
-                                   
-                                  </ion-item>
-                          </ion-col>
+                          <ion-item 
+                           no-lines style="padding-left:2px;text-align: center;font-weight:normal;">
+                              <ion-label stacked color="custom" style="font-size:13px;">Be with us for live tracking</ion-label>
+                             
+                             
+                            
+                             
+                            </ion-item>
+                    </ion-col>
+           
                           <ion-col col-12 col-sm col-md-3  *ngFor="let complaint of complaintHistory">
                             
                            
@@ -60,20 +63,17 @@
                                             <ion-card-content>
                                               <p><b>Complaint Type:</b> {{complaint.complaint}}</p>
                                               <p><b>Sub Type:</b> {{complaint.subComplaint}}</p>
-                                             
+                                              <p>   <b> Remarks: </b> <font *ngIf="complaint.status == 'Closed'">{{complaint.remark}}</font>
+                                                <font *ngIf="complaint.status != 'Closed'"> Under Process </font></p>
                                             
-                                              <button ion-button icon-start clear small>
-                                                    <ion-icon name="clipboard"></ion-icon>
-                                                     <div *ngIf="complaint.status == 'Closed'">{{complaint.remark}}</div>
-                                                    <div *ngIf="complaint.status != 'Closed'"> Under Process</div>
-                                                  </button>
+                                            
                                                   <button ion-button icon-start clear small>
                                                         <ion-icon name="information-circle"></ion-icon>
                                                         <div> {{complaint.status}}</div>
                                                       </button>
                                                      <p>
                                                       <ion-note>
-                                                          {{complaint.incidentDate | amLocal | amDateFormat:'MMMM Do YYYY, h:mm:ss a'}}
+                                                          {{complaint.incidentDate | amLocal | amDateFormat:'MMMM Do YYYY, h:mm a'}}
                                                            
                                                     </ion-note>
                                             </p>

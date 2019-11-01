@@ -39,7 +39,12 @@ export class ComplaintStationPage {
   stationArrGlobal=[];
   stationcondition=<StationConditionModel>{};
   
+  checksession()
+  {
+    this.events.publish('user:login',"true");
 
+
+  }
 
   getconditions()
   {
@@ -116,34 +121,21 @@ export class ComplaintStationPage {
 
   presentConfirm(ref,f) {
   
-
+   
     let alert = this.alertCtrl.create({
       
       title: 'Your complaint is registered; your complaint reference number is '+ref+'',
 
-      subTitle: 'If you want to register another complaint,press yes or else press no',
+     // subTitle: 'If you want to register another complaint,press yes or else press no',
        buttons: [
         {
-          text: 'Yes',
+          text: 'Close',
+          role: 'cancel',
           handler: () => {
             f.resetForm();
             this.resetdet();
-            this.stncomplaint.subComplaint=null;
-            console.log(this.stncomplaint.subComplaint);
-            this.subcomplaintArr=[];
-            console.log(this.subcomplaintArr);
-            console.log('Cancel clicked');
           }
-        },
-        {
-          text: 'No',
-          handler: () => {
-            f.resetForm();
-            this.resetdet();
-            console.log('Buy clicked');
-            this.navCtrl.push(HomePage);
-
-          }
+         
         }
       ]
     });
@@ -374,7 +366,7 @@ export class ComplaintStationPage {
     localStorage.getItem('username') == "")   
     {
     
-      this.navCtrl.push(LoginPage);
+     // this.navCtrl.push(LoginPage);
      }
 
      else

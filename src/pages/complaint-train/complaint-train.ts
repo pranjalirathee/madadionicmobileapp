@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Events, ModalController } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 import { StationNameProvider } from '../../providers/station-name/station-name';
 import { WebcamInitError, WebcamImage, WebcamUtil } from 'ngx-webcam';
@@ -58,7 +58,7 @@ export class ComplaintTrainPage {
             console.log('Buy clicked');
             f.resetForm();
             this.resetdet();
-            this.navCtrl.push(HomePage);
+            //this.navCtrl.push(HomePage);
 
           }
         }
@@ -333,7 +333,7 @@ export class ComplaintTrainPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,public httpProvider:HttpProvider,
     public completeTestService: StationNameProvider,  private transfer: FileTransfer,
     private camera: Camera,private toastProvider:ToastProvider,public loadingProvider :LoadingProvider,
-    private alertCtrl: AlertController,public events: Events) {
+    private alertCtrl: AlertController,public events: Events,public modalCtrl: ModalController) {
    
   }
 
@@ -355,6 +355,15 @@ export class ComplaintTrainPage {
     this.myphoto="";
   }
 
+
+  checksession()
+  {
+    this.events.publish('user:login',"true");
+
+
+  }
+
+
   ionViewWillEnter(){
    
    this.resetdet();
@@ -363,7 +372,7 @@ export class ComplaintTrainPage {
    localStorage.getItem('username') == "")   
    {
    
-     this.navCtrl.push(LoginPage);
+     //this.navCtrl.push(LoginPage);
     }
 
 
@@ -547,7 +556,7 @@ export class ComplaintTrainPage {
                    this.ref=data.complaintReferenceNo;
                    if(this.trncomplaint.pnrUtsFlag=='U')
                    { 
-                    var temptrain={"train_name":this.trncomplaint.trainNo+"-"+this.trncomplaint.trainName}
+                    var temptrain={"train_name":this.trncomplaint.trainName+":-"+this.trncomplaint.trainNo}
                     this.trncomplaint.trainNo=temptrain as any;
                    }
                    else{

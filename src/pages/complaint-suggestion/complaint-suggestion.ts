@@ -29,6 +29,15 @@ import { SelectSearchableComponent } from 'ionic-select-searchable';
 export class ComplaintSuggestionPage {
   activeMenu: string="menu1";
 
+  checksession()
+  {
+    this.events.publish('user:login',"true");
+
+
+  }
+
+  
+
   presentLogout() {
     let alert = this.alertCtrl.create({
       message: 'Do you want to Logout?',
@@ -457,7 +466,7 @@ stationChange(event: {
     localStorage.getItem('username') == "")   
     {
     
-      this.navCtrl.push(LoginPage);
+    //  this.navCtrl.push(LoginPage);
      }
      else
      {

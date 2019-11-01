@@ -5,6 +5,7 @@ import { Platform, NavController, AlertController, Nav, MenuController, Events }
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {timer} from 'rxjs/observable/timer';
+import { ServicesPage } from '../pages/services/services';
 
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
@@ -21,14 +22,35 @@ export class MyApp {
 
   forgotPasswordPage:any=ForgotPasswordPage;
 
+  servicesPage:any=ServicesPage;
+
+
   updateProfilePage:any=UpdateProfilePage;
 
+
+  checksession()
+  {
+    if(localStorage.getItem('username') == null ||
+   localStorage.getItem('username') == undefined ||
+   localStorage.getItem('username') == "")   
+   {
+   this.navCtrl.push(LoginPage);
+     //this.navCtrl.push(LoginPage);
+    }
+
+  }
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
     private alertCtrl:AlertController,private menu: MenuController,public events: Events) {
 
       events.subscribe('user:menu', (menu) => {
 
         this.changemenu(menu);
+      });
+
+
+      events.subscribe('user:login', (menu) => {
+
+        this.checksession();
       });
 
 
@@ -110,7 +132,7 @@ pushNextPageWithoutLogin(page)
             localStorage.setItem('fullname',"");
             this.events.publish('user:menu',"false");
 
-            this.navCtrl.push(LoginPage);
+            //this.navCtrl.push(HomePage);
             this.menu.close("menu1");
 
           }

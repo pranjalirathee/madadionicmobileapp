@@ -1,3 +1,5 @@
+
+<!--
 <ion-header>
     <ion-navbar  color="headercustom">
         <ion-buttons left>
@@ -22,26 +24,27 @@
         </ion-buttons>
     </ion-navbar>
     
-  </ion-header>
+  </ion-header>-->
 
 
 
-<ion-content no-padding>
+<ion-content no-padding  tappable (tap)="checksession()">
     
             <form  #f="ngForm" novalidate>
               <ion-grid>
                   <ion-row>
                         <ion-col col-12 col-sm col-md-3 style="padding:0px;">
                           
-                                <ion-item color="custom" 
-                                 no-lines style="padding-left:2px;text-align: center;font-weight:bold;">
-                                    <ion-label stacked color="light" style="letter-spacing:2px;font-size:12pt;">Suggestions</ion-label>
+                                <ion-item 
+                                 no-lines style="padding-left:2px;text-align: center;font-weight:normal;">
+                                    <ion-label stacked color="custom" style="font-size:13px;">Your suggestion is valuable for us</ion-label>
                                    
                                    
                                   
                                    
                                   </ion-item>
                           </ion-col>
+                 
                   </ion-row>
                 <ion-row>
                   <ion-col col-12 *ngIf="ref != ''" style="font-weight:bold;color:#a70a0a">
@@ -54,7 +57,7 @@
                       <ion-col col-12 col-sm col-md-3>
                         
                           <ion-item style="padding-left:2px;">
-                              <ion-label stacked color="custom">Suggestion *</ion-label>
+                              <ion-label stacked color="dark">Suggestion  <font color="red">*</font></ion-label>
                               <ion-select   color="custom"
                                       
                               [(ngModel)]="suggestionObj.suggestionId"  name="suggestionId"
@@ -70,7 +73,7 @@
 
                     <ion-col col-12 col-sm col-md-3>
                         <ion-item style="padding-left:2px;">
-                            <ion-label stacked color="custom">Description *</ion-label>
+                            <ion-label stacked color="dark">Description  <font color="red">*</font></ion-label>
                             <ion-textarea rows="3" type="text" 
                             maxlength="2500" required
                             [(ngModel)]="suggestionObj.suggestionDesc"  name="suggestionDesc" 
@@ -85,7 +88,7 @@
                   <ion-col col-12 col-sm col-md-3 *ngIf="selectType == true">
               
                       <ion-item style="padding-left:2px;" >
-                          <ion-label stacked color="custom">Journey Type *</ion-label>
+                          <ion-label stacked color="dark">Journey Type  <font color="red">*</font></ion-label>
                           <ion-select   color="custom"
                           [(ngModel)]="suggestionObj.jouneyType"  name="jouneyType"               
                                 
@@ -103,7 +106,7 @@
                 </ion-col>
                 <ion-col col-12 col-sm col-md-3 *ngIf="suggestionObj.jouneyType == 'T' || trainNoFlag == true">
                       <ion-item style="padding-left:2px;" no-lines>
-                            <ion-label stacked color="custom">Train Number *</ion-label>
+                            <ion-label stacked color="dark">Train Number  <font color="red">*</font></ion-label>
                             <select-searchable
                             item-content
                             [(ngModel)]="suggestionObj.trainName"  name="trainName" 
@@ -125,7 +128,7 @@
               <ion-col col-12 col-sm col-md-3 *ngIf="suggestionObj.jouneyType == 'S'">
                 
                     <ion-item style="padding-left:2px;" no-lines>
-                      <ion-label stacked color="custom">Station Name *</ion-label>
+                      <ion-label stacked color="dark">Station Name  <font color="red">*</font></ion-label>
                       <select-searchable
                       item-content
                       [(ngModel)]="suggestionObj.stationName"  name="stationName" 
@@ -146,7 +149,7 @@
             <ion-col col-12 col-sm col-md-3  *ngIf="fromStationFlag == true">
                 
                 <ion-item style="padding-left:2px;" no-lines>
-                  <ion-label stacked color="custom">From Station Name *</ion-label>
+                  <ion-label stacked color="dark">From Station Name  <font color="red">*</font></ion-label>
                   <select-searchable required
                   item-content
                   [(ngModel)]="suggestionObj.fromStation"  name="fromStation" 
@@ -167,7 +170,7 @@
         <ion-col col-12 col-sm col-md-3 *ngIf="toStationFlag == true">
                 
             <ion-item style="padding-left:2px;" no-lines>
-              <ion-label stacked color="custom">To Station Name *</ion-label>
+              <ion-label stacked color="dark">To Station Name  <font color="red">*</font></ion-label>
               <select-searchable
               item-content required
               [(ngModel)]="suggestionObj.toStation"  name="toStation" 
@@ -224,7 +227,7 @@
                     </ion-row>
                     <ion-row>
                         <ion-col col-12 col-sm col-md-3 style="text-align:center;">
-                            <button ion-button small block color="custom"
+                            <button ion-button small  color="custom"
                             (click)="submitsuggestion(f)">Submit</button>
 
                         </ion-col>

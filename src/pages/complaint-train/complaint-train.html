@@ -1,4 +1,4 @@
-<ion-header>
+<!--<ion-header>
         <ion-navbar  color="headercustom">
                 <ion-buttons left>
                     <button ion-button [menuToggle]="activeMenu">
@@ -23,11 +23,11 @@
             </ion-navbar>
   
     
-  </ion-header>
+  </ion-header>-->
 
 
 
-<ion-content no-padding>
+<ion-content no-padding tappable (tap)="checksession()">
     
             <form  #f="ngForm" novalidate>
             
@@ -36,9 +36,9 @@
                   <ion-row>
                         <ion-col col-12 col-sm col-md-3 style="padding:0px;">
                           
-                                <ion-item color="custom" 
-                                 no-lines style="padding-left:2px;text-align: center;font-weight:bold;">
-                                    <ion-label stacked color="light" style="letter-spacing:2px;font-size:12pt;">Train Complaint</ion-label>
+                                <ion-item 
+                                 no-lines style="padding-left:2px;text-align: center;font-weight:normal;">
+                                    <ion-label stacked color="custom" style="font-size:13px;">Get instant help for train related complaint</ion-label>
                                    
                                    
                                   
@@ -48,8 +48,10 @@
                  
                   
                       <ion-col col-12 col-sm col-md-3>
+
+                      
                           <ion-item style="padding-left:2px;">
-                              <ion-label stacked color="custom">Complaint *</ion-label>
+                              <ion-label stacked color="dark">Complaint <font color="red">*</font></ion-label>
                               <ion-select   color="custom"
                               (ionChange)="getSubComplaintList()"                
                               [(ngModel)]="trncomplaint.complaint"  name="complaint"
@@ -66,7 +68,7 @@
                     </ion-col>
                     <ion-col col-12 col-sm col-md-3>
                         <ion-item style="padding-left:2px;">
-                            <ion-label stacked color="custom">Sub Complaint *</ion-label>
+                            <ion-label stacked color="dark">Sub Complaint  <font color="red">*</font></ion-label>
                             <ion-select   color="custom"
                             [(ngModel)]="trncomplaint.subComplaint"  name="subComplaint"            
                             
@@ -83,7 +85,7 @@
                   </ion-col>
                   <ion-col col-12 col-sm col-md-3>
                       <ion-item style="padding-left:2px;">
-                          <ion-label stacked color="custom">Incident Date *</ion-label>
+                          <ion-label stacked color="dark">Incident Date  <font color="red">*</font></ion-label>
                           <ion-datetime displayFormat="DD/MM/YYYY hh:mm a" 
                           [max]="maxDate"
                           [min]="minDate"  color="custom"
@@ -98,7 +100,7 @@
                 </ion-col>
                 <ion-col col-12 col-sm col-md-3>
                     <ion-item style="padding-left:2px;">
-                        <ion-label stacked color="custom">Complaint Description *</ion-label>
+                        <ion-label stacked color="dark">Complaint Description  <font color="red">*</font></ion-label>
                         <ion-textarea rows="3" type="text" 
                         maxlength="1000" required 
                         [(ngModel)]="trncomplaint.complaintDesc"  name="complaintDesc" 
@@ -113,7 +115,7 @@
               <ion-col col-12 col-sm col-md-3>
               
                     <ion-item style="padding-left:2px;" >
-                        <ion-label stacked color="custom">Journey Details *</ion-label>
+                        <ion-label stacked color="dark">Journey Details  <font color="red">*</font></ion-label>
                         <ion-select   color="custom"
                         [(ngModel)]="trncomplaint.pnrUtsFlag"  name="pnrUtsFlag"               
                         (ionChange)="resetvalues()"         
@@ -135,7 +137,7 @@
               <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'U'">
               
                 <ion-item style="padding-left:2px;" >
-                    <ion-label stacked color="custom">UTS No *</ion-label>
+                    <ion-label stacked color="dark">UTS No  <font color="red">*</font></ion-label>
                     <ion-input type="text"    maxlength="10"   
                     [(ngModel)]="trncomplaint.pnrUtsNo"  name="pnrUtsNo"  required
                     ></ion-input>
@@ -148,7 +150,7 @@
               <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P'">
               
                     <ion-item style="padding-left:2px;" >
-                        <ion-label stacked color="custom">PNR No *</ion-label>
+                        <ion-label stacked color="dark">PNR No  <font color="red">*</font></ion-label>
                         <ion-input type="text"   (keyup)="fetchpnr($event)" maxlength="10"   
                         [(ngModel)]="trncomplaint.pnrUtsNo"  name="pnrUtsNo"  required
                         ></ion-input>
@@ -165,7 +167,7 @@
               </ion-col>
               <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'U'">
                     <ion-item style="padding-left:2px;" no-lines>
-                            <ion-label stacked color="custom">Train Number *</ion-label>
+                            <ion-label stacked color="dark">Train Number  <font color="red">*</font></ion-label>
                             <select-searchable
                             required
                             item-content
@@ -188,7 +190,7 @@
               <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true">
               
                     <ion-item style="padding-left:2px;" >
-                        <ion-label stacked color="custom">Train Number *</ion-label>
+                        <ion-label stacked color="dark">Train Number  <font color="red">*</font></ion-label>
                         <ion-input type="text"   required
                         [(ngModel)]="trncomplaint.trainNo"  name="trainNo" readonly
                         ></ion-input>
@@ -201,7 +203,7 @@
               <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true">
               
                     <ion-item style="padding-left:2px;" >
-                        <ion-label stacked color="custom">From Station</ion-label>
+                        <ion-label stacked color="dark">From Station</ion-label>
                         <ion-input type="text"   
                         [(ngModel)]="trncomplaint.fromStation"  name="fromStation" readonly
                         ></ion-input>
@@ -214,7 +216,7 @@
               <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true">
               
                     <ion-item style="padding-left:2px;" >
-                        <ion-label stacked color="custom">To Station</ion-label>
+                        <ion-label stacked color="dark">To Station</ion-label>
                         <ion-input type="text"   
                         [(ngModel)]="trncomplaint.toStation"  name="toStation" readonly
                         ></ion-input>
@@ -227,7 +229,7 @@
               <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true">
               
                     <ion-item style="padding-left:2px;" >
-                        <ion-label stacked color="custom">Boarding Station</ion-label>
+                        <ion-label stacked color="dark">Boarding Station</ion-label>
                         <ion-input type="text"   
                         [(ngModel)]="trncomplaint.boardingStation"  name="boardingStation" readonly
                         ></ion-input>
@@ -240,7 +242,7 @@
               <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true">
               
                     <ion-item style="padding-left:2px;" >
-                        <ion-label stacked color="custom">Berth Class</ion-label>
+                        <ion-label stacked color="dark">Berth Class</ion-label>
                         <ion-input type="text"   
                         [(ngModel)]="trncomplaint.berthClass"  name="berthClass" readonly
                         ></ion-input>
@@ -253,7 +255,7 @@
               <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true">
               
                     <ion-item style="padding-left:2px;" >
-                        <ion-label stacked color="custom">Total Passenger</ion-label>
+                        <ion-label stacked color="dark">Total Passenger</ion-label>
                         <ion-input type="text"   
                         [(ngModel)]="trncomplaint.psgnNo"  name="psgnNo" readonly
                         ></ion-input>
@@ -266,7 +268,7 @@
               <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true">
               
                     <ion-item style="padding-left:2px;" >
-                        <ion-label stacked color="custom">Total Fare</ion-label>
+                        <ion-label stacked color="dark">Total Fare</ion-label>
                         <ion-input type="text"   
                         [(ngModel)]="trncomplaint.totalFare"  name="totalFare" readonly
                         ></ion-input>
@@ -278,7 +280,7 @@
               </ion-col>
               <ion-col col-12 col-sm col-md-3>
                     <ion-item style="padding-left:2px;" *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true">
-                        <ion-label stacked color="custom">Coach No *</ion-label>
+                        <ion-label stacked color="dark">Coach No  <font color="red">*</font></ion-label>
                         <ion-select   color="custom"
                         [(ngModel)]="trncomplaint.coachNo"  name="coachNo"            
                         
@@ -295,7 +297,7 @@
               </ion-col>
               <ion-col col-12 col-sm col-md-3>
                     <ion-item style="padding-left:2px;" *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true">
-                        <ion-label stacked color="custom">Berth/Seat No. *</ion-label>
+                        <ion-label stacked color="dark">Berth/Seat No.  <font color="red">*</font></ion-label>
                         <ion-select   color="custom"
                         [(ngModel)]="trncomplaint.berthNo"  name="berthNo"            
                         
@@ -316,7 +318,7 @@
         
                   <img [src]="myphoto" *ngIf="myphoto" />
                   <ion-item style="padding-left:2px;" no-lines>
-                    <ion-label color="custom" stacked> 
+                    <ion-label color="dark" stacked> 
                          File
   
                       </ion-label>
@@ -367,7 +369,7 @@
                     </ion-row>
                     <ion-row>
                         <ion-col col-12 col-sm col-md-3 style="text-align:center;">
-                            <button ion-button small block color="custom"
+                            <button ion-button small  color="custom"
                             (click)="submitcomplaint(f)" >Submit</button>
 
                         </ion-col>
@@ -375,5 +377,5 @@
                     </ion-row>
               </ion-grid>
             </form>
-       
+  
 </ion-content>
