@@ -1,6 +1,7 @@
 export class ComplaintModel
 {
-    
+        channelType:string;
+        place_type:string;
         complaint  :string;
         subComplaint   		 :string;
         complainantName        :string;
@@ -18,7 +19,6 @@ export class ComplaintModel
         platformNo   		 :string;
         complaintMode   		 :string;
         complaintDesc   		 :string;
-        channelType   		 :string;
         zone   	              :string;
         division    			 :string;
         department   	 	 :string;

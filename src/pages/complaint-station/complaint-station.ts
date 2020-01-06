@@ -507,6 +507,8 @@ public numberonly(event: any) {
     }
     else
     {
+      this.stncomplaint.channelType='A';
+      this.stncomplaint.place_type='s';
       if(this.stncomplaint.contact.indexOf("@") != -1)
       {
         this.stncomplaint.complainantEmail=this.stncomplaint.contact;

@@ -50,6 +50,10 @@ export class ComplaintTrainPage {
           role: 'cancel',
           handler: () => {
             console.log('Cancel clicked');
+            this.trncomplaint.complaint=null;
+            this.trncomplaint.subComplaint=null;
+            this.trncomplaint.complaintDesc=null;
+
           }
         },
         {
@@ -510,7 +514,8 @@ export class ComplaintTrainPage {
     else
     {
 
-
+      this.trncomplaint.channelType='A';
+      this.trncomplaint.place_type='t';
       if(this.trncomplaint.contact.indexOf("@") != -1)
       {
         this.trncomplaint.complainantEmail=this.trncomplaint.contact;

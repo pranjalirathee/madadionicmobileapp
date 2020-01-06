@@ -17,4 +17,6 @@ export class StnComplaintModel
   pnrTicketTdrNo:string;
   counterNo:string;
   stall:string;
+  channelType:string;
+  place_type:string;
 }
