@@ -55,6 +55,7 @@ export class ComplaintStationPage {
     stationcondition.counterFlag="2";
     stationcondition.pnrTrnFlag="2";
     stationcondition.prrFlag="2";
+    stationcondition.regMobileFlag="2";
     this.httpProvider.getMethod("common/stationcondition?subComplaint="+this.stncomplaint.subComplaint).subscribe(
       (data)=>
       {
@@ -65,7 +66,7 @@ export class ComplaintStationPage {
           stationcondition=data;
         }
         
-    var arr=["platform","station","stall","counter","pnrTrn","prr"];
+    var arr=["platform","station","stall","counter","pnrTrn","prr","regMobile"];
     arr.forEach(element => {
 
       switch (stationcondition[element+"Flag"])

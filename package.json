@@ -58,6 +58,9 @@
     "sw-toolbox": "3.6.0",
     "zone.js": "0.8.26"
   },
+  "optionalDependencies": {
+    "fsevents": "*"
+  },
   "devDependencies": {
     "@ionic/app-scripts": "3.2.1",
     "angular-file": "^0.5.9",

@@ -68,7 +68,7 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       splashScreen.hide();
-      statusBar.styleDefault();
+      statusBar.styleBlackTranslucent();
      //git push --verbose timer(5000).subscribe(()=>this.showSplash=false)
 
     });

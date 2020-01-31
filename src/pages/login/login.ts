@@ -9,6 +9,7 @@ import { HttpProvider } from '../../providers/http/http';
 import { HomePage } from '../home/home';
 import { LoadingProvider } from '../../providers/loading/loading';
 import { UserSession } from '../../providers/usersession';
+import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 
 /**
  * Generated class for the LoginPage page.
@@ -30,6 +31,7 @@ export class LoginPage {
   msgFlag=false;
   regDet:String="";
   activeMenu: string="menu1";
+  forgotPasswordPage:any=ForgotPasswordPage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toastProvider:ToastProvider,public modalCtrl: ModalController,public httpProvider:HttpProvider
@@ -62,7 +64,7 @@ export class LoginPage {
        {
         this.msgFlag=true;
        
-
+        this.toastProvider.presentToast(data.message);
         localStorage.setItem('username',"");
         localStorage.setItem('fullname',"");
         localStorage.setItem('contact',"");
@@ -176,6 +178,12 @@ export class LoginPage {
       }
     }
   }
+  pushNextPageWithoutLogin(page)
+{
+  this.navCtrl.push(page);
+
+
+}
   public numberonly(event: any) {
     const pattern = /^[0-9]*$/;   
     

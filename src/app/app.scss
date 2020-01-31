@@ -10,6 +10,14 @@
 @import "../theme/theme";
 @import "../theme/primeng.min";
 
+.item-md {
+ 
+  background-color: transparent;
+}
+.content-md {
+  color: #000;
+  background-color: #ffffffe0;
+}
 
 * ::-webkit-scrollbar {
   display: none;
@@ -29,6 +37,7 @@
 }
 
 .tabs-md .tab-button-icon {
+  min-height: 20px;
   white-space: normal;
   font-size:18px;
   margin-top: 7px;
@@ -75,7 +84,7 @@
 .tabs-md .tab-button .tab-button-text
 {
   white-space: normal;
-  font-size:13px;
+  font-size:10px;
   display:table;
 }
 @font-face {

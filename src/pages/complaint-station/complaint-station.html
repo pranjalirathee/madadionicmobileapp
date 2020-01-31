@@ -135,6 +135,20 @@
                    
                    
             </ion-col>
+            <ion-col col-12 col-sm col-md-3 *ngIf="stationcondition.regMobileshowFlag">
+              
+              <ion-item style="padding-left:2px;" >
+                  <ion-label stacked color="dark">Registered Mobile Number<font  *ngIf="stationcondition.regMobilereqFlag">&nbsp; <font color="red">*</font></font></ion-label>
+                  <ion-input type="text"   
+                  [required]="stationcondition.regMobilereqFlag"
+                  [(ngModel)]="stncomplaint.reg_mobile"  name="reg_mobile" 
+                  ></ion-input>
+
+                 
+                
+                 
+                </ion-item>
+        </ion-col>
             <ion-col col-12 col-sm col-md-3 *ngIf="stationcondition.platformshowFlag">
               
                 <ion-item style="padding-left:2px;" >

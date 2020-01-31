@@ -72,12 +72,17 @@
                   </ion-col>
                     </ion-row>
                     <ion-row>
-                        <ion-col col-12 col-sm col-md-3 style="text-align:center;">
+                        <ion-col col-6 offset-1 col-sm col-md-3 style="text-align:center;">
+                            <button ion-button small  color="custom"
+                            (click)="pushNextPageWithoutLogin(forgotPasswordPage)"  >Forgot Password</button>
+  
+                        </ion-col>
+                        <ion-col col-3 col-sm col-md-3 style="text-align:center;">
                             <button ion-button small  color="custom"
                             (click)="checklogin(f)"  >Log In</button>
 
                         </ion-col>
-
+                        
                     </ion-row>
               </ion-grid>
             </form>

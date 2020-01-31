@@ -29,5 +29,8 @@ export class StationConditionModel
     prrFlag:string;
     prrshowFlag:Boolean;
     prrreqFlag:Boolean;
+    regMobileFlag:string;
+    regMobileshowFlag:Boolean;
+    regMobilereqFlag:Boolean;
 
 }

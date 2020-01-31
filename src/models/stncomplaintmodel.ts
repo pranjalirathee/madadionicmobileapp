@@ -19,4 +19,5 @@ export class StnComplaintModel
   stall:string;
   channelType:string;
   place_type:string;
+  reg_mobile:string;
 }
