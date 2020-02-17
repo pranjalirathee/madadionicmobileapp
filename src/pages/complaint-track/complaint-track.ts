@@ -47,6 +47,45 @@ export class ComplaintTrackPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ComplaintTrackPage');
+    if(localStorage.getItem('username') == null ||
+    localStorage.getItem('username') == undefined ||
+    localStorage.getItem('username') == "")   
+    {
+    
+     // this.navCtrl.push(LoginPage);
+     }
+
+
+
+     else {
+     this.trackcomplaint.userName=localStorage.getItem('username');
+     if(this.trackcomplaint.userName.indexOf("@")!=-1)
+     {
+       this.trackcomplaint.userType="E";
+     }
+     else
+     {
+      this.trackcomplaint.userType="M";
+     }
+     this.httpProvider.postMethod("user/complainthistory",this.trackcomplaint).subscribe((data) => 
+     {
+             console.log(JSON.stringify(data));
+            data.forEach(element => {
+              var temp=element.incidentDate.split(" ");
+              var date=temp[0].split("-");
+              var time=temp[1].split(":");
+              console.log(date[2]+"/"+date[1]+"/"+date[0]+" "+time[0]+":"+time[1]);
+            });
+           this.complaintHistory=data;
+
+     },err=> {
+       console.log(err);
+       
+     this.toastProvider.presentToast("Some Error Occurred. Please Try Again.");
+     
+   });
+  }
+
   }
 
   ionViewCanEnter(){

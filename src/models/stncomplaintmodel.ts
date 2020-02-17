@@ -20,4 +20,5 @@ export class StnComplaintModel
   channelType:string;
   place_type:string;
   reg_mobile:string;
+  transactionId:string;
 }

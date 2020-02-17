@@ -32,5 +32,8 @@ export class StationConditionModel
     regMobileFlag:string;
     regMobileshowFlag:Boolean;
     regMobilereqFlag:Boolean;
+    transactionIdFlag:string;
+    transactionIdshowFlag:Boolean;
+    transactionIdreqFlag:Boolean;
 
 }

@@ -149,6 +149,21 @@
                  
                 </ion-item>
         </ion-col>
+
+        <ion-col col-12 col-sm col-md-3 *ngIf="stationcondition.transactionIdshowFlag">
+              
+          <ion-item style="padding-left:2px;" >
+              <ion-label stacked color="dark">Transaction Id<font  *ngIf="stationcondition.transactionIdreqFlag">&nbsp; <font color="red">*</font></font></ion-label>
+              <ion-input type="text"   
+              [required]="stationcondition.transactionIdreqFlag"
+              [(ngModel)]="stncomplaint.transactionId"  name="transactionId" 
+              ></ion-input>
+
+             
+            
+             
+            </ion-item>
+    </ion-col>
             <ion-col col-12 col-sm col-md-3 *ngIf="stationcondition.platformshowFlag">
               
                 <ion-item style="padding-left:2px;" >
