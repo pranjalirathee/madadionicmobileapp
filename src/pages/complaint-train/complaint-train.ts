@@ -5,7 +5,6 @@ import { StationNameProvider } from '../../providers/station-name/station-name';
 import { WebcamInitError, WebcamImage, WebcamUtil } from 'ngx-webcam';
 import { Subject, Observable } from 'rxjs';
 import { CameraOptions, Camera } from '@ionic-native/camera';
-import { FileTransfer } from '@ionic-native/file-transfer';
 import { TrainComplaintModel } from '../../models/traincomplaintmodel';
 import { ToastProvider } from '../../providers/toast/toast';
 import { NgForm } from '@angular/forms';
@@ -335,7 +334,7 @@ export class ComplaintTrainPage {
   }
  
   constructor(public navCtrl: NavController, public navParams: NavParams,public httpProvider:HttpProvider,
-    public completeTestService: StationNameProvider,  private transfer: FileTransfer,
+    public completeTestService: StationNameProvider,  
     private camera: Camera,private toastProvider:ToastProvider,public loadingProvider :LoadingProvider,
     private alertCtrl: AlertController,public events: Events,public modalCtrl: ModalController) {
    

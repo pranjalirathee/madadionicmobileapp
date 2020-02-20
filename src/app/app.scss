@@ -11,7 +11,7 @@
 @import "../theme/primeng.min";
 
 //for ima start
-/*
+
 .label-md-custom, .item-input .label-md-custom, .item-select .label-md-custom, .item-datetime .label-md-custom
 {
   color: #000000;
@@ -30,7 +30,7 @@ ion-header{
  // background: linear-gradient(60deg, rgba(251,101,73,0.896796218487395) 10%, rgba(252,160,73,1) 100%);
   color:white;
 }
-*/
+
 //for ima end
 .item-md {
  
@@ -47,11 +47,11 @@ ion-header{
 .item-md-custom, .item-divider-md-custom {
  
   //railmadad only
-  color: #fff;
-  background-color: #0c455a;
+  //color: #fff;
+  //background-color: #0c455a;
   //for ima
- // background:#dedede;
- // color:#000;
+  background:#dedede;
+  color:#000;
 }
 
 .item-ios-custom, .item-divider-ios-custom {
@@ -61,9 +61,9 @@ ion-header{
 
 .icon-md-custom {
   //railmadad only
-  color: #0c455a;
+  //color: #0c455a;
   //integrated with ima
-  //color: #000000;
+  color: #000000;
 }
 
 .tabs-md .tab-button-icon {
@@ -89,18 +89,18 @@ ion-header{
 }
 .tabs-md .tab-button[aria-selected=true] {
    //railmadad only
-  color: #0c455a;
+  //color: #0c455a;
   //integrated with ima
-  //color: #000000;
+  color: #000000;
   
 }
 
 
 .tabs-md .tab-button[aria-selected=true] .tab-button-icon {
   //railmadad only
-  color: #0c455a;
+  //color: #0c455a;
   //integrated with ima
- // color: #000000;
+  color: #000000;
 }
 
 .tabs-ios .tab-button-text 
@@ -338,8 +338,10 @@ ion-buttons {
    align-items:center;
    justify-content:center;
    background-size: cover;
-   background-image: url(../assets/imgs/bg.jpeg);
+   background-position-x: center;
+   background-image: url(../assets/imgs/splash.png);
    background-repeat: no-repeat;
+  // background: linear-gradient(to right, #fe7469 , #fa8054 ,#f88848);
 
   }
   
