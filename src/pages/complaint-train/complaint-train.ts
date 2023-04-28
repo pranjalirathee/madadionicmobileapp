@@ -5,6 +5,7 @@ import { StationNameProvider } from '../../providers/station-name/station-name';
 import { WebcamInitError, WebcamImage, WebcamUtil } from 'ngx-webcam';
 import { Subject, Observable } from 'rxjs';
 import { CameraOptions, Camera } from '@ionic-native/camera';
+import { FileTransfer } from '@ionic-native/file-transfer';
 import { TrainComplaintModel } from '../../models/traincomplaintmodel';
 import { ToastProvider } from '../../providers/toast/toast';
 import { NgForm } from '@angular/forms';
@@ -29,172 +30,12 @@ import { HomePage } from '../home/home';
 export class ComplaintTrainPage {
   activeMenu: string="menu1";
 
-  showStation=false;
   complaintArr=[];
   subcomplaintArr=[];
   trainArr=[];
 
   trainArrMod=[];
   trainArrGlobal=[];
-
-  stationArr=[];
-  stationArrMod=[];
-  stationArrGlobal=[];
-
-  stationChange(event: {
-    component: SelectSearchableComponent,
-    value: any 
-}) {
-    console.log('port:', event.value);
-}
-
-searchStation(event: {
-  component: SelectSearchableComponent,
-  text: string
-}) {
-  let text = event.text.trim().toLowerCase();
-
-  if (text != '') {
-    event.component.startSearch();
- 
-    this.stationArr =this.prioritystationsearch(text);
-      this.stationArrMod=[];
-      var maxlen = (15>(this.stationArr.length)) ? this.stationArr.length : 15;
-      if(maxlen>0){
-     
-      for(var i=0;i<maxlen;i++)
-      {
-        this.stationArrMod.push({'station_name':(this.stationArr[i] as any).station_name+'-'+(this.stationArr[i] as any).station_cd});
-      }
-    }
-    event.component.items = this.stationArrMod;
-
-    event.component.endSearch();
-   
-    
-  }
-  else
-  {
-    event.component.startSearch();
-    this.stationArrMod=[];
-    var maxlen = (15>(this.stationArrGlobal.length)) ? this.stationArrGlobal.length : 15;
-    if(maxlen>0){
-    
-
-    for(var i=0;i<maxlen;i++)
-    {
-      this.stationArrMod.push({'station_name':(this.stationArrGlobal[i] as any).station_name+'-'+(this.stationArrGlobal[i] as any).station_cd});
-
-    }
-  }
-    event.component.endSearch();
-
-  }
- 
-
-
-}
-prioritystationsearch(text):any[]{
-  var topcode={};
-  var codearr=[];
-  var namearr=[];
-  var finalarr=[];
- 
-  this.stationArrGlobal.forEach(element => {
-    if(element.station_cd.toLowerCase()==text.toLowerCase())
-    {
-      topcode=element;
-    }
-    else if(element.station_cd.toLowerCase().indexOf(text.toLowerCase())==0)
-    {
-    codearr.push(element);
-    }
-    else{
-    var names=element.station_name.toLowerCase().split(" ");
-    var flag=false;
-    names.forEach(name=>
-      {
-        if(name.indexOf(text.toLowerCase())==0)
-        {
-          flag=true;             
-        }
-      });
-      if(flag)
-      {
-    namearr.push(element);
-      }
-    }
-  });
-  if((topcode as any).station_name != undefined && (topcode as any).station_cd != undefined)
-  {
-    finalarr.push(topcode);
-  }
-  codearr.forEach(function(codeitem){	    	
-     finalarr.push(codeitem);
-  });
-  
-  namearr.forEach(function(nameitem){
-     finalarr.push(nameitem);
-  });
-  return finalarr;
-}
-
-getMoreStations(event: {
-  component: SelectSearchableComponent,
-  text: string
-}) {
- 
-  if(this.stationArrMod.length != this.stationArr.length)
-  {
-    var lennew=this.stationArrMod.length;
-    var maxlen = (15>(this.stationArr.length-lennew)) ? (this.stationArr.length-lennew) : 15;
-   
-    for(var i=lennew;i<lennew+maxlen;i++)
-    {
-      this.stationArrMod.push({'station_name':(this.stationArr[i] as any).station_name+'-'+(this.stationArr[i] as any).station_cd});
-    }
-    event.component.items = this.stationArrMod;
-    event.component.endInfiniteScroll();
-  }
-  else{
-    event.component.disableInfiniteScroll();
-    return;
-  }
-
-}
-  getStationList()
-  {
-    
-    this.httpProvider.getMethod("common/StationList").subscribe((data) => 
-    {
-     
-      if(data.length >0)
-            {
-                this.stationArr=data; 
-                this.stationArrGlobal=data;
-                this.stationArrMod=[];
-                var maxlen = (15>(this.stationArr.length)) ? this.stationArr.length : 15;
-                if(maxlen>0){
-                for(var i=0;i<maxlen;i++)
-                {
-                  this.stationArrMod.push({'station_name':(this.stationArr[i] as any).station_name+'-'+(this.stationArr[i] as any).station_cd});
-                }
-              }
-
-            }
-          else{
-                this.stationArr=[];
-             
-
-             }
-    });
-  }
-
-
- 
-
-  
-
 
 
   presentConfirm(ref,f) {
@@ -441,8 +282,6 @@ getMoreStations(event: {
   resetvalues()
   {
     this.pnrFlag=false;
-    this.trncomplaint.stationCode=null;
-    this.trncomplaint.stationName=null;
     this.trncomplaint.trainNo=null;
     this.trncomplaint.berthClass=null;
     this.trncomplaint.boardingStation=null;
@@ -496,7 +335,7 @@ getMoreStations(event: {
   }
  
   constructor(public navCtrl: NavController, public navParams: NavParams,public httpProvider:HttpProvider,
-    public completeTestService: StationNameProvider,  
+    public completeTestService: StationNameProvider,  private transfer: FileTransfer,
     private camera: Camera,private toastProvider:ToastProvider,public loadingProvider :LoadingProvider,
     private alertCtrl: AlertController,public events: Events,public modalCtrl: ModalController) {
    
@@ -506,7 +345,6 @@ getMoreStations(event: {
   {
     this.getComplaintList();
     this.getTrainList();
-    this.getStationList();
 
     var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
     var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0,-1);
@@ -551,31 +389,6 @@ getMoreStations(event: {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ComplaintStationPage');
-  }
-
-
-
-  
-  getconditions()
-  {
-    this.resetvalues();
-    this.httpProvider.getMethod("common/trainstationflag?subComplaint="+this.trncomplaint.subComplaint).subscribe(
-      (data)=>
-      {
-        console.log(data);
-        if(data.error==false)
-        {
-          console.log("tsse");
-          this.showStation=data.trainStationFlag;
-        }
-        
-  
-      }
-    );
-
-    
-
-
   }
 
   getSubComplaintList()
@@ -700,11 +513,6 @@ getMoreStations(event: {
     }
     else
     {
-      if(this.trncomplaint.stationName != undefined)
-      {
-      this.trncomplaint.stationCode=(this.trncomplaint.stationName as any).station_name.split("-")[1];
-      this.trncomplaint.stationName=(this.trncomplaint.stationName as any).station_name.split("-")[0];
-      }
 
       this.trncomplaint.channelType='A';
       this.trncomplaint.place_type='t';
@@ -717,7 +525,7 @@ getMoreStations(event: {
         this.trncomplaint.complainantMobile=this.trncomplaint.contact;
 
       }
-      if(this.trncomplaint.pnrUtsFlag=='P' && this.pnrFlag==false && this.showStation==false)
+      if(this.trncomplaint.pnrUtsFlag=='P' && this.pnrFlag==false)
       {
         this.toastProvider.presentToast("Please enter a valid PNR.");
 
@@ -725,7 +533,6 @@ getMoreStations(event: {
       else
       {
         this.trncomplaint.image=this.myphoto;
-        if( this.showStation==false){
         if(this.trncomplaint.pnrUtsFlag=='U')
         { 
          
@@ -737,7 +544,6 @@ getMoreStations(event: {
           this.trncomplaint.trainName=this.trncomplaint.trainNo.split('-')[1].trim();
           this.trncomplaint.trainNo=this.trncomplaint.trainNo.split('-')[0].trim();
         }
-      }
         this.loadingProvider.presentLoadingDefault();
 
         this.httpProvider.postMethod("complaint/train",this.trncomplaint).subscribe((data) => 
@@ -748,14 +554,11 @@ getMoreStations(event: {
                 {
                     this.toastProvider.presentToast(data.message) ;
                     this.trncomplaint.trainName=null;
-                    this.trncomplaint.stationName=null;
-                    this.trncomplaint.stationCode=null;
                     this.trncomplaint.trainNo=null;
     
                 }
               else{
                    this.ref=data.complaintReferenceNo;
-                   if(this.showStation==false){
                    if(this.trncomplaint.pnrUtsFlag=='U')
                    { 
                     var temptrain={"train_name":this.trncomplaint.trainName+":-"+this.trncomplaint.trainNo}
@@ -764,9 +567,8 @@ getMoreStations(event: {
                    else{
                   this.trncomplaint.trainNo=this.trncomplaint.trainNo+"-"+this.trncomplaint.trainName;
                     
-                   }}
-                   var tempstation={"station_name":this.trncomplaint.stationName+"-"+this.trncomplaint.stationCode}
-                   this.trncomplaint.stationName=tempstation as any;
+                   }
+
                   
                   this.presentConfirm(this.ref,f);
                  }
