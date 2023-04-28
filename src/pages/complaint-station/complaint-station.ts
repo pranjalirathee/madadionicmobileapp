@@ -4,8 +4,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, Events } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 import { StationNameProvider } from '../../providers/station-name/station-name';
-import { FilePath } from '@ionic-native/file-path/ngx';
-import { File } from '@ionic-native/file';
+
 
 import { CameraOptions, Camera } from '@ionic-native/camera';
 import { FileTransfer } from '@ionic-native/file-transfer';
@@ -15,7 +14,6 @@ import { NgForm } from '@angular/forms';
 import { ToastProvider } from '../../providers/toast/toast';
 import { LoadingProvider } from '../../providers/loading/loading';
 import { SelectSearchableComponent } from 'ionic-select-searchable';
-import { FileEntry } from '@ionic-native/file';
 
 /**
  * Generated class for the ComplaintStationPage page.
@@ -290,9 +288,7 @@ export class ComplaintStationPage {
       if(!data.includes('file://')) 
       {
       data = 'file://' + data; }
-       this.file.resolveLocalFilesystemUrl(data).then((entry: FileEntry) => 
-       { //alert( entry); 
-      });
+     
 
 
       this.myphoto = 'data:image/jpeg;base64,' + imageData;
@@ -320,9 +316,9 @@ export class ComplaintStationPage {
   }
  
   constructor(public navCtrl: NavController, public navParams: NavParams,public httpProvider:HttpProvider,
-    public completeTestService: StationNameProvider,  private transfer: FileTransfer,
+    public completeTestService: StationNameProvider,
     private camera: Camera,private toastProvider:ToastProvider,public loadingProvider :LoadingProvider,
-    private alertCtrl: AlertController,private file:File,public events: Events) {
+    private alertCtrl: AlertController,public events: Events) {
    
   }
 

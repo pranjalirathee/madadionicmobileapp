@@ -31,6 +31,7 @@
     "@ionic/storage": "2.2.0",
     "angular2-moment": "^1.9.0",
     "call-number": "^1.0.1",
+    "co.mwater.foregroundcameraplugin": "C:\\projects\\ionic\\comsv2\\node_modules\\co.mwater.foregroundcameraplugin",
     "cordova-android": "8.1.0",
     "cordova-browser": "5.0.4",
     "cordova-ios": "4.5.5",
@@ -74,7 +75,6 @@
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-keyboard": {},
-      "cordova-plugin-file-transfer": {},
       "cordova-plugin-ionic-webview": {
         "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
       },
@@ -83,13 +83,12 @@
       },
       "mx.ferreyra.callnumber": {},
       "call-number": {},
-      "cordova-plugin-file": {},
-      "cordova-plugin-filepath": {}
+      "co.mwater.foregroundcameraplugin": {}
     },
     "platforms": [
       "browser",
-      "ios",
-      "android"
+      "android",
+      "ios"
     ]
   }
 }

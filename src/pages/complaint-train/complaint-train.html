@@ -69,7 +69,7 @@
                     <ion-col col-12 col-sm col-md-3>
                         <ion-item style="padding-left:2px;">
                             <ion-label stacked color="dark">Sub Complaint  <font color="red">*</font></ion-label>
-                            <ion-select   color="custom"
+                            <ion-select   color="custom"  (ionChange)="getconditions()"  
                             [(ngModel)]="trncomplaint.subComplaint"  name="subComplaint"            
                             
                             required
@@ -111,8 +111,36 @@
                        
                       </ion-item>
               </ion-col>
+              <ion-col col-12 col-sm col-md-3 *ngIf="showStation">
+                  
+                <ion-item style="padding-left:2px;" no-lines>
+                    <ion-label stacked color="dark">Station Name  <font color="red">*</font></ion-label>
+                  <!--  <ion-auto-complete [dataProvider]="completeTestService" item-content></ion-auto-complete>-->
+                 
+                  
+                  <select-searchable
+                  required
+                  item-content
+                  [(ngModel)]="trncomplaint.stationName"  
+                  name="stationName" 
+                  [items]="stationArrMod"
+                  itemValueField="station_name"
+                  itemTextField="station_name"
+                  [canSearch]="true"
+                  [hasInfiniteScroll]="true"
+                  (onChange)="stationChange($event)"
+                  (onSearch)="searchStation($event)"
+                  (onInfiniteScroll)="getMoreStations($event)">
+              </select-searchable>
+                   
+                  
+                   
+                  </ion-item>
+                 
+                 
+          </ion-col>
            
-              <ion-col col-12 col-sm col-md-3>
+              <ion-col col-12 col-sm col-md-3 *ngIf="!showStation">
               
                     <ion-item style="padding-left:2px;" >
                         <ion-label stacked color="dark">Journey Details  <font color="red">*</font></ion-label>
@@ -134,7 +162,7 @@
                        
                       </ion-item>
               </ion-col>
-              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'U'">
+              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'U' && !showStation">
               
                 <ion-item style="padding-left:2px;" >
                     <ion-label stacked color="dark">UTS No  <font color="red">*</font></ion-label>
@@ -147,7 +175,7 @@
                    
                   </ion-item>
           </ion-col>
-              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P'">
+              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P' && !showStation">
               
                     <ion-item style="padding-left:2px;" >
                         <ion-label stacked color="dark">PNR No  <font color="red">*</font></ion-label>
@@ -161,11 +189,11 @@
                       </ion-item>
               </ion-col>
               <ion-col>
-                <ion-item style="padding-left:2px;" *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true" no-lines>
+                <ion-item style="padding-left:2px;" *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true && !showStation" no-lines>
                          <ion-label stacked color="custom">Please confirm your journey details before proceeding...</ion-label>
                  </ion-item>
               </ion-col>
-              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'U'">
+              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'U' && !showStation">
                     <ion-item style="padding-left:2px;" no-lines>
                             <ion-label stacked color="dark">Train Number  <font color="red">*</font></ion-label>
                             <select-searchable
@@ -187,7 +215,7 @@
 
                    
               </ion-col>
-              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true">
+              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true && !showStation">
               
                     <ion-item style="padding-left:2px;" >
                         <ion-label stacked color="dark">Train Number  <font color="red">*</font></ion-label>
@@ -200,7 +228,7 @@
                        
                       </ion-item>
               </ion-col>
-              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true">
+              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true && !showStation">
               
                     <ion-item style="padding-left:2px;" >
                         <ion-label stacked color="dark">From Station</ion-label>
@@ -213,7 +241,7 @@
                        
                       </ion-item>
               </ion-col>
-              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true">
+              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true && !showStation">
               
                     <ion-item style="padding-left:2px;" >
                         <ion-label stacked color="dark">To Station</ion-label>
@@ -226,7 +254,7 @@
                        
                       </ion-item>
               </ion-col>
-              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true">
+              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true && !showStation">
               
                     <ion-item style="padding-left:2px;" >
                         <ion-label stacked color="dark">Boarding Station</ion-label>
@@ -239,7 +267,7 @@
                        
                       </ion-item>
               </ion-col>
-              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true">
+              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true && !showStation">
               
                     <ion-item style="padding-left:2px;" >
                         <ion-label stacked color="dark">Berth Class</ion-label>
@@ -252,7 +280,7 @@
                        
                       </ion-item>
               </ion-col>
-              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true">
+              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true && !showStation">
               
                     <ion-item style="padding-left:2px;" >
                         <ion-label stacked color="dark">Total Passenger</ion-label>
@@ -265,7 +293,7 @@
                        
                       </ion-item>
               </ion-col>
-              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true">
+              <ion-col col-12 col-sm col-md-3 *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true && !showStation">
               
                     <ion-item style="padding-left:2px;" >
                         <ion-label stacked color="dark">Total Fare</ion-label>
@@ -279,7 +307,7 @@
                       </ion-item>
               </ion-col>
               <ion-col col-12 col-sm col-md-3>
-                    <ion-item style="padding-left:2px;" *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true">
+                    <ion-item style="padding-left:2px;" *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true && !showStation">
                         <ion-label stacked color="dark">Coach No  <font color="red">*</font></ion-label>
                         <ion-select   color="custom"
                         [(ngModel)]="trncomplaint.coachNo"  name="coachNo"            
@@ -296,7 +324,7 @@
                       </ion-item>
               </ion-col>
               <ion-col col-12 col-sm col-md-3>
-                    <ion-item style="padding-left:2px;" *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true">
+                    <ion-item style="padding-left:2px;" *ngIf="trncomplaint.pnrUtsFlag == 'P' && pnrFlag == true && !showStation">
                         <ion-label stacked color="dark">Berth/Seat No.  <font color="red">*</font></ion-label>
                         <ion-select   color="custom"
                         [(ngModel)]="trncomplaint.berthNo"  name="berthNo"            

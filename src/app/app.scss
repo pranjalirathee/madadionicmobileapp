@@ -91,7 +91,7 @@ ion-header{
    //railmadad only
   color: #0c455a;
   //integrated with ima
-  //color: #000000;
+ // color: #000000;
   
 }
 
@@ -130,7 +130,7 @@ ion-header{
  .button-md {
    text-transform: none;
    //for ima start
-   border-radius: 25px;
+  // border-radius: 25px;
    //for ima end
  }
 
@@ -338,8 +338,10 @@ ion-buttons {
    align-items:center;
    justify-content:center;
    background-size: cover;
-   background-image: url(../assets/imgs/bg.jpeg);
+   background-position-x: center;
+   background-image: url(../assets/imgs/splash.png);
    background-repeat: no-repeat;
+  // background: linear-gradient(to right, #fe7469 , #fa8054 ,#f88848);
 
   }
   
