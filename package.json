@@ -51,6 +51,7 @@
     "ionic-select-searchable": "^2.10.0",
     "ionic-selectable": "^4.2.0",
     "ionic2-auto-complete": "^1.6.2-alpha",
+    "ionic3-star-rating": "^2.1.2",
     "ionicons": "3.0.0",
     "mx.ferreyra.callnumber": "0.0.2",
     "ngx-webcam": "^0.2.0",

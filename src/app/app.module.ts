@@ -35,6 +35,8 @@ import { MomentModule } from 'angular2-moment';
 import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 import { FreightParcelPage } from '../pages/freight-parcel/freight-parcel';
 import {AppVersion} from '@ionic-native/app-version/';
+import { ComplaintRailAnubhavPage } from '../pages/complaint-railanubhav/complaint-railanubhav';
+import { StarRatingModule } from 'ionic3-star-rating';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,7 @@ import {AppVersion} from '@ionic-native/app-version/';
     ComplaintTrainPage,
     ComplaintTrackPage,
     ComplaintSuggestionPage,
+    ComplaintRailAnubhavPage,
     HelplinePage,
     UpdateProfilePage,
     ForgotPasswordPage,
@@ -59,7 +62,7 @@ import {AppVersion} from '@ionic-native/app-version/';
     AutoCompleteModule,
     BrowserAnimationsModule,
     WebcamModule,
-
+    StarRatingModule,
     IonicModule.forRoot(MyApp, { tabsPlacement: 'top',
     backButtonText: '',preloadModules:true, scrollPadding: false,
     scrollAssist: true,
@@ -71,6 +74,7 @@ import {AppVersion} from '@ionic-native/app-version/';
        { component: ComplaintTrainPage, name: 'complainttrain', segment: 'complainttrain' },
        { component: ComplaintTrackPage, name: 'complainttrack', segment: 'complainttrack' },
        { component: ComplaintSuggestionPage, name: 'complaintsuggestion', segment: 'complaintsuggestion' },
+       { component: ComplaintRailAnubhavPage, name: 'complaintrailanubhav', segment: 'complaintrailanubhav' },
        { component: HelplinePage, name: 'helpline', segment: 'helpline'},
        { component: ServicesPage, name: 'services', segment: 'services' },
        { component: FreightParcelPage, name: 'freightparcel', segment: 'freightparcel' }
@@ -90,6 +94,7 @@ import {AppVersion} from '@ionic-native/app-version/';
     ComplaintTrainPage,
     ComplaintTrackPage,
     ComplaintSuggestionPage,
+    ComplaintRailAnubhavPage,
     HelplinePage,
     UpdateProfilePage,
     ForgotPasswordPage,

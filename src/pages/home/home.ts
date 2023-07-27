@@ -13,6 +13,7 @@ import { FreightParcelPage } from '../freight-parcel/freight-parcel';
 import {AppVersion} from '@ionic-native/app-version/';
 import { text } from '@angular/core/src/render3/instructions';
 import { HttpHeaders } from '@angular/common/http';
+import { ComplaintRailAnubhavPage } from '../complaint-railanubhav/complaint-railanubhav';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -37,6 +38,7 @@ export class HomePage {
   complaintTrainPage:any=ComplaintTrainPage;
   complaintTrackPage:any=ComplaintTrackPage;
   complaintSuggestionPage:any=ComplaintSuggestionPage;
+  complaintRailAnubhavPage:any=ComplaintRailAnubhavPage;
   helplinePage:any=HelplinePage;
   updateProfilePage:any=UpdateProfilePage;
   username:String;
@@ -49,8 +51,8 @@ export class HomePage {
   tab3Root = ComplaintTrackPage;
   tab4Root = ComplaintSuggestionPage;
   tab5Root=FreightParcelPage;
-
-
+  tab6Root = ComplaintRailAnubhavPage;
+  
   constructor(public navCtrl: NavController,private callNumber: CallNumber,public alertCtrl:AlertController,public httpProvider:HttpProvider,public events: Events,platform:Platform,
 private appVersion:AppVersion
     ) {
