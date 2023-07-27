@@ -27,7 +27,7 @@ export class ForgotPasswordPage {
   username:string;
   fullname:string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, 
+  constructor(public navCtrl: NavController, public navParams: NavParams,
     private alertCtrl: AlertController,private toastProvider:ToastProvider,
     public httpProvider:HttpProvider
     ,public loadingProvider :LoadingProvider,public events: Events) {
@@ -36,15 +36,15 @@ export class ForgotPasswordPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad UpdateProfilePage');
   }
-  
+
   ionViewWillEnter(){
-   
-   
+
+
   }
-  
+
   submit(f:NgForm)
   {
-   
+
       if(f.invalid)
       {
         this.toastProvider.presentToast("Please fill all the fields correctly.");
@@ -54,8 +54,8 @@ export class ForgotPasswordPage {
       {
         this.loadingProvider.presentLoadingDefault();
 
-      this.httpProvider.getMethod("common/forgotPassword?userId="+this.userid)
-      .subscribe((data) => 
+      this.httpProvider.postMethod("secureuser/forgotPassword?userName",{userName:this.userid})
+      .subscribe((data) =>
       {
 
         console.log(data);
@@ -72,11 +72,11 @@ export class ForgotPasswordPage {
             }
           ]
         });
-        alert.present(); 
+        alert.present();
        /*if(data.code =="0")
        {
         this.toastProvider.presentToast(data.message);
-       
+
        }
        else
        {
@@ -93,20 +93,20 @@ export class ForgotPasswordPage {
             }
           ]
         });
-        alert.present(); 
+        alert.present();
 
        }*/
       },err=> {
         console.log(err);
-        
+
       this.toastProvider.presentToast("Some Error Occurred. Please Try Again.");
-      
+
     },()=>
       {
         this.loadingProvider.dismissLoading();
       });
 
       }
-     
+
   }
 }

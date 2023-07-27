@@ -1,6 +1,6 @@
 import { UpdateProfilePage } from './../pages/update-profile/update-profile';
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { ErrorHandler, NgModule,CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -33,6 +33,8 @@ import { SelectSearchableModule } from 'ionic-select-searchable';
 import { UserSession } from '../providers/usersession';
 import { MomentModule } from 'angular2-moment';
 import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
+import { FreightParcelPage } from '../pages/freight-parcel/freight-parcel';
+import {AppVersion} from '@ionic-native/app-version/';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
     HelplinePage,
     UpdateProfilePage,
     ForgotPasswordPage,
-    ServicesPage
+    ServicesPage,
+    FreightParcelPage
   ],
   imports: [
     BrowserModule,
@@ -56,6 +59,7 @@ import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
     AutoCompleteModule,
     BrowserAnimationsModule,
     WebcamModule,
+
     IonicModule.forRoot(MyApp, { tabsPlacement: 'top',
     backButtonText: '',preloadModules:true, scrollPadding: false,
     scrollAssist: true,
@@ -68,7 +72,8 @@ import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
        { component: ComplaintTrackPage, name: 'complainttrack', segment: 'complainttrack' },
        { component: ComplaintSuggestionPage, name: 'complaintsuggestion', segment: 'complaintsuggestion' },
        { component: HelplinePage, name: 'helpline', segment: 'helpline'},
-       { component: ServicesPage, name: 'services', segment: 'services' }
+       { component: ServicesPage, name: 'services', segment: 'services' },
+       { component: FreightParcelPage, name: 'freightparcel', segment: 'freightparcel' }
 
      ]
    }),
@@ -88,7 +93,8 @@ import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
     HelplinePage,
     UpdateProfilePage,
     ForgotPasswordPage,
-    ServicesPage
+    ServicesPage,
+    FreightParcelPage
 
   ],
   providers: [
@@ -104,7 +110,8 @@ import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
     File,
     Camera,
     CallNumber,
-    UserSession
+    UserSession,
+    AppVersion
   ]
 })
 export class AppModule {}

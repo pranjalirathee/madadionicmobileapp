@@ -105,6 +105,7 @@
     <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryAddUsageDescription">
         <string>Complainant can take pictures as proof and upload them</string>
     </edit-config>
+    <plugin name="cordova-plugin-app-version" spec="^0.1.14" />
     <engine name="browser" spec="5.0.4" />
     <engine name="ios" spec="4.5.5" />
     <engine name="android" spec="8.1.0" />

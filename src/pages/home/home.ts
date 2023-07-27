@@ -1,6 +1,6 @@
 import { UpdateProfilePage } from './../update-profile/update-profile';
 import { Component } from '@angular/core';
-import { NavController, AlertController, Events } from 'ionic-angular';
+import { NavController, AlertController, Events, Platform } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { ComplaintStationPage } from '../complaint-station/complaint-station';
 import { HttpProvider } from '../../providers/http/http';
@@ -9,18 +9,22 @@ import { ComplaintTrackPage } from '../complaint-track/complaint-track';
 import { ComplaintSuggestionPage } from '../complaint-suggestion/complaint-suggestion';
 import { CallNumber } from '@ionic-native/call-number';
 import { HelplinePage } from '../helpline/helpline';
-
+import { FreightParcelPage } from '../freight-parcel/freight-parcel';
+import {AppVersion} from '@ionic-native/app-version/';
+import { text } from '@angular/core/src/render3/instructions';
+import { HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
   activeMenu: string="menu1";
+  ionVersionNumber: string;
   checksession()
   {
     if(localStorage.getItem('username') == null ||
    localStorage.getItem('username') == undefined ||
-   localStorage.getItem('username') == "")   
+   localStorage.getItem('username') == "")
    {
    this.navCtrl.push(LoginPage);
      //this.navCtrl.push(LoginPage);
@@ -36,6 +40,7 @@ export class HomePage {
   helplinePage:any=HelplinePage;
   updateProfilePage:any=UpdateProfilePage;
   username:String;
+  latestVersionNumber:string;
 
 
 
@@ -43,18 +48,61 @@ export class HomePage {
   tab2Root = ComplaintStationPage;
   tab3Root = ComplaintTrackPage;
   tab4Root = ComplaintSuggestionPage;
+  tab5Root=FreightParcelPage;
+
+
+  constructor(public navCtrl: NavController,private callNumber: CallNumber,public alertCtrl:AlertController,public httpProvider:HttpProvider,public events: Events,platform:Platform,
+private appVersion:AppVersion
+    ) {
+platform.ready().then(async ()=>{
+  this.checkversionIsUpdated(platform);
+
+},err=> {
+  console.log(err);
+}
+).catch(error => {
+  alert(error);
+});
+
+}
 
 
 
-  constructor(public navCtrl: NavController,private callNumber: CallNumber,public alertCtrl:AlertController,public events: Events) {
-  
+  private checkversionIsUpdated(platform: Platform) {
+
+    if (platform.is('cordova')) {
+      this.getAppVersion().then((response) => {
+        this.latestVersionNumber = response;
+
+        this.appVersion.getVersionNumber().then(res => {
+
+          this.ionVersionNumber = res;
+
+
+          if (this.ionVersionNumber.localeCompare(this.latestVersionNumber, undefined, { numeric: true, sensitivity: 'base' }) === -1) {
+            // alert(this.ionVersionNumber);
+            window.open("https://play.google.com/store/apps/details?id=cris.railmadad", "_system");
+          }
+        }, err => {
+          console.log(err);
+
+        }
+        ).catch(error => {
+          alert(error);
+        });
+
+
+
+      }).catch((error) => {
+        console.log(error);
+      });
+    }
   }
-
 
   ionViewWillEnter(){
    if(localStorage.getItem('fullname') != null &&
    localStorage.getItem('fullname') != undefined &&
-   localStorage.getItem('fullname') != "")   
+   localStorage.getItem('fullname') != "")
    {
     this.username=localStorage.getItem('fullname');
     }
@@ -62,12 +110,12 @@ export class HomePage {
       this.username="";
     }
   }
-   
+
   pushPage(page)
   {
-   
+
     this.navCtrl.push(page);
-    
+
   }
 
   pushNextPage(page)
@@ -82,12 +130,12 @@ export class HomePage {
     }
   }
 
-  
+
   logout()
   {
     this.presentLogout();
   }
-  
+
   presentLogout() {
     let alert = this.alertCtrl.create({
       message: 'Do you want to Logout?',
@@ -120,4 +168,18 @@ export class HomePage {
     .then(res => console.log('Launched dialer!', res))
     .catch(err => console.log('Error launching dialer', err));
   }
+
+
+ async getAppVersion(){
+  var myHeaders = new HttpHeaders();
+  myHeaders.set("Authorization", "Basic ZXh0ZXJuYWx1c2VyOm1AZEBkYWRtMW4=");
+ let response=await this.httpProvider.getMethodWithOption("secure/AppVersion",{responseType:'text',headers:{"Authorization":"Basic ZXh0ZXJuYWx1c2VyOm1AZEBkYWRtMW4="}}).toPromise();
+
+return response;
+
+ }
+
+
+
+
 }

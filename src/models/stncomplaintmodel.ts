@@ -1,6 +1,6 @@
 export class StnComplaintModel
 {
-  
+
   complaint : string;
   subComplaint: string;
   complainantName : string;
@@ -21,4 +21,10 @@ export class StnComplaintModel
   place_type:string;
   reg_mobile:string;
   transactionId:string;
+  fromStation:string;
+  toStation:string;
+  approxVolume:string;
+  commodityId:string;
+  pnrUtsNo:string;
+
 }

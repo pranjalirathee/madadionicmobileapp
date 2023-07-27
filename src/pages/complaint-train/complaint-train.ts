@@ -43,7 +43,7 @@ export class ComplaintTrainPage {
       title: 'Your complaint is registered; your complaint reference number is '+ref+'',
 
       subTitle: 'If you want to register another complaint,press yes or else press no',
-    
+
       buttons: [
         {
           text: 'Yes',
@@ -78,14 +78,14 @@ export class ComplaintTrainPage {
 
     if (text != '') {
       event.component.startSearch();
-     
+
       this.trainArr = this.trainArrGlobal.filter(
         train => (train.train_name.toLowerCase().indexOf(text.toLowerCase()) != -1
         || train.train_no.toLowerCase().indexOf(text.toLowerCase()) != -1));
         this.trainArrMod=[];
         var maxlen = (15>(this.trainArr.length)) ? this.trainArr.length : 15;
         if(maxlen>0){
-       
+
         for(var i=0;i<maxlen;i++)
         {
           this.trainArrMod.push({'train_name':(this.trainArr[i] as any).train_name+':-'+(this.trainArr[i] as any).train_no});
@@ -94,8 +94,8 @@ export class ComplaintTrainPage {
       event.component.items = this.trainArrMod;
 
       event.component.endSearch();
-     
-      
+
+
     }
     else
     {
@@ -103,7 +103,7 @@ export class ComplaintTrainPage {
       this.trainArrMod=[];
       var maxlen = (15>(this.trainArrGlobal.length)) ? this.trainArrGlobal.length : 15;
       if(maxlen>0){
-      
+
 
       for(var i=0;i<maxlen;i++)
       {
@@ -114,7 +114,7 @@ export class ComplaintTrainPage {
       event.component.endSearch();
 
     }
-   
+
 
 
   }
@@ -122,12 +122,12 @@ export class ComplaintTrainPage {
     component: SelectSearchableComponent,
     text: string
   }) {
-   
+
     if(this.trainArrMod.length != this.trainArr.length)
     {
       var lennew=this.trainArrMod.length;
       var maxlen = (15>(this.trainArr.length-lennew)) ? (this.trainArr.length-lennew) : 15;
-     
+
       for(var i=lennew;i<lennew+maxlen;i++)
       {
         this.trainArrMod.push({'train_name':(this.trainArr[i] as any).train_name+':-'+(this.trainArr[i] as any).train_no});
@@ -143,7 +143,7 @@ export class ComplaintTrainPage {
   }
   trainChange(event: {
     component: SelectSearchableComponent,
-    value: any 
+    value: any
 }) {
     console.log('port:', event.value);
 }
@@ -164,25 +164,25 @@ export class ComplaintTrainPage {
   pnrFlag=false;
   ref:string="";
 
-  
+
   fetchpnr(event:any)
-  { 
-    const pattern = /^[0-9]*$/;   
-  
+  {
+    const pattern = /^[0-9]*$/;
+
     if (!pattern.test(event.target.value)) {
       event.target.value = event.target.value.replace(/[^0-9]/g, "");
-  
+
     }
     this.trncomplaint.pnrUtsNo=event.target.value
     console.log(this.trncomplaint.pnrUtsNo);
     if(this.trncomplaint.pnrUtsNo != null && this.trncomplaint.pnrUtsNo != undefined && this.trncomplaint.pnrUtsNo.length == 10)
     {
 
-      this.httpProvider.getMethod("common/PnrData?PNR="+this.trncomplaint.pnrUtsNo).subscribe((data) => 
+      this.httpProvider.getMethod("secure/PnrData?PNR="+this.trncomplaint.pnrUtsNo).subscribe((data) =>
       {this.berthArr=[];
         this.coachArr=[];
-       
-        
+
+
              // data=JSON.parse(data)
                 console.log(data);
                if(data.errormsg != "")
@@ -202,11 +202,11 @@ export class ComplaintTrainPage {
                 this.trncomplaint.toStation=data.lapList.stnto[0];
                 this.trncomplaint.totalFare=data.totalFare;
                 this.trncomplaint.psgnNo=data.num_psgns;
-                
+
                 this.trncomplaint.journeyDay=data.lapList.day[0];
                 this.trncomplaint.journeyMonth=data.lapList.month[0];
                 this.trncomplaint.journeyYear=data.lapList.year[0];
-             
+
 
                 var today = new Date();
                 var journeyDate = new Date(data.lapList.year[0]+"-"+data.lapList.month[0]+"-"+data.lapList.day[0]);
@@ -223,15 +223,15 @@ export class ComplaintTrainPage {
                   for(var i=0;i<Number(this.trncomplaint.psgnNo);i++) {
                     var psgnCoachStatus=data.psgnList.lapOnecurstat[i];
                     console.log(i+"cbdf0"+psgnCoachStatus);
-                    if((psgnCoachStatus.indexOf("Can") != -1) 		|| 
-								(psgnCoachStatus.indexOf("W/L") != -1)	|| 
-								(psgnCoachStatus.indexOf("CNF") != -1) 	|| 
+                    if((psgnCoachStatus.indexOf("Can") != -1) 		||
+								(psgnCoachStatus.indexOf("W/L") != -1)	||
+								(psgnCoachStatus.indexOf("CNF") != -1) 	||
 								(psgnCoachStatus.indexOf("RAC") != -1)){
 							console.log("Waiting List : " +psgnCoachStatus);
 						}
 						else{
 
-              if(psgnCoachStatus.indexOf("R") != -1){	
+              if(psgnCoachStatus.indexOf("R") != -1){
               if(this.coachArr.indexOf(psgnCoachStatus.substring(1, psgnCoachStatus.indexOf(" "))) == -1)
               {
                 this.coachArr.push(psgnCoachStatus.substring(1, psgnCoachStatus.indexOf(" ")));
@@ -250,31 +250,35 @@ export class ComplaintTrainPage {
 
                 }
                }
+               if(this.berthArr.length>0){
+                this.trncomplaint.berthNo=this.berthArr[0];
+               }
                if(this.coachArr.length>0)
                {
                  this.pnrFlag=true;
- 
+                 this.trncomplaint.coachNo=this.coachArr[0];
+
                }
                else
                {
                  this.pnrFlag=false;
                  this.toastProvider.presentToast("PNR in waiting list");
- 
- 
+
+
                }
-               
+
               }
             }
-              
+
             }
-            
+
       });
 
 
-     
-      
 
-    
+
+
+
     }
   }
 
@@ -308,13 +312,13 @@ export class ComplaintTrainPage {
       encodingType:this.camera.EncodingType.PNG,
       mediaType:0
     }
-  
+
     this.camera.getPicture(options).then((imageData) => {
       this.myphoto = 'data:image/jpeg;base64,' + imageData;
     }, (err) => {
-     
+
       console.log(err);
-   
+
     });
   }
   takePhoto() {
@@ -333,12 +337,12 @@ export class ComplaintTrainPage {
       // Handle error
     });
   }
- 
+
   constructor(public navCtrl: NavController, public navParams: NavParams,public httpProvider:HttpProvider,
     public completeTestService: StationNameProvider,  private transfer: FileTransfer,
     private camera: Camera,private toastProvider:ToastProvider,public loadingProvider :LoadingProvider,
     private alertCtrl: AlertController,public events: Events,public modalCtrl: ModalController) {
-   
+
   }
 
   resetdet()
@@ -348,11 +352,11 @@ export class ComplaintTrainPage {
 
     var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
     var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0,-1);
-    
+
     var minusfivedays=new Date(Date.now() - tzoffset);
     minusfivedays.setDate(minusfivedays.getDate()-5);
     var minTime =minusfivedays.toISOString().slice(0,-1);
-   
+
     this.trncomplaint.incidentDate=localISOTime;
     this.minDate=minTime;
     this.maxDate=localISOTime;
@@ -369,13 +373,13 @@ export class ComplaintTrainPage {
 
 
   ionViewWillEnter(){
-   
+
    this.resetdet();
    if(localStorage.getItem('username') == null ||
    localStorage.getItem('username') == undefined ||
-   localStorage.getItem('username') == "")   
+   localStorage.getItem('username') == "")
    {
-   
+
      //this.navCtrl.push(LoginPage);
     }
 
@@ -397,17 +401,17 @@ export class ComplaintTrainPage {
     {
       alert("For faster redressal of grievance, kindly choose miscellaneous category only if your complaint does not fall in any of the categories mentioned above.");
     }
-    this.httpProvider.getMethod("common/SubHeadList?Id="+this.trncomplaint.complaint).subscribe((data) => 
+    this.httpProvider.getMethod("secure/SecureSubHeadList?parentId="+this.trncomplaint.complaint).subscribe((data) =>
     {
-     
+
       if(data.length >0)
             {
-                this.subcomplaintArr=data; 
+                this.subcomplaintArr=data;
                 this.trncomplaint.subComplaint=data[0].id;
             }
           else{
                 this.subcomplaintArr=[];
-                    
+
 
              }
     });
@@ -415,17 +419,17 @@ export class ComplaintTrainPage {
 
   getComplaintList()
   {
-    
-    this.httpProvider.getMethod("common/HeadListById?Id=\"t\"").subscribe((data) => 
+
+    this.httpProvider.getMethod("secure/SecureHeadList?Id=\"t\"").subscribe((data) =>
     {
-     
+
       if(data.length >0)
             {
-                this.complaintArr=data; 
+                this.complaintArr=data;
             }
           else{
                 this.complaintArr=[];
-                    
+
 
              }
     });
@@ -434,14 +438,14 @@ export class ComplaintTrainPage {
 
   getTrainList()
   {
-    
-    this.httpProvider.getMethod("common/TrainList").subscribe((data) => 
+
+    this.httpProvider.getMethod("secure/TrainList").subscribe((data) =>
     {
-     
+
       if(data.length >0)
             {
-               
-                this.trainArr=data; 
+
+                this.trainArr=data;
                 this.trainArrGlobal=data;
                 this.trainArrMod=[];
                 var maxlen = (15>(this.trainArr.length)) ? this.trainArr.length : 15;
@@ -455,18 +459,18 @@ export class ComplaintTrainPage {
             }
           else{
                 this.trainArr=[];
-             
+
 
              }
     });
   }
 
 
- 
+
 
   search(event) {
-    
-   
+
+
     if(event.query != "")
     {
     this.results = this.trainArr.filter(
@@ -478,9 +482,9 @@ export class ComplaintTrainPage {
     {
       this.results=this.trainArr;
     }
-   
- 
-      
+
+
+
   }
   handleDropdown(event) {
     //event.query = current value in input field
@@ -488,8 +492,8 @@ export class ComplaintTrainPage {
 
 
   public numberonly(event: any) {
-  const pattern = /^[0-9]*$/;   
-  
+  const pattern = /^[0-9]*$/;
+
   if (!pattern.test(event.target.value)) {
     event.target.value = event.target.value.replace(/[^0-9]/g, "");
 
@@ -534,11 +538,11 @@ export class ComplaintTrainPage {
       {
         this.trncomplaint.image=this.myphoto;
         if(this.trncomplaint.pnrUtsFlag=='U')
-        { 
-         
+        {
+
           this.trncomplaint.trainName=(this.trncomplaint.trainNo as any).train_name.split(':-')[0];
           this.trncomplaint.trainNo=(this.trncomplaint.trainNo as any).train_name.split(':-')[1];
-          
+
         }
         else{
           this.trncomplaint.trainName=this.trncomplaint.trainNo.split('-')[1].trim();
@@ -546,44 +550,44 @@ export class ComplaintTrainPage {
         }
         this.loadingProvider.presentLoadingDefault();
 
-        this.httpProvider.postMethod("complaint/train",this.trncomplaint).subscribe((data) => 
+        this.httpProvider.postMethod("secure/RegisterComplaint",this.trncomplaint).subscribe((data) =>
         {
 
-         
+
           if(data.code== "" || data.code== "0")
                 {
                     this.toastProvider.presentToast(data.message) ;
                     this.trncomplaint.trainName=null;
                     this.trncomplaint.trainNo=null;
-    
+
                 }
               else{
                    this.ref=data.complaintReferenceNo;
                    if(this.trncomplaint.pnrUtsFlag=='U')
-                   { 
+                   {
                     var temptrain={"train_name":this.trncomplaint.trainName+":-"+this.trncomplaint.trainNo}
                     this.trncomplaint.trainNo=temptrain as any;
                    }
                    else{
                   this.trncomplaint.trainNo=this.trncomplaint.trainNo+"-"+this.trncomplaint.trainName;
-                    
+
                    }
 
-                  
+
                   this.presentConfirm(this.ref,f);
                  }
         },err=> {
           console.log(err);
-          
+
         this.toastProvider.presentToast("Check Error "+err);
-        
+
       },()=>
         {
           this.loadingProvider.dismissLoading();
         });
-     
-    /*  
-    
+
+    /*
+
      if(this.trncomplaint.journeyDay.length<2)
       {
         this.trncomplaint.journeyDay="0"+this.trncomplaint.journeyDay;
@@ -591,21 +595,21 @@ export class ComplaintTrainPage {
       this.httpProvider.getMethod1("https://enquiry.indianrail.gov.in/crisntes/"+
       "Services?serviceType=SpotTrain&trainNo="+this.trncomplaint.trn_no.substring(0,this.trncomplaint.trn_no.indexOf('-')-1)
       +"&jStation=NDLS&jDate="+this.trncomplaint.journeyDay+"-"+this.calenderArr[this.trncomplaint.journeyMonth]+"-"+this.trncomplaint.journeyYear+
-      "&jEvent=A&usrId=PRSUSR&paswd=ruby676"+this.trncomplaint.trn_head).subscribe((data) => 
+      "&jEvent=A&usrId=PRSUSR&paswd=ruby676"+this.trncomplaint.trn_head).subscribe((data) =>
       {
-       
+
      console.log(data);
       });*/
     }
     }
   }
 
-  
+
   logout()
   {
    this.presentLogout();
   }
-  
+
   presentLogout() {
     let alert = this.alertCtrl.create({
       message: 'Do you want to Logout?',

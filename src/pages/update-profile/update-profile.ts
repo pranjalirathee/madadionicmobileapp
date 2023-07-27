@@ -30,7 +30,7 @@ export class UpdateProfilePage {
   username:string;
   fullname:string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, 
+  constructor(public navCtrl: NavController, public navParams: NavParams,
     private alertCtrl: AlertController,private toastProvider:ToastProvider,
     public httpProvider:HttpProvider
     ,public loadingProvider :LoadingProvider,public events: Events) {
@@ -43,15 +43,15 @@ export class UpdateProfilePage {
   {
    this.presentLogout();
   }
-  
+
   ionViewWillEnter(){
-   
-    
+
+
     if(localStorage.getItem('username') == null ||
     localStorage.getItem('username') == undefined ||
-    localStorage.getItem('username') == "")   
+    localStorage.getItem('username') == "")
     {
-    
+
       this.navCtrl.push(LoginPage);
      }
 
@@ -105,13 +105,13 @@ export class UpdateProfilePage {
       {
         this.loadingProvider.presentLoadingDefault();
 
-      this.httpProvider.postMethod("user/passwordChange",{"password":this.updateprofile.password,"userName":this.username})
-      .subscribe((data) => 
+      this.httpProvider.postMethod("secureuser/passwordChange",{"password":this.updateprofile.password,"userName":this.username})
+      .subscribe((data) =>
       {
        if(data.code =="0")
        {
         this.toastProvider.presentToast(data.message);
-       
+
        }
        else
        {
@@ -130,14 +130,14 @@ export class UpdateProfilePage {
             }
           ]
         });
-        alert.present(); 
+        alert.present();
 
        }
       },err=> {
         console.log(err);
-        
+
       this.toastProvider.presentToast("Some Error Occurred. Please Try Again.");
-      
+
     },()=>
       {
         this.loadingProvider.dismissLoading();

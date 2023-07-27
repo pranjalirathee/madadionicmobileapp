@@ -47,7 +47,7 @@ export class CheckotpPage {
     console.log(json);
     this.loadingProvider.presentLoadingDefault();
 
-    this.httpProvider.postMethod("user/otp",JSON.parse(json)).subscribe((data) => 
+    this.httpProvider.postMethod("secureuser/otp",JSON.parse(json)).subscribe((data) =>
     {
      if(data.code =="0")
      {
@@ -62,9 +62,9 @@ export class CheckotpPage {
      }
     },err=> {
       console.log(err);
-      
+
     this.toastProvider.presentToast("Some Error Occurred. Please Try Again.");
-    
+
   },()=>
     {
       this.loadingProvider.dismissLoading();

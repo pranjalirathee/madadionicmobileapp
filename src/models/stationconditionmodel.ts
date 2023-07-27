@@ -1,17 +1,17 @@
 export class StationConditionModel
 {
-  
-   
-    
-   
+
+
+
+
     stationFlag : string;
     stationshowFlag:Boolean;
     stationreqFlag:Boolean;
-   
 
-   
 
-    
+
+
+
 
     platformFlag: string;
     platformshowFlag:Boolean;
@@ -35,5 +35,24 @@ export class StationConditionModel
     transactionIdFlag:string;
     transactionIdshowFlag:Boolean;
     transactionIdreqFlag:Boolean;
+    fromStationFlag:string;
+    fromStationshowFlag:Boolean;
+    fromStationreqFlag:Boolean;
+    toStationFlag:string;
+    toStationshowFlag:Boolean;
+    toStationreqFlag:Boolean;
+    approxVolumeFlag:string;
+    approxVolumeshowFlag:Boolean;
+    approxVolumereqFlag:Boolean;
+    commodityFlag:string;
+    commodityshowFlag:Boolean;
+    commodityreqFlag:Boolean;
+    freightParcelFlag:string;
+    freightParcelshowFlag:Boolean;
+    freightParcelreqFlag:Boolean;
+    pnrUtsFlag:string;
+    pnrUtsshowFlag:Boolean;
+    pnrUtsreqFlag:Boolean;
+
 
 }

@@ -39,8 +39,8 @@ export class ComplaintTrackPage {
     this.events.publish('user:login',"true");
 
 
-  }  
-  constructor(public navCtrl: NavController, 
+  }
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,public httpProvider:HttpProvider,public loadingProvider :LoadingProvider,
     private toastProvider:ToastProvider,public alertCtrl:AlertController,public events: Events) {
   }
@@ -49,9 +49,9 @@ export class ComplaintTrackPage {
     console.log('ionViewDidLoad ComplaintTrackPage');
     if(localStorage.getItem('username') == null ||
     localStorage.getItem('username') == undefined ||
-    localStorage.getItem('username') == "")   
+    localStorage.getItem('username') == "")
     {
-    
+
      // this.navCtrl.push(LoginPage);
      }
 
@@ -67,7 +67,7 @@ export class ComplaintTrackPage {
      {
       this.trackcomplaint.userType="M";
      }
-     this.httpProvider.postMethod("user/complainthistory",this.trackcomplaint).subscribe((data) => 
+     this.httpProvider.postMethod("secureuser/complainthistory",this.trackcomplaint).subscribe((data) =>
      {
              console.log(JSON.stringify(data));
             data.forEach(element => {
@@ -80,9 +80,9 @@ export class ComplaintTrackPage {
 
      },err=> {
        console.log(err);
-       
+
      this.toastProvider.presentToast("Some Error Occurred. Please Try Again.");
-     
+
    });
   }
 
@@ -91,9 +91,9 @@ export class ComplaintTrackPage {
   ionViewCanEnter(){
     if(localStorage.getItem('username') == null ||
     localStorage.getItem('username') == undefined ||
-    localStorage.getItem('username') == "")   
+    localStorage.getItem('username') == "")
     {
-    
+
      // this.navCtrl.push(LoginPage);
      }
 
@@ -109,7 +109,7 @@ export class ComplaintTrackPage {
      {
       this.trackcomplaint.userType="M";
      }
-     this.httpProvider.postMethod("user/complainthistory",this.trackcomplaint).subscribe((data) => 
+     this.httpProvider.postMethod("secureuser/complainthistory",this.trackcomplaint).subscribe((data) =>
      {
              console.log(JSON.stringify(data));
             data.forEach(element => {
@@ -122,9 +122,9 @@ export class ComplaintTrackPage {
 
      },err=> {
        console.log(err);
-       
+
      this.toastProvider.presentToast("Some Error Occurred. Please Try Again.");
-     
+
    });
   }
 
@@ -133,15 +133,15 @@ export class ComplaintTrackPage {
   }
 
   submittrack(f:NgForm)
-  { 
+  {
     if(this.trackcomplaint.complaintReferenceNo !=null)
     {
       this.loadingProvider.presentLoadingDefault();
       this.trackcomplaint.userName=localStorage.getItem('username');
-      this.httpProvider.postMethod("user/tracking",this.trackcomplaint).subscribe((data) => 
+      this.httpProvider.postMethod("secure/helpline_tracking",this.trackcomplaint).subscribe((data) =>
       {
 
-              
+
 // for (var i = 0; i < data.length; i++) {
 //   this.complaintDetailsArr.push(data['account'+i]);
 
@@ -162,17 +162,17 @@ export class ComplaintTrackPage {
               this.complaintdetail.remark=data.remark;
               this.complaintdetail.status=data.status;
               this.complaintdetail.pending_closed_by=data.userGroupId;
- 
+
       },err=> {
         console.log(err);
-        
+
       this.toastProvider.presentToast("Some Error Occurred. Please Try Again.");
-      
+
     },()=>
       {
         this.loadingProvider.dismissLoading();
       });
-    
+
     }
   }
   logout()
@@ -180,7 +180,7 @@ export class ComplaintTrackPage {
    this.presentLogout();
   }
 
-  
+
   presentLogout() {
     let alert = this.alertCtrl.create({
       message: 'Do you want to Logout?',

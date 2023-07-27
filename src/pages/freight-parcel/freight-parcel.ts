@@ -18,7 +18,7 @@ import { SelectSearchableComponent } from 'ionic-select-searchable';
 import { FileEntry } from '@ionic-native/file';
 
 /**
- * Generated class for the ComplaintStationPage page.
+ * Generated class for the FreightParcelPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -26,10 +26,10 @@ import { FileEntry } from '@ionic-native/file';
 
 @IonicPage()
 @Component({
-  selector: 'page-complaint-station',
-  templateUrl: 'complaint-station.html',
+  selector: 'page-freight-parcel',
+  templateUrl: 'freight-parcel.html',
 })
-export class ComplaintStationPage {
+export class FreightParcelPage {
   activeMenu: string="menu1";
 
   complaintArr=[];
@@ -75,7 +75,7 @@ export class ComplaintStationPage {
           stationcondition=data;
         }
 
-    var arr=["platform","station","stall","counter","pnrTrn","prr","regMobile","transactionId","fromStation","toStation","approxVolume","commodity","freightParcel","pnrUts"];
+    var arr=["fromStation","toStation","approxVolume","commodity"];
     arr.forEach(element => {
 
       switch (stationcondition[element+"Flag"])
@@ -360,32 +360,16 @@ export class ComplaintStationPage {
 
   }
   resetShowAndReqFlag(){
-    this.stationcondition.stationshowFlag=false;
-    this.stationcondition.stationreqFlag=false;
-    this.stationcondition.platformshowFlag=false;
-    this.stationcondition.platformreqFlag=false;
-    this.stationcondition.stallreqFlag=false;
-    this.stationcondition.stallshowFlag=false;
-    this.stationcondition.countershowFlag=false;
-    this.stationcondition.counterreqFlag=false;
-    this.stationcondition.prrshowFlag=false;
-    this.stationcondition.prrreqFlag=false;
-    this.stationcondition.pnrTrnshowFlag=false;
-    this.stationcondition.pnrTrnreqFlag=false;
+
     this.stationcondition.fromStationshowFlag=false;
     this.stationcondition.fromStationreqFlag=false;
     this.stationcondition.toStationshowFlag=false;
     this.stationcondition.toStationreqFlag=false;
-    this.stationcondition.pnrUtsshowFlag=false;
-    this.stationcondition.pnrUtsreqFlag=false;
     this.stationcondition.approxVolumeshowFlag=false;
     this.stationcondition.approxVolumereqFlag=false;
     this.stationcondition.commodityshowFlag=false;
     this.stationcondition.commodityreqFlag=false;
-    this.stationcondition.regMobileshowFlag=false;
-    this.stationcondition.regMobilereqFlag=false;
-    this.stationcondition.transactionIdreqFlag=false;
-    this.stationcondition.transactionIdshowFlag=false;
+
   }
 
   ionViewWillEnter(){
@@ -430,7 +414,7 @@ export class ComplaintStationPage {
 
     this.minDate=minTime;
     }
-    this.httpProvider.getMethod("secure/SecureSubHeadList?parentId="+this.stncomplaint.complaint+"&&inquiryFlag=0").subscribe((data) =>
+    this.httpProvider.getMethod("secure/SecureSubHeadList?parentId="+this.stncomplaint.complaint+"&&inquiryFlag=1").subscribe((data) =>
     {
       if(data.length >0 && this.stncomplaint.complaint != null)
             {
@@ -449,7 +433,7 @@ export class ComplaintStationPage {
   getComplaintList()
   {
     this.stncomplaint.complaint=null;
-    this.httpProvider.getMethod("secure/SecureHeadList?Id=\"s\"&&inquiryFlag=0").subscribe((data) =>
+    this.httpProvider.getMethod("secure/SecureHeadList?Id=\"s\"&&inquiryFlag=1").subscribe((data) =>
     {
 
       if(data.length >0)
@@ -568,11 +552,7 @@ public numberonly(event: any) {
         this.stncomplaint.complainantMobile=this.stncomplaint.contact;
 
       }
-      if(this.stncomplaint.stationName != undefined)
-      {
-      this.stncomplaint.stationCode=(this.stncomplaint.stationName as any).station_name.split("-")[1];
-      this.stncomplaint.stationName=(this.stncomplaint.stationName as any).station_name.split("-")[0];
-      }
+
       if(this.stncomplaint.fromStation != undefined)
       {
       this.stncomplaint.fromStation=(this.stncomplaint.fromStation as any).station_name.split("-")[1];
@@ -618,4 +598,5 @@ public numberonly(event: any) {
   {
    this.presentLogout();
   }
+
 }

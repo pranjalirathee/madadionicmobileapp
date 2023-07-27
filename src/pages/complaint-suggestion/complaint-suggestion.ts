@@ -36,7 +36,7 @@ export class ComplaintSuggestionPage {
 
   }
 
-  
+
 
   presentLogout() {
     let alert = this.alertCtrl.create({
@@ -65,7 +65,7 @@ export class ComplaintSuggestionPage {
   }
 
   suggestionArr=[];
-  
+
   stationArrGlobal=[];
   tstationArr=[];
   tstationArrMod=[];
@@ -75,7 +75,7 @@ export class ComplaintSuggestionPage {
       var codearr=[];
       var namearr=[];
       var finalarr=[];
-     
+
       this.stationArrGlobal.forEach(element => {
         if(element.station_cd.toLowerCase()==text.toLowerCase())
         {
@@ -92,7 +92,7 @@ export class ComplaintSuggestionPage {
           {
             if(name.indexOf(text.toLowerCase())==0)
             {
-              flag=true;             
+              flag=true;
             }
           });
           if(flag)
@@ -105,10 +105,10 @@ export class ComplaintSuggestionPage {
       {
         finalarr.push(topcode);
       }
-      codearr.forEach(function(codeitem){	    	
+      codearr.forEach(function(codeitem){
          finalarr.push(codeitem);
       });
-      
+
       namearr.forEach(function(nameitem){
          finalarr.push(nameitem);
       });
@@ -123,17 +123,17 @@ export class ComplaintSuggestionPage {
 
     if (text != '') {
       event.component.startSearch();
-      
-      
+
+
       this.tstationArr =this.prioritystationsearch(text);
-   
+
     /*  this.tstationArr = this.stationArrGlobal.filter(
         station => (station.station_name.toLowerCase().indexOf(text.toLowerCase()) != -1
         || station.station_cd.toLowerCase().indexOf(text.toLowerCase()) != -1));*/
         this.tstationArrMod=[];
         var maxlen = (15>(this.tstationArr.length)) ? this.tstationArr.length : 15;
         if(maxlen>0){
-       
+
         for(var i=0;i<maxlen;i++)
         {
           this.tstationArrMod.push({'station_name':(this.tstationArr[i] as any).station_name+'-'+(this.tstationArr[i] as any).station_cd});
@@ -142,8 +142,8 @@ export class ComplaintSuggestionPage {
       event.component.items = this.tstationArrMod;
 
       event.component.endSearch();
-     
-      
+
+
     }
     else
     {
@@ -151,7 +151,7 @@ export class ComplaintSuggestionPage {
       this.tstationArrMod=[];
       var maxlen = (15>(this.stationArrGlobal.length)) ? this.stationArrGlobal.length : 15;
       if(maxlen>0){
-      
+
 
       for(var i=0;i<maxlen;i++)
       {
@@ -162,7 +162,7 @@ export class ComplaintSuggestionPage {
       event.component.endSearch();
 
     }
-   
+
 
 
   }
@@ -170,12 +170,12 @@ export class ComplaintSuggestionPage {
     component: SelectSearchableComponent,
     text: string
   }) {
-   
+
     if(this.tstationArrMod.length != this.tstationArr.length)
     {
       var lennew=this.tstationArrMod.length;
       var maxlen = (15>(this.tstationArr.length-lennew)) ? (this.tstationArr.length-lennew) : 15;
-     
+
       for(var i=lennew;i<lennew+maxlen;i++)
       {
         this.tstationArrMod.push({'station_name':(this.tstationArr[i] as any).station_name+'-'+(this.tstationArr[i] as any).station_cd});
@@ -191,7 +191,7 @@ export class ComplaintSuggestionPage {
   }
   tstationChange(event: {
     component: SelectSearchableComponent,
-    value: any 
+    value: any
 }) {
     console.log('port:', event.value);
 }
@@ -207,12 +207,12 @@ fstationArr=[];
 
     if (text != '') {
       event.component.startSearch();
-   
+
       this.fstationArr = this.prioritystationsearch(text);
         this.fstationArrMod=[];
         var maxlen = (15>(this.fstationArr.length)) ? this.fstationArr.length : 15;
         if(maxlen>0){
-       
+
         for(var i=0;i<maxlen;i++)
         {
           this.fstationArrMod.push({'station_name':(this.fstationArr[i] as any).station_name+'-'+(this.fstationArr[i] as any).station_cd});
@@ -221,8 +221,8 @@ fstationArr=[];
       event.component.items = this.fstationArrMod;
 
       event.component.endSearch();
-     
-      
+
+
     }
     else
     {
@@ -230,7 +230,7 @@ fstationArr=[];
       this.fstationArrMod=[];
       var maxlen = (15>(this.stationArrGlobal.length)) ? this.stationArrGlobal.length : 15;
       if(maxlen>0){
-      
+
 
       for(var i=0;i<maxlen;i++)
       {
@@ -241,7 +241,7 @@ fstationArr=[];
       event.component.endSearch();
 
     }
-   
+
 
 
   }
@@ -249,12 +249,12 @@ fstationArr=[];
     component: SelectSearchableComponent,
     text: string
   }) {
-   
+
     if(this.fstationArrMod.length != this.fstationArr.length)
     {
       var lennew=this.fstationArrMod.length;
       var maxlen = (15>(this.fstationArr.length-lennew)) ? (this.fstationArr.length-lennew) : 15;
-     
+
       for(var i=lennew;i<lennew+maxlen;i++)
       {
         this.fstationArrMod.push({'station_name':(this.fstationArr[i] as any).station_name+'-'+(this.fstationArr[i] as any).station_cd});
@@ -270,7 +270,7 @@ fstationArr=[];
   }
   fstationChange(event: {
     component: SelectSearchableComponent,
-    value: any 
+    value: any
 }) {
     console.log('port:', event.value);
 }
@@ -287,12 +287,12 @@ searchStation(event: {
 
   if (text != '') {
     event.component.startSearch();
- 
+
     this.stationArr =this.prioritystationsearch(text);
       this.stationArrMod=[];
       var maxlen = (15>(this.stationArr.length)) ? this.stationArr.length : 15;
       if(maxlen>0){
-     
+
       for(var i=0;i<maxlen;i++)
       {
         this.stationArrMod.push({'station_name':(this.stationArr[i] as any).station_name+'-'+(this.stationArr[i] as any).station_cd});
@@ -301,8 +301,8 @@ searchStation(event: {
     event.component.items = this.stationArrMod;
 
     event.component.endSearch();
-   
-    
+
+
   }
   else
   {
@@ -310,7 +310,7 @@ searchStation(event: {
     this.stationArrMod=[];
     var maxlen = (15>(this.stationArrGlobal.length)) ? this.stationArrGlobal.length : 15;
     if(maxlen>0){
-    
+
 
     for(var i=0;i<maxlen;i++)
     {
@@ -321,7 +321,7 @@ searchStation(event: {
     event.component.endSearch();
 
   }
- 
+
 
 
 }
@@ -329,12 +329,12 @@ getMoreStations(event: {
   component: SelectSearchableComponent,
   text: string
 }) {
- 
+
   if(this.stationArrMod.length != this.stationArr.length)
   {
     var lennew=this.stationArrMod.length;
     var maxlen = (15>(this.stationArr.length-lennew)) ? (this.stationArr.length-lennew) : 15;
-   
+
     for(var i=lennew;i<lennew+maxlen;i++)
     {
       this.stationArrMod.push({'station_name':(this.stationArr[i] as any).station_name+'-'+(this.stationArr[i] as any).station_cd});
@@ -350,7 +350,7 @@ getMoreStations(event: {
 }
 stationChange(event: {
   component: SelectSearchableComponent,
-  value: any 
+  value: any
 }) {
   console.log('port:', event.value);
 }
@@ -367,14 +367,14 @@ stationChange(event: {
 
     if (text != '') {
       event.component.startSearch();
-     
+
       this.trainArr = this.trainArrGlobal.filter(
         train => (train.train_name.toLowerCase().indexOf(text.toLowerCase()) != -1
         || train.train_no.toLowerCase().indexOf(text.toLowerCase()) != -1));
         this.trainArrMod=[];
         var maxlen = (15>(this.trainArr.length)) ? this.trainArr.length : 15;
         if(maxlen>0){
-       
+
         for(var i=0;i<maxlen;i++)
         {
           this.trainArrMod.push({'train_name':(this.trainArr[i] as any).train_name+':-'+(this.trainArr[i] as any).train_no});
@@ -383,8 +383,8 @@ stationChange(event: {
       event.component.items = this.trainArrMod;
 
       event.component.endSearch();
-     
-      
+
+
     }
     else
     {
@@ -392,7 +392,7 @@ stationChange(event: {
       this.trainArrMod=[];
       var maxlen = (15>(this.trainArrGlobal.length)) ? this.trainArrGlobal.length : 15;
       if(maxlen>0){
-      
+
 
       for(var i=0;i<maxlen;i++)
       {
@@ -403,7 +403,7 @@ stationChange(event: {
       event.component.endSearch();
 
     }
-   
+
 
 
   }
@@ -411,12 +411,12 @@ stationChange(event: {
     component: SelectSearchableComponent,
     text: string
   }) {
-   
+
     if(this.trainArrMod.length != this.trainArr.length)
     {
       var lennew=this.trainArrMod.length;
       var maxlen = (15>(this.trainArr.length-lennew)) ? (this.trainArr.length-lennew) : 15;
-     
+
       for(var i=lennew;i<lennew+maxlen;i++)
       {
         this.trainArrMod.push({'train_name':(this.trainArr[i] as any).train_name+':-'+(this.trainArr[i] as any).train_no});
@@ -432,7 +432,7 @@ stationChange(event: {
   }
   trainChange(event: {
     component: SelectSearchableComponent,
-    value: any 
+    value: any
 }) {
     console.log('port:', event.value);
 }
@@ -446,26 +446,26 @@ stationChange(event: {
     ,public events: Events) {
   }
 
-  ngOnInit() { 
-    
+  ngOnInit() {
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ComplaintSuggestionPage');
   }
-  
+
 
   ionViewCanEnter(){
     this.getSuggestionList();
     this.getStationList();
     this.getTrainList();
 
- 
+
     if(localStorage.getItem('username') == null ||
     localStorage.getItem('username') == undefined ||
-    localStorage.getItem('username') == "")   
+    localStorage.getItem('username') == "")
     {
-    
+
     //  this.navCtrl.push(LoginPage);
      }
      else
@@ -473,7 +473,7 @@ stationChange(event: {
        this.suggestionObj.contact=localStorage.getItem('contact');
        this.suggestionObj.name=localStorage.getItem('fullname');
      }
-  
+
   }
 
 
@@ -513,20 +513,20 @@ stationChange(event: {
   {
     //console.log('JSON: getSuggestionList')
 
-    this.httpProvider.postMethod("user/suggestion", {}).subscribe((data) => 
+    this.httpProvider.postMethod("secureuser/suggestion", {}).subscribe((data) =>
     {
       //console.log('JSON: postMethod')
       if(data.data.length >0)
             {
                 //console.log(JSON.stringify('JSON: ' + data.data))
-                this.suggestionArr=data.data; 
-                
+                this.suggestionArr=data.data;
+
 
             }
           else{
             console.log('JSON: Else')
                 this.suggestionArr=[];
-             
+
 
              }
     });
@@ -534,15 +534,15 @@ stationChange(event: {
 
   getStationList()
   {
-    
-    this.httpProvider.getMethod("common/StationList").subscribe((data) => 
+
+    this.httpProvider.getMethod("secure/StationList").subscribe((data) =>
     {
-     
+
       if(data.length >0)
             {
-              this.stationArr=data; 
-              this.fstationArr=data; 
-              this.tstationArr=data; 
+              this.stationArr=data;
+              this.fstationArr=data;
+              this.tstationArr=data;
               this.stationArrGlobal=data;
               this.stationArrMod=[];
               this.fstationArrMod=[];
@@ -569,14 +569,14 @@ stationChange(event: {
 
   getTrainList()
   {
-    
-    this.httpProvider.getMethod("common/TrainList").subscribe((data) => 
+
+    this.httpProvider.getMethod("secure/TrainList").subscribe((data) =>
     {
-     
+
       if(data.length >0)
             {
-               
-              this.trainArr=data; 
+
+              this.trainArr=data;
               this.trainArrGlobal=data;
               this.trainArrMod=[];
               var maxlen = (15>(this.trainArr.length)) ? this.trainArr.length : 15;
@@ -591,7 +591,7 @@ stationChange(event: {
             }
           else{
                 this.trainArr=[];
-             
+
 
              }
     });
@@ -605,8 +605,8 @@ handleDropdown(event) {
 
 
 public numberonly(event: any) {
-  const pattern = /^[0-9]*$/;   
-  
+  const pattern = /^[0-9]*$/;
+
   if (!pattern.test(event.target.value)) {
     event.target.value = event.target.value.replace(/[^0-9]/g, "");
 
@@ -667,9 +667,9 @@ submitsuggestion(f:NgForm)
     console.log('suggestionReferenceNo: '+JSON.stringify(this.suggestionObj));
     this.loadingProvider.presentLoadingDefault();
 
-    this.httpProvider.postMethod("complaint/suggestion",this.suggestionObj).subscribe((data) => 
+    this.httpProvider.postMethod("secure/suggestion",this.suggestionObj).subscribe((data) =>
     {
-     
+
       if(data.code== "0")
             {
                 console.log('Submit: Inside-Error');
@@ -680,22 +680,22 @@ submitsuggestion(f:NgForm)
                console.log('Submit: Inside-Success-Code: '+data.code);
                this.ref=data.suggestionReferenceNo;
 
-               
+
                 let alert = this.alertCtrl.create({
                   title: 'Your Suggestion has been registered.',
-                 
+
                   buttons: ['Dismiss']
                 });
                 alert.present();
-              
+
                f.resetForm();
 
              }
     },err=> {
       console.log(err);
-      
+
     this.toastProvider.presentToast("Some Error Occurred. Please Try Again.");
-    
+
   },()=>
     {
       this.loadingProvider.dismissLoading();

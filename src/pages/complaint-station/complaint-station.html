@@ -4,121 +4,121 @@
                     <button ion-button [menuToggle]="activeMenu">
                         <ion-icon name="menu"></ion-icon>
                     </button>
-                  
+
                   </ion-buttons>
                   <ion-buttons middle>
                       <img src="../../assets/imgs/madadh.png"  style="height:30px;"/>
           <br>
                       <img src="../../assets/imgs/madade.png"  style="height:25px;"/>
-               
-          
+
+
                     </ion-buttons>
-                  
-          
+
+
               <ion-buttons right>
                   <img src="../../assets/imgs/rail madad.gif" style="width:50px;" />
-          
-                
+
+
                 </ion-buttons>
             </ion-navbar>
-    
+
   </ion-header>-->
 
 
 
-<ion-content no-padding tappable (tap)="checksession()">
-    
+<ion-content no-padding tappable (tap)="checksession()" >
+
             <form  #f="ngForm" novalidate>
               <ion-grid>
-              
+
                   <ion-row>
                         <ion-col col-12 col-sm col-md-3 style="padding:0px;">
-                          
-                                <ion-item 
+
+                                <ion-item
                                  no-lines style="padding-left:2px;text-align: center;font-weight:normal;">
                                     <ion-label stacked color="custom" style="font-size:13px;">Get instant help for station related complaint</ion-label>
-                                   
-                                   
-                                  
-                                   
+
+
+
+
                                   </ion-item>
                           </ion-col>
-                 
-                  
-                  
+
+
+
                       <ion-col col-12 col-sm col-md-3>
                           <ion-item style="padding-left:2px;">
                               <ion-label stacked color="dark">Complaint  <font color="red">*</font></ion-label>
                               <ion-select   color="custom"
-                              (ionChange)="getSubComplaintList()"                
+                              (ionChange)="getSubComplaintList()"
                               [(ngModel)]="stncomplaint.complaint"  name="complaint"
                               required
                               >
-                              <ion-option 
+                              <ion-option
                               *ngFor="let v of complaintArr"
                               value="{{v.id}}">{{v.head_en}}</ion-option>
                                 </ion-select>
-                             
-                            
-                             
+
+
+
                             </ion-item>
                     </ion-col>
                     <ion-col col-12 col-sm col-md-3>
                         <ion-item style="padding-left:2px;">
                             <ion-label stacked color="dark">Sub Complaint  <font color="red">*</font></ion-label>
-                            <ion-select   color="custom" (ionChange)="getconditions()"    
-                            [(ngModel)]="stncomplaint.subComplaint"  name="subComplaint"            
-                            
+                            <ion-select   color="custom" (ionChange)="getconditions()"
+                            [(ngModel)]="stncomplaint.subComplaint"  name="subComplaint"
+
                             required
                             >
-                            <ion-option 
+                            <ion-option
                             *ngFor="let v of subcomplaintArr"
                             value="{{v.id}}">{{v.head_en}}</ion-option>
                               </ion-select>
-                           
-                          
-                           
+
+
+
                           </ion-item>
                   </ion-col>
                   <ion-col col-12 col-sm col-md-3>
                       <ion-item style="padding-left:2px;">
                           <ion-label stacked color="dark">Incident Date  <font color="red">*</font></ion-label>
-                          <ion-datetime displayFormat="DD/MM/YYYY hh:mm a" 
+                          <ion-datetime displayFormat="DD/MM/YYYY hh:mm a"
                           [max]="maxDate"
                           [min]="minDate"  color="custom"
-                         
-                          
-                          
+
+
+
                           [(ngModel)]="stncomplaint.incidentDate"  name="incidentDate"  required  ></ion-datetime>
-                         
-                        
-                         
+
+
+
                         </ion-item>
                 </ion-col>
                 <ion-col col-12 col-sm col-md-3>
                     <ion-item style="padding-left:2px;">
                         <ion-label stacked color="dark">Complaint Description  <font color="red">*</font></ion-label>
-                        <ion-textarea rows="3" type="text" 
-                        maxlength="1000" required 
-                        [(ngModel)]="stncomplaint.complaintDesc"  name="complaintDesc" 
+                        <ion-textarea rows="3" type="text"
+                        maxlength="1000" required
+                        [(ngModel)]="stncomplaint.complaintDesc"  name="complaintDesc"
                         ></ion-textarea>
-  
-                       
-                      
-                       
+
+
+
+
                       </ion-item>
               </ion-col>
               <ion-col col-12 col-sm col-md-3 *ngIf="stationcondition.stationshowFlag">
-                  
+
                   <ion-item style="padding-left:2px;" no-lines>
                       <ion-label stacked color="dark">Station Name  <font color="red">*</font></ion-label>
                     <!--  <ion-auto-complete [dataProvider]="completeTestService" item-content></ion-auto-complete>-->
-                   
-                    
+
+
                     <select-searchable
                     item-content
-                    [(ngModel)]="stncomplaint.stationName"  
-                    name="stationName" 
+                    [(ngModel)]="stncomplaint.stationName"
+                    name="stationName"
                     [items]="stationArrMod"
                     itemValueField="station_name"
                     itemTextField="station_name"
@@ -128,168 +128,272 @@
                     (onSearch)="searchStation($event)"
                     (onInfiniteScroll)="getMoreStations($event)">
                 </select-searchable>
-                     
-                    
-                     
+
+
+
                     </ion-item>
-                   
-                   
+
+
             </ion-col>
+            <ion-col col-12 col-sm col-md-3 *ngIf="stationcondition.fromStationshowFlag">
+
+              <ion-item style="padding-left:2px;" no-lines>
+                  <ion-label stacked color="dark">From Station  <font color="red" toStationreqFlag>*</font></ion-label>
+                <!--  <ion-auto-complete [dataProvider]="completeTestService" item-content></ion-auto-complete>-->
+
+
+                <select-searchable
+                item-content
+                [(ngModel)]="stncomplaint.fromStation"
+                name="fromStation"
+                [items]="stationArrMod"
+                itemValueField="station_name"
+                itemTextField="station_name"
+                [canSearch]="true"
+                [hasInfiniteScroll]="true"
+                (onChange)="stationChange($event)"
+                (onSearch)="searchStation($event)"
+                (onInfiniteScroll)="getMoreStations($event)">
+            </select-searchable>
+
+
+
+                </ion-item>
+
+
+        </ion-col>
+        <ion-col col-12 col-sm col-md-3 *ngIf="stationcondition.toStationshowFlag">
+
+          <ion-item style="padding-left:2px;" no-lines>
+              <ion-label stacked color="dark">To Station  <font color="red" *ngIf="stationcondition.toStationreqFlag">*</font></ion-label>
+            <!--  <ion-auto-complete [dataProvider]="completeTestService" item-content></ion-auto-complete>-->
+
+
+            <select-searchable
+            item-content
+            [(ngModel)]="stncomplaint.toStation"
+            name="toStation"
+            [items]="stationArrMod"
+            itemValueField="station_name"
+            itemTextField="station_name"
+            [canSearch]="true"
+            [hasInfiniteScroll]="true"
+            (onChange)="stationChange($event)"
+            (onSearch)="searchStation($event)"
+            (onInfiniteScroll)="getMoreStations($event)">
+        </select-searchable>
+
+
+
+            </ion-item>
+
+
+    </ion-col>
+
+
+    <ion-col col-12 col-sm col-md-3 *ngIf="stationcondition.approxVolumeshowFlag">
+
+      <ion-item style="padding-left:2px;" >
+          <ion-label stacked color="dark">Approx Volume<font  *ngIf="stationcondition.approxVolumereqFlag">&nbsp; <font color="red">*</font></font></ion-label>
+          <ion-input type="text"
+          [required]="stationcondition.approxVolumereqFlag" maxlength="10"
+          [(ngModel)]="stncomplaint.approxVolume"  name="approxVolume"
+          ></ion-input>
+
+
+
+
+        </ion-item>
+    </ion-col>
+
+    <ion-col col-12 col-sm col-md-3 *ngIf="stationcondition.commodityshowFlag">
+      <ion-item style="padding-left:2px;">
+          <ion-label stacked color="dark">Commodity<font color="red"  *ngIf="stationcondition.commodityreqFlag" >*</font></ion-label>
+          <ion-select   color="custom"
+          [(ngModel)]="stncomplaint.commodityId"  name="commodityId"
+
+          [required]="stationcondition.commodityreqFlag"
+          >
+          <ion-option
+          *ngFor="let v of commodityArr"
+          value="{{v.id}}">{{v.name}}</ion-option>
+            </ion-select>
+
+
+
+        </ion-item>
+</ion-col>
+
+
+
             <ion-col col-12 col-sm col-md-3 *ngIf="stationcondition.regMobileshowFlag">
-              
+
               <ion-item style="padding-left:2px;" >
                   <ion-label stacked color="dark">Registered Mobile Number<font  *ngIf="stationcondition.regMobilereqFlag">&nbsp; <font color="red">*</font></font></ion-label>
-                  <ion-input type="text"   
+                  <ion-input type="text"
                   [required]="stationcondition.regMobilereqFlag"
-                  [(ngModel)]="stncomplaint.reg_mobile"  name="reg_mobile" 
+                  [(ngModel)]="stncomplaint.reg_mobile"  name="reg_mobile"
                   ></ion-input>
 
-                 
-                
-                 
+
+
+
                 </ion-item>
         </ion-col>
 
         <ion-col col-12 col-sm col-md-3 *ngIf="stationcondition.transactionIdshowFlag">
-              
+
           <ion-item style="padding-left:2px;" >
               <ion-label stacked color="dark">Transaction Id<font  *ngIf="stationcondition.transactionIdreqFlag">&nbsp; <font color="red">*</font></font></ion-label>
-              <ion-input type="text"   
+              <ion-input type="text"
               [required]="stationcondition.transactionIdreqFlag"
-              [(ngModel)]="stncomplaint.transactionId"  name="transactionId" 
+              [(ngModel)]="stncomplaint.transactionId"  name="transactionId"
               ></ion-input>
 
-             
-            
-             
+
+
+
             </ion-item>
     </ion-col>
             <ion-col col-12 col-sm col-md-3 *ngIf="stationcondition.platformshowFlag">
-              
+
                 <ion-item style="padding-left:2px;" >
                     <ion-label stacked color="dark">Platform Number<font  *ngIf="stationcondition.platformreqFlag">&nbsp; <font color="red">*</font></font></ion-label>
-                    <ion-input type="text"   
+                    <ion-input type="text"
                     [required]="stationcondition.platformreqFlag"
-                    [(ngModel)]="stncomplaint.platformNo"  name="platformNo" 
+                    [(ngModel)]="stncomplaint.platformNo"  name="platformNo"
                     ></ion-input>
 
-                   
-                  
-                   
+
+
+
                   </ion-item>
           </ion-col>
-          
+
           <ion-col col-12 col-sm col-md-3 *ngIf="stationcondition.stallshowFlag">
-              
+
             <ion-item style="padding-left:2px;" >
-                <ion-label stacked color="dark">Stall Name/No.<font  *ngIf="stationcondition.stallreqFlag">&nbsp; <font color="red">*</font></font></ion-label>
-                <ion-input type="text"   
+                <ion-label stacked color="dark">Gate No/Stall Name/No.<font  *ngIf="stationcondition.stallreqFlag">&nbsp; <font color="red">*</font></font></ion-label>
+                <ion-input type="text"
                 [required]="stationcondition.stallreqFlag"
-                [(ngModel)]="stncomplaint.stall"  name="stall" 
+                [(ngModel)]="stncomplaint.stall"  name="stall"
                 ></ion-input>
 
-               
-              
-               
+
+
+
               </ion-item>
       </ion-col>
       <ion-col col-12 col-sm col-md-3 *ngIf="stationcondition.countershowFlag">
-              
+
         <ion-item style="padding-left:2px;" >
             <ion-label stacked color="dark">Counter No.<font  *ngIf="stationcondition.counterreqFlag">&nbsp; <font color="red">*</font></font></ion-label>
-            <ion-input type="text"   
+            <ion-input type="text"
             [required]="stationcondition.counterreqFlag"
-            [(ngModel)]="stncomplaint.counterNo"  name="counterNo" 
+            [(ngModel)]="stncomplaint.counterNo"  name="counterNo"
             ></ion-input>
 
-           
-          
-           
+
+
+
           </ion-item>
   </ion-col>
   <ion-col col-12 col-sm col-md-3 *ngIf="stationcondition.prrshowFlag">
-              
+
     <ion-item style="padding-left:2px;" >
-        <ion-label stacked color="dark">PRR No.<font  *ngIf="stationcondition.prrreqFlag">&nbsp; <font color="red">*</font></font></ion-label>
-        <ion-input type="text"   
+        <ion-label stacked color="dark">PRR/RR No.<font  *ngIf="stationcondition.prrreqFlag">&nbsp; <font color="red">*</font></font></ion-label>
+        <ion-input type="text"
         [required]="stationcondition.prrreqFlag"
-        [(ngModel)]="stncomplaint.prrNo"  name="prrNo" 
+        [(ngModel)]="stncomplaint.prrNo"  name="prrNo"
         ></ion-input>
 
-       
-      
-       
+
+
+
       </ion-item>
 </ion-col>
 <ion-col col-12 col-sm col-md-3 *ngIf="stationcondition.pnrTrnshowFlag">
-              
+
     <ion-item style="padding-left:2px;" >
         <ion-label stacked color="dark">PNR/Ticket/TDR No./Txn Id<font  *ngIf="stationcondition.pnrTrnreqFlag">&nbsp; <font color="red">*</font></font></ion-label>
-        <ion-input type="text"   
+        <ion-input type="text"
         [required]="stationcondition.pnrTrnreqFlag" maxlength="15"
-        [(ngModel)]="stncomplaint.pnrTicketTdrNo"  name="pnrTicketTdrNo" 
+        [(ngModel)]="stncomplaint.pnrTicketTdrNo"  name="pnrTicketTdrNo"
         ></ion-input>
 
-       
-      
-       
+
+
+
       </ion-item>
 </ion-col>
+<ion-col col-12 col-sm col-md-3 *ngIf="stationcondition.pnrUtsshowFlag">
 
+  <ion-item style="padding-left:2px;" >
+      <ion-label stacked color="dark">PNR/UTS No.<font  *ngIf="stationcondition.pnrUtsreqFlag">&nbsp; <font color="red">*</font></font></ion-label>
+      <ion-input type="text"
+      [required]="stationcondition.pnrUtsreqFlag" maxlength="15"
+      [(ngModel)]="stncomplaint.pnrUtsNo"  name="pnrUtsNo"
+      ></ion-input>
+
+
+
+
+    </ion-item>
+</ion-col>
               <ion-col  col-12 col-sm col-md-3>
-                 
-              
-        
+
+
+
                   <img [src]="myphoto" *ngIf="myphoto" />
                   <ion-item style="padding-left:2px;" no-lines>
-                    <ion-label color="dark" stacked> 
+                    <ion-label color="dark" stacked>
                          File
-  
+
                       </ion-label>
                       <button small item-end ion-button type="button" (click)="takePhoto()"  color="primary">Camera</button>
                       <button small item-end ion-button  type="button" (click)="getImage()"  color="secondary">Upload</button>
                       <ion-input readonly style="height:50px;"></ion-input>
-                     
+
                    </ion-item>
                      </ion-col>
                      <ion-col  col-12 col-sm col-md-3>
                             Only JPG, JPEG and PNG images are allowed (Max Size: 5MB).
                         </ion-col>
                     <!-- <ion-col col-12 col-sm col-md-3 style="padding:0px;">
-                       
+
                         <ion-item no-lines style="padding-left:2px;text-align: center;font-weight:bold;background-color:#f4f4f4">
                             <ion-label stacked color="custom">Passenger Details</ion-label>
-                           
-                           
-                          
-                           
+
+
+
+
                           </ion-item>
                   </ion-col>
                   <ion-col col-12 col-sm col-md-3>
-              
+
                       <ion-item style="padding-left:2px;" >
                           <ion-label stacked color="custom">Name </ion-label>
                           <ion-label  >{{stncomplaint.complainantName}} </ion-label>
-                        
-      
-                         
-                        
-                         
+
+
+
+
+
                         </ion-item>
                 </ion-col>
                 <ion-col col-12 col-sm col-md-3>
-              
+
                     <ion-item style="padding-left:2px;" >
                         <ion-label stacked color="custom">Contact </ion-label>
                         <ion-label  >{{stncomplaint.contact}} </ion-label>
 
-                       
-                      
-                       
+
+
+
                       </ion-item>
               </ion-col>
             -->
-          
+
                     </ion-row>
                     <ion-row>
                         <ion-col col-12 col-sm col-md-3 style="text-align:center;">
@@ -301,5 +405,5 @@
                     </ion-row>
               </ion-grid>
             </form>
-       
+
 </ion-content>
