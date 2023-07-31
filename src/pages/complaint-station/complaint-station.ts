@@ -392,19 +392,7 @@ export class ComplaintStationPage {
     this.resetShowAndReqFlag();
 
     this.resetdet();
-    if(localStorage.getItem('username') == null ||
-    localStorage.getItem('username') == undefined ||
-    localStorage.getItem('username') == "")
-    {
 
-     // this.navCtrl.push(LoginPage);
-     }
-
-     else
-    {
-      this.stncomplaint.contact=localStorage.getItem('contact');
-      this.stncomplaint.complainantName=localStorage.getItem('fullname');
-    }
   }
 
   ionViewDidLoad() {
@@ -547,10 +535,26 @@ public numberonly(event: any) {
     event.target.value=event.target.value.substring(0,10);
   }
 }
+setItemsFromLocalStorage(){
+  if(localStorage.getItem('username') == null ||
+   localStorage.getItem('username') == undefined ||
+   localStorage.getItem('username') == "")
+   {
 
+     //this.navCtrl.push(LoginPage);
+    }
+
+
+    else
+    {
+      this.stncomplaint.contact=localStorage.getItem('contact');
+      this.stncomplaint.complainantName=localStorage.getItem('fullname');
+    }
+}
 
   submitcomplaint(f:NgForm)
   {
+    this.setItemsFromLocalStorage();
     if(f.invalid)
     {
       this.toastProvider.presentToast("Please enter all the mandatory fields.");

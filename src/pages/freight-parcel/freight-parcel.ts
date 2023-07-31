@@ -376,6 +376,9 @@ export class FreightParcelPage {
     this.resetShowAndReqFlag();
 
     this.resetdet();
+
+  }
+  setItemsFromLocalStorage(){
     if(localStorage.getItem('username') == null ||
     localStorage.getItem('username') == undefined ||
     localStorage.getItem('username') == "")
@@ -535,6 +538,7 @@ public numberonly(event: any) {
 
   submitcomplaint(f:NgForm)
   {
+    this.setItemsFromLocalStorage();
     if(f.invalid)
     {
       this.toastProvider.presentToast("Please enter all the mandatory fields.");

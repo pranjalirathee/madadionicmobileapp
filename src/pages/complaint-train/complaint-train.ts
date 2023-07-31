@@ -373,9 +373,13 @@ export class ComplaintTrainPage {
 
 
   ionViewWillEnter(){
+    console.log('ionViewWillEnter ComplaintTrainPage');
 
    this.resetdet();
-   if(localStorage.getItem('username') == null ||
+
+  }
+setItemsFromLocalStorage(){
+  if(localStorage.getItem('username') == null ||
    localStorage.getItem('username') == undefined ||
    localStorage.getItem('username') == "")
    {
@@ -389,8 +393,7 @@ export class ComplaintTrainPage {
       this.trncomplaint.contact=localStorage.getItem('contact');
       this.trncomplaint.complainantName=localStorage.getItem('fullname');
     }
-  }
-
+}
   ionViewDidLoad() {
     console.log('ionViewDidLoad ComplaintStationPage');
   }
@@ -511,13 +514,14 @@ export class ComplaintTrainPage {
 
   submitcomplaint(f:NgForm)
   {
+
     if(f.invalid)
     {
       this.toastProvider.presentToast("Please enter all the mandatory fields.");
     }
     else
     {
-
+       this.setItemsFromLocalStorage();
       this.trncomplaint.channelType='A';
       this.trncomplaint.place_type='t';
       if(this.trncomplaint.contact.indexOf("@") != -1)
