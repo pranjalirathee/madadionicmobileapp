@@ -453,11 +453,16 @@ trainChange(event: {
    
 
     this.resetdet();
+
+  }
+
+  getItemFromLocalStorage()
+  {
     if(localStorage.getItem('username') == null ||
     localStorage.getItem('username') == undefined ||
     localStorage.getItem('username') == "")   
     {
-    
+        console.log("---------------inisde localStorage");
      // this.navCtrl.push(LoginPage);
      }
 
@@ -657,6 +662,7 @@ public numberonly(event: any) {
     }
     else
     {
+      this.getItemFromLocalStorage();
       if(this.railanubhav.mode=='S')
       {
       this.railanubhav.trainorstation=(this.railanubhav.trainorstation as any).station_name.split("-")[0];
