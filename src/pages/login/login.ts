@@ -81,6 +81,7 @@ export class LoginPage {
         localStorage.setItem('contact',data.username);
         localStorage.setItem('password',this.login.upswd);
         this.events.publish('user:menu',"true");
+        this.userSession.setValue(true);
         this.navCtrl.pop();
 
        }

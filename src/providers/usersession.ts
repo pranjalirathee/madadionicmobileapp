@@ -8,6 +8,7 @@ import  'rxjs/add/operator/timeout';
 
 
 import  'rxjs/add/operator/map';
+import { BehaviorSubject } from 'rxjs';
 
 /*
   Generated class for the HttpProvider provider.
@@ -18,7 +19,10 @@ import  'rxjs/add/operator/map';
 @Injectable()
 export class UserSession {
   loggedInFlag:false;
-  constructor() { }
+  private loggedInInfo: BehaviorSubject<boolean>;
+  constructor() {
+    this.loggedInInfo = new BehaviorSubject<boolean>(false);
+   }
   setlogin(flag)
   {
       this.loggedInFlag=flag;
@@ -27,7 +31,12 @@ export class UserSession {
   {
     return this.loggedInFlag;
   }
-
+  getValue(): Observable<boolean> {
+    return this.loggedInInfo.asObservable();
+  }
+  setValue(newValue): void {
+    this.loggedInInfo.next(newValue);
+  }
 
 
 }

@@ -32,7 +32,7 @@ export class MyApp {
   {
     if(localStorage.getItem('username') == null ||
    localStorage.getItem('username') == undefined ||
-   localStorage.getItem('username') == "")   
+   localStorage.getItem('username') == "")
    {
    this.navCtrl.push(LoginPage);
      //this.navCtrl.push(LoginPage);
@@ -40,7 +40,7 @@ export class MyApp {
 
   }
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
-    private alertCtrl:AlertController,private menu: MenuController,public events: Events) {
+    private alertCtrl:AlertController,private menu: MenuController,public events: Events,public service: UserSession) {
 
       events.subscribe('user:menu', (menu) => {
 
@@ -57,7 +57,7 @@ export class MyApp {
 
     if(localStorage.getItem('fullname') != null &&
    localStorage.getItem('fullname') != undefined &&
-   localStorage.getItem('fullname') != "")   
+   localStorage.getItem('fullname') != "")
    {
     this.username=localStorage.getItem('fullname');
     }
@@ -108,12 +108,12 @@ pushNextPageWithoutLogin(page)
     this.menu.close("menu1");
   }
 
-  
+
   logout()
   {
     this.presentLogout();
   }
-  
+
   presentLogout() {
     let alert = this.alertCtrl.create({
       message: 'Do you want to Logout?',
@@ -130,6 +130,7 @@ pushNextPageWithoutLogin(page)
           handler: () => {
             localStorage.setItem('username',"");
             localStorage.setItem('fullname',"");
+            this.service.setValue(false);
             this.events.publish('user:menu',"false");
 
             //this.navCtrl.push(HomePage);

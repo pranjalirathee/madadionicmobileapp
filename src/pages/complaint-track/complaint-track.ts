@@ -13,6 +13,7 @@ import { ToastProvider } from '../../providers/toast/toast';
 import { TrackComplaintModel } from '../../models/trackcomplaintmodel';
 import { ComplaintDetail} from '../../dto/complaintdetail';
 import { LoadingProvider } from '../../providers/loading/loading';
+import { UserSession } from '../../providers/usersession';
 
 /**
  * Generated class for the ComplaintTrackPage page.
@@ -37,54 +38,73 @@ export class ComplaintTrackPage {
   checksession()
   {
     this.events.publish('user:login',"true");
+//alert("check session called");
+    //this.ionViewDidLoad();
 
 
   }
   constructor(public navCtrl: NavController,
     public navParams: NavParams,public httpProvider:HttpProvider,public loadingProvider :LoadingProvider,
-    private toastProvider:ToastProvider,public alertCtrl:AlertController,public events: Events) {
+    private toastProvider:ToastProvider,public alertCtrl:AlertController,public events: Events,public service: UserSession) {
   }
+  ngOnInit() {
+    this.service.getValue().subscribe((value) => {
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ComplaintTrackPage');
+      if(value==true){
+        this.setComplaintHistory();
+      }
+      else{
+        this.complaintHistory=[];
+      }
+    });
+  }
+  ionViewWillEnter() {
+
+    console.log('ionViewWillEnter ComplaintTrackPage');
     if(localStorage.getItem('username') == null ||
     localStorage.getItem('username') == undefined ||
     localStorage.getItem('username') == "")
     {
 
      // this.navCtrl.push(LoginPage);
+     this.complaintHistory=[];
      }
+else{
+  this.setComplaintHistory();
+}
 
 
 
-     else {
-     this.trackcomplaint.userName=localStorage.getItem('username');
-     if(this.trackcomplaint.userName.indexOf("@")!=-1)
-     {
-       this.trackcomplaint.userType="E";
-     }
-     else
-     {
-      this.trackcomplaint.userType="M";
-     }
-     this.httpProvider.postMethod("secureuser/complainthistory",this.trackcomplaint).subscribe((data) =>
-     {
-             console.log(JSON.stringify(data));
-            data.forEach(element => {
-              var temp=element.incidentDate.split(" ");
-              var date=temp[0].split("-");
-              var time=temp[1].split(":");
-              console.log(date[2]+"/"+date[1]+"/"+date[0]+" "+time[0]+":"+time[1]);
-            });
-           this.complaintHistory=data;
 
-     },err=> {
-       console.log(err);
-
-     this.toastProvider.presentToast("Some Error Occurred. Please Try Again.");
-
-   });
   }
+  setComplaintHistory(){
+
+      this.trackcomplaint.userName=localStorage.getItem('username');
+      if(this.trackcomplaint.userName.indexOf("@")!=-1)
+      {
+        this.trackcomplaint.userType="E";
+      }
+      else
+      {
+       this.trackcomplaint.userType="M";
+      }
+      this.httpProvider.postMethod("secureuser/complainthistory",this.trackcomplaint).subscribe((data) =>
+      {
+              console.log(JSON.stringify(data));
+             data.forEach(element => {
+               var temp=element.incidentDate.split(" ");
+               var date=temp[0].split("-");
+               var time=temp[1].split(":");
+               console.log(date[2]+"/"+date[1]+"/"+date[0]+" "+time[0]+":"+time[1]);
+             });
+            this.complaintHistory=data;
+
+      },err=> {
+        console.log(err);
+
+      this.toastProvider.presentToast("Some Error Occurred. Please Try Again.");
+
+    });
 
   }
 
@@ -130,6 +150,9 @@ export class ComplaintTrackPage {
 
 
 
+  }
+  callfunction(){
+    alert("hello");
   }
 
   submittrack(f:NgForm)
