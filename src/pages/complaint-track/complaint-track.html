@@ -6,88 +6,135 @@
                     <button ion-button [menuToggle]="activeMenu">
                         <ion-icon name="menu"></ion-icon>
                     </button>
-                  
+
                   </ion-buttons>
                   <ion-buttons middle>
                       <img src="../../assets/imgs/madadh.png"  style="height:30px;"/>
           <br>
                       <img src="../../assets/imgs/madade.png"  style="height:25px;"/>
-               
-          
+
+
                     </ion-buttons>
-                  
-          
+
+
               <ion-buttons right>
                   <img src="../../assets/imgs/rail madad.gif" style="width:50px;" />
-          
-                
+
+
                 </ion-buttons>
             </ion-navbar>
-   
-    
+
+
   </ion-header>-->
 
 
 
 <ion-content no-padding tappable (tap)="checksession()">
-    
+
             <form  #f="ngForm" novalidate>
               <ion-grid>
-               
+
                   <ion-row>
                       <ion-col col-12 col-sm col-md-3 style="padding:0px;">
-                          
-                          <ion-item 
+
+                          <ion-item
                            no-lines style="padding-left:2px;text-align: center;font-weight:normal;">
                               <ion-label stacked color="custom" style="font-size:13px;">Be with us for live tracking</ion-label>
-                             
-                             
-                            
-                             
+
+
+
+
                             </ion-item>
                     </ion-col>
-           
+                  </ion-row>
+                  <ion-row> <ion-col col-12 col-sm col-md-3>
+
+                    <ion-item style="padding-left:2px;" >
+                        <ion-label stacked color="dark">Reference No.<font>&nbsp; <font color="red">*</font></font></ion-label>
+                        <ion-input type="text"
+                        [required]="trackcomplaint.complaintReferenceNo"
+                        [(ngModel)]="trackcomplaint.complaintReferenceNo" (keypress)="numericOnly($event)" name="reference_no" maxlength="13"
+                        ></ion-input>
+                      </ion-item>
+                  </ion-col>
+                </ion-row>
+                  <ion-row>
+                    <ion-col col-12 col-sm col-md-3 style="text-align:center;">
+                        <button ion-button small  color="custom"
+                        (click)="submittrack(f)">Submit</button>
+
+                    </ion-col>
+
+                </ion-row>
+                <ion-row  *ngIf="activeAccToRefNo">
+                  <ion-col col-12 col-sm col-md-3 >
+                    <ion-card>
+                      <ion-item>
+                        <h2>Reference No: {{complaintdetail.complaintReferenceNo}}</h2>
+                        </ion-item>
+                        <ion-card-content>
+                          <p><b>Complaint Type:</b> {{complaintdetail.complaintType}}</p>
+                          <p><b>Sub Type:</b> {{complaintdetail.complaintSubType}}</p>
+                          <p><b> Remarks: </b> <font *ngIf="complaintdetail.status == 'Closed'">{{complaintdetail.remark}}</font>
+                              <font *ngIf="complaintdetail.status != 'Closed'"> Under Process </font></p>
+                          <button ion-button icon-start clear small>
+                             <ion-icon name="information-circle"></ion-icon>
+                              <div> {{complaintdetail.status}}</div>
+                          </button>
+                          <p><ion-note>
+                            {{complaintdetail.incidentDate}}
+                        <!--{{complaintdetail.incidentDate | amLocal | amDateFormat:'MMMM Do YYYY, h:mm a'}}-->
+                          </ion-note> </p>
+                        </ion-card-content>
+                      </ion-card>
+                  </ion-col>
+                </ion-row>
+                  <ion-row  *ngIf="!activeAccToRefNo">
                           <ion-col col-12 col-sm col-md-3  *ngFor="let complaint of complaintHistory">
-                            
-                           
+
+
                                     <ion-card>
 
                                             <ion-item>
-                                              
-                                              <h2>Ref. No: {{complaint.complaintReferenceNo}}</h2>
-                                             
+
+                                              <h2>Reference No: {{complaint.complaintReferenceNo}}</h2>
+
                                             </ion-item>
-                                          
-                                           
-                                          
+
+
+
                                             <ion-card-content>
                                               <p><b>Complaint Type:</b> {{complaint.complaint}}</p>
                                               <p><b>Sub Type:</b> {{complaint.subComplaint}}</p>
                                               <p>   <b> Remarks: </b> <font *ngIf="complaint.status == 'Closed'">{{complaint.remark}}</font>
                                                 <font *ngIf="complaint.status != 'Closed'"> Under Process </font></p>
-                                            
-                                            
+
+
                                                   <button ion-button icon-start clear small>
                                                         <ion-icon name="information-circle"></ion-icon>
                                                         <div> {{complaint.status}}</div>
                                                       </button>
                                                      <p>
                                                       <ion-note>
-                                                          {{complaint.incidentDate | amLocal | amDateFormat:'MMMM Do YYYY, h:mm a'}}
-                                                           
+                                                          {{complaint.incidentDate }}
+                                                      <!--{{complaint.incidentDate | amLocal | amDateFormat:'MMMM Do YYYY, h:mm a'}}-->
+
                                                     </ion-note>
                                             </p>
                                             </ion-card-content>
-                                          
-                                            
-                                          
+
+
+
                                           </ion-card>
-                          
+
                         </ion-col>
-                
+
+
+
                     </ion-row>
-                    
+
+
               </ion-grid>
             </form>
-       
+
 </ion-content>
