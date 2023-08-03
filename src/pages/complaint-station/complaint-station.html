@@ -331,7 +331,7 @@
   <ion-item style="padding-left:2px;" >
       <ion-label stacked color="dark">PNR/UTS No.<font  *ngIf="stationcondition.pnrUtsreqFlag">&nbsp; <font color="red">*</font></font></ion-label>
       <ion-input type="text"
-      [required]="stationcondition.pnrUtsreqFlag" maxlength="15"
+      [required]="stationcondition.pnrUtsreqFlag" minlength="10" maxlength="10"
       [(ngModel)]="stncomplaint.pnrUtsNo"  name="pnrUtsNo"
       ></ion-input>
 
