@@ -1,4 +1,3 @@
-import { StationConditionModel } from './../../models/stationconditionmodel';
 import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, Events } from 'ionic-angular';
@@ -47,8 +46,8 @@ export class ComplaintRailAnubhavPage {
     //trainOrStationArr=[];
   stationArrMod=[];
   stationArrGlobal=[];
-  stationcondition=<StationConditionModel>{};
-  
+
+
   checksession()
   {
     this.events.publish('user:login',"true");
@@ -56,54 +55,6 @@ export class ComplaintRailAnubhavPage {
 
   }
 
-  getconditions()
-  {
-    var stationcondition=new StationConditionModel();
-    stationcondition.platformFlag="1";
-    stationcondition.stationFlag="0";
-    stationcondition.stallFlag="2";
-    stationcondition.counterFlag="2";
-    stationcondition.pnrTrnFlag="2";
-    stationcondition.prrFlag="2";
-    stationcondition.regMobileFlag="2";
-    stationcondition.transactionIdFlag="2";
-    this.httpProvider.getMethod("common/stationcondition?subComplaint="+this.stncomplaint.subComplaint).subscribe(
-      (data)=>
-      {
-        console.log(data);
-        if(data.error==false)
-        {
-          console.log("tsse");
-          stationcondition=data;
-        }
-        
-    var arr=["platform","station","stall","counter","pnrTrn","prr","regMobile","transactionId"];
-    arr.forEach(element => {
-
-      switch (stationcondition[element+"Flag"])
-      {
-        case "0":
-        this.stationcondition[element+"showFlag"]=true;
-        this.stationcondition[element+"reqFlag"]=true;
-        break;
-        case "1":
-        this.stationcondition[element+"showFlag"]=true;
-        this.stationcondition[element+"reqFlag"]=false;
-        break;
-        case "2":
-        this.stationcondition[element+"showFlag"]=false;
-        this.stationcondition[element+"reqFlag"]=false;
-        break;
-      }
-      
-    });
-      }
-    );
-
-    
-
-
-  }
 
   presentLogout() {
     let alert = this.alertCtrl.create({
@@ -132,10 +83,10 @@ export class ComplaintRailAnubhavPage {
   }
 
   presentConfirm(ref,f) {
-  
-   
+
+
     let alert = this.alertCtrl.create({
-      
+
       title: 'Thank you for sharing your experience, Your experience is saved successfully!',
 
      // subTitle: 'If you want to register another complaint,press yes or else press no',
@@ -147,7 +98,7 @@ export class ComplaintRailAnubhavPage {
             f.resetForm();
             this.resetdet();
           }
-         
+
         }
       ]
     });
@@ -158,7 +109,7 @@ export class ComplaintRailAnubhavPage {
     var codearr=[];
     var namearr=[];
     var finalarr=[];
-   
+
     this.stationArrGlobal.forEach(element => {
       if(element.station_cd.toLowerCase()==text.toLowerCase())
       {
@@ -175,7 +126,7 @@ export class ComplaintRailAnubhavPage {
         {
           if(name.indexOf(text.toLowerCase())==0)
           {
-            flag=true;             
+            flag=true;
           }
         });
         if(flag)
@@ -188,17 +139,17 @@ export class ComplaintRailAnubhavPage {
     {
       finalarr.push(topcode);
     }
-    codearr.forEach(function(codeitem){	    	
+    codearr.forEach(function(codeitem){
        finalarr.push(codeitem);
     });
-    
+
     namearr.forEach(function(nameitem){
        finalarr.push(nameitem);
     });
     return finalarr;
 }
 
-//---------------------------- Search Station 
+//---------------------------- Search Station
 
   searchStation(event: {
     component: SelectSearchableComponent,
@@ -208,12 +159,12 @@ export class ComplaintRailAnubhavPage {
 
     if (text != '') {
       event.component.startSearch();
-   
+
       this.stationArr =this.prioritystationsearch(text);
         this.stationArrMod=[];
         var maxlen = (15>(this.stationArr.length)) ? this.stationArr.length : 15;
         if(maxlen>0){
-       
+
         for(var i=0;i<maxlen;i++)
         {
           this.stationArrMod.push({'station_name':(this.stationArr[i] as any).station_name+'-'+(this.stationArr[i] as any).station_cd});
@@ -222,8 +173,8 @@ export class ComplaintRailAnubhavPage {
       event.component.items = this.stationArrMod;
 
       event.component.endSearch();
-     
-      
+
+
     }
     else
     {
@@ -231,7 +182,7 @@ export class ComplaintRailAnubhavPage {
       this.stationArrMod=[];
       var maxlen = (15>(this.stationArrGlobal.length)) ? this.stationArrGlobal.length : 15;
       if(maxlen>0){
-      
+
 
       for(var i=0;i<maxlen;i++)
       {
@@ -242,7 +193,7 @@ export class ComplaintRailAnubhavPage {
       event.component.endSearch();
 
     }
-   
+
 
 
   }
@@ -250,12 +201,12 @@ export class ComplaintRailAnubhavPage {
     component: SelectSearchableComponent,
     text: string
   }) {
-   
+
     if(this.stationArrMod.length != this.stationArr.length)
     {
       var lennew=this.stationArrMod.length;
       var maxlen = (15>(this.stationArr.length-lennew)) ? (this.stationArr.length-lennew) : 15;
-     
+
       for(var i=lennew;i<lennew+maxlen;i++)
       {
         this.stationArrMod.push({'station_name':(this.stationArr[i] as any).station_name+'-'+(this.stationArr[i] as any).station_cd});
@@ -271,7 +222,7 @@ export class ComplaintRailAnubhavPage {
   }
   stationChange(event: {
     component: SelectSearchableComponent,
-    value: any 
+    value: any
 }) {
     console.log('port:', event.value);
 }
@@ -282,7 +233,7 @@ export class ComplaintRailAnubhavPage {
 
 
 
-//---------------------------- Search Train 
+//---------------------------- Search Train
 
 searchTrain(event: {
   component: SelectSearchableComponent,
@@ -292,14 +243,14 @@ searchTrain(event: {
 
   if (text != '') {
     event.component.startSearch();
-   
+
     this.trainArr = this.trainArrGlobal.filter(
       train => (train.train_name.toLowerCase().indexOf(text.toLowerCase()) != -1
       || train.train_no.toLowerCase().indexOf(text.toLowerCase()) != -1));
       this.trainArrMod=[];
       var maxlen = (15>(this.trainArr.length)) ? this.trainArr.length : 15;
       if(maxlen>0){
-     
+
       for(var i=0;i<maxlen;i++)
       {
         this.trainArrMod.push({'train_name':(this.trainArr[i] as any).train_name+':-'+(this.trainArr[i] as any).train_no});
@@ -308,8 +259,8 @@ searchTrain(event: {
     event.component.items = this.trainArrMod;
 
     event.component.endSearch();
-   
-    
+
+
   }
   else
   {
@@ -317,7 +268,7 @@ searchTrain(event: {
     this.trainArrMod=[];
     var maxlen = (15>(this.trainArrGlobal.length)) ? this.trainArrGlobal.length : 15;
     if(maxlen>0){
-    
+
 
     for(var i=0;i<maxlen;i++)
     {
@@ -328,7 +279,7 @@ searchTrain(event: {
     event.component.endSearch();
 
   }
- 
+
 
 
 }
@@ -336,12 +287,12 @@ getMoreTrains(event: {
   component: SelectSearchableComponent,
   text: string
 }) {
- 
+
   if(this.trainArrMod.length != this.trainArr.length)
   {
     var lennew=this.trainArrMod.length;
     var maxlen = (15>(this.trainArr.length-lennew)) ? (this.trainArr.length-lennew) : 15;
-   
+
     for(var i=lennew;i<lennew+maxlen;i++)
     {
       this.trainArrMod.push({'train_name':(this.trainArr[i] as any).train_name+':-'+(this.trainArr[i] as any).train_no});
@@ -357,20 +308,10 @@ getMoreTrains(event: {
 }
 trainChange(event: {
   component: SelectSearchableComponent,
-  value: any 
+  value: any
 }) {
   console.log('port:', event.value);
 }
-
-
-
-
-
-
-
-
-
-
 
 
   stncomplaint=<StnComplaintModel>{};
@@ -385,49 +326,8 @@ trainChange(event: {
   username:string;
   ref:string="";
 
-  // getImage() {
-  //   const options: CameraOptions = {
-  //     quality: 100,
-  //     destinationType: this.camera.DestinationType.DATA_URL,
-  //     sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM,
-  //     saveToPhotoAlbum:false,
-  //     encodingType:this.camera.EncodingType.PNG,
-  //     mediaType:this.camera.MediaType.ALLMEDIA
-  //   }
-  //   this.camera.getPicture(options).then((imageData) => {
-  //     var data=imageData;
-  //     if(!data.includes('file://')) 
-  //     {
-  //     data = 'file://' + data; }
-  //      this.file.resolveLocalFilesystemUrl(data).then((entry: FileEntry) => 
-  //      { //alert( entry); 
-  //     });
 
 
-  //     this.myphoto = 'data:image/jpeg;base64,' + imageData;
-     
-  //   }, (err) => {
-  //     console.log(err);
-   
-  //   });
-  // }
-  // takePhoto() {
-  //   const options: CameraOptions = {
-  //     quality: 70,
-  //     destinationType: this.camera.DestinationType.DATA_URL,
-  //     encodingType: this.camera.EncodingType.JPEG,
-  //     mediaType: this.camera.MediaType.PICTURE
-  //   }
-
-  //   this.camera.getPicture(options).then((imageData) => {
-  //     // imageData is either a base64 encoded string or a file URI
-  //     // If it's base64:
-  //     this.myphoto = 'data:image/jpeg;base64,' + imageData;
-  //   }, (err) => {
-  //     // Handle error
-  //   });
-  // }
- 
   constructor(public navCtrl: NavController, public navParams: NavParams,public httpProvider:HttpProvider,
     public completeTestService: StationNameProvider,  private transfer: FileTransfer,
     private camera: Camera,private toastProvider:ToastProvider,public loadingProvider :LoadingProvider,
@@ -442,15 +342,15 @@ trainChange(event: {
 
   resetdet()
   {
-    
+
     this.getPositiveAspects();
 
     this.rating = "0";
-  
+
   }
 
   ionViewWillEnter(){
-   
+
 
     this.resetdet();
 
@@ -460,7 +360,7 @@ trainChange(event: {
   {
     if(localStorage.getItem('username') == null ||
     localStorage.getItem('username') == undefined ||
-    localStorage.getItem('username') == "")   
+    localStorage.getItem('username') == "")
     {
         console.log("---------------inisde localStorage");
      // this.navCtrl.push(LoginPage);
@@ -492,23 +392,6 @@ trainChange(event: {
    }
   }
 
-  // getComplaintList()
-  // {
-    
-  //   this.httpProvider.getMethod("common/HeadListById?Id=\"s\"").subscribe((data) => 
-  //   {
-     
-  //     if(data.length >0)
-  //           {
-  //               this.complaintArr=data; 
-  //           }
-  //         else{
-  //               this.complaintArr=[];
-                    
-
-  //            }
-  //   });
-  // }
 
 
   getStationList()
@@ -571,24 +454,24 @@ trainChange(event: {
 
 
 
-  
+
   getPositiveAspects()
   {
 
           console.log("-----------" + this.rating);
 
-    this.httpProvider.getMethod("secure/PositiveAspects").subscribe((data) => 
+    this.httpProvider.getMethod("secure/PositiveAspects").subscribe((data) =>
     {
       console.log("inside getPositiveAspects");
 
       if(data.length >0)
       {
         console.log("iniside iffffffff");
-          this.positiveAspectsArr=data; 
+          this.positiveAspectsArr=data;
       }
     else{
           this.positiveAspectsArr=[];
-              
+
 
        }
     });
@@ -596,7 +479,7 @@ trainChange(event: {
 
 
 
- 
+
 
   search(event) {
     if(this.railanubhav.mode == "S")
@@ -607,16 +490,16 @@ trainChange(event: {
         station => (station.station_name.toLowerCase().indexOf(event.query.toLowerCase()) != -1
         || station.station_cd.toLowerCase().indexOf(event.query.toLowerCase()) != -1));
       }
-  
+
       else
       {
         this.results=this.stationArr;
       }
-     
+
     }
 
     else{
-         
+
     if(event.query != "")
     {
     this.results = this.trainArr.filter(
@@ -628,11 +511,11 @@ trainChange(event: {
     {
       this.results=this.trainArr;
     }
-   
- 
+
+
     }
-   
-      
+
+
   }
   handleDropdown(event) {
     //event.query = current value in input field
@@ -640,8 +523,8 @@ trainChange(event: {
 
 
 public numberonly(event: any) {
-  const pattern = /^[0-9]*$/;   
-  
+  const pattern = /^[0-9]*$/;
+
   if (!pattern.test(event.target.value)) {
     event.target.value = event.target.value.replace(/[^0-9]/g, "");
 
@@ -675,10 +558,7 @@ public numberonly(event: any) {
         console.log("---------------------- train" + this.railanubhav.trainorstation);
       }
       this.railanubhav.feedback = this.rating;
-           console.log("----------------------inside else  submitcomplaint mobile" + this.railanubhav.mobileNum);
-           console.log("----------------------inside else  submitcomplaint experience" + this.railanubhav.experience);
-           console.log("----------------------inside else  submitcomplaint feedback" + this.railanubhav.feedback);
-           console.log("----------------------inside else  submitcomplaint rating" + this.rating);
+
 
 
    // this.railanubhav.mobileNum = "7906305535";
@@ -687,28 +567,28 @@ public numberonly(event: any) {
 
       this.loadingProvider.presentLoadingDefault();
 
-      this.httpProvider.postMethod("secure/SubmitRailAnubhav",this.railanubhav).subscribe((data) => 
-      {        console.log("----------------------here " + data.code);
+      this.httpProvider.postMethod("secure/SubmitRailAnubhav",this.railanubhav).subscribe((data) =>
+      {
 
         if(data.code== "404" || data.code== "")
               {
-                      console.log("----------------------here " + data.message);
+
                   this.toastProvider.presentToast(data.message) ;
-  
+
               }
             else{
                 //  this.ref=data.complaintReferenceNo;
                  // this.toastProvider.presentToast("Your experience is saved successfully") ;
                 //  var tempstation={"station_name":this.stncomplaint.stationName+"-"+this.stncomplaint.stationCode}
                 //  this.stncomplaint.stationName=tempstation as any;
-               
+
                  this.presentConfirm(this.ref,f);
                }
       },err=> {
         console.log(err);
-        
+
       this.toastProvider.presentToast("Some Error Occurred. Please Try Again.");
-      
+
     },()=>
       {
         this.loadingProvider.dismissLoading();

@@ -7,7 +7,7 @@
                     <button ion-button [menuToggle]="activeMenu">
                         <ion-icon name="menu"></ion-icon>
                     </button>
-                  
+
                   </ion-buttons>
                   <ion-buttons middle>
                     <font style="font-size: 37px;font-weight: 500;">RailMadad </font>
@@ -15,24 +15,24 @@
           <span><font style="font-size: 12px;
             text-transform: none;
             color: #069;font-weight: 500;" class="CaptionL">A Grievance Redressal Mechanism</font></span>
-                    
-               
-          
+
+
+
                     </ion-buttons>
-                  
-          
+
+
               <ion-buttons right>
                   <img src="../../assets/imgs/ntes.png" style="width:40px;" />
-          
-                
+
+
                 </ion-buttons>
             </ion-navbar>
-       
+
     <ion-toolbar no-border-top>
         <ion-segment [(ngModel)]="appType" color="custom">
           <ion-segment-button value="Login" >
             Log In
-          </ion-segment-button>         
+          </ion-segment-button>
           <ion-segment-button value="Register" >
             Sign Up
           </ion-segment-button>
@@ -49,7 +49,7 @@
               <button ion-button [menuToggle]="activeMenu">
                   <ion-icon name="menu"></ion-icon>
               </button>
-            
+
             </ion-buttons>
             <ion-buttons middle>
               <font style="font-size: 25px;font-weight: 500;">RailMadad </font>
@@ -57,23 +57,23 @@
     <span><font style="font-size: 12px;
       text-transform: none;
       color: #fff;font-weight: 500;" class="CaptionL">A Grievance Redressal Mechanism</font></span>
-              
-         
-    
+
+
+
               </ion-buttons>
-            
-    
+
+
         <ion-buttons right>
-    
-          
+
+
           </ion-buttons>
       </ion-navbar>
- 
+
 <ion-toolbar no-border-top>
   <ion-segment [(ngModel)]="appType" color="custom">
     <ion-segment-button value="Login" >
       Log In
-    </ion-segment-button>         
+    </ion-segment-button>
     <ion-segment-button value="Register" >
       Sign Up
     </ion-segment-button>
@@ -85,21 +85,21 @@
     <div [ngSwitch]="appType">
         <div *ngSwitchCase="'Login'">
             <form  #f="ngForm" novalidate>
-            
+
               <ion-grid>
                   <ion-row>
                         <ion-col col-12 col-sm col-md-3>
                                 <ion-item style="padding-left:2px;text-align:center;color:red;" *ngIf="msgFlag">
                                     <ion-label stacked color="custom">Please enter correct credentials.</ion-label>
-                                   
+
                                   </ion-item>
                           </ion-col>
                       <ion-col col-12 col-sm col-md-3>
                           <ion-item style="padding-left:2px;">
-                              <ion-label stacked color="custom">Username</ion-label>
+                              <ion-label stacked color="custom">User Id</ion-label>
                               <ion-input type="text"  [(ngModel)]="login.uname"  name="uname"
-                              required maxlength="50"></ion-input>
-                            
+                              required maxlength="50" placeholder="Mobile No./ Email Id"></ion-input>
+
                               <ion-icon color="custom" item-end name="person"></ion-icon>
                             </ion-item>
                     </ion-col>
@@ -108,7 +108,7 @@
                             <ion-label stacked color="custom">Password</ion-label>
                             <ion-input type="password" [(ngModel)]="login.upswd"  name="upswd"
                             required maxlength="50"></ion-input>
-                          
+
                             <ion-icon color="custom" item-end name="key"></ion-icon>
                           </ion-item>
                   </ion-col>
@@ -117,27 +117,27 @@
                         <ion-col col-6 offset-1 col-sm col-md-3 style="text-align:center;">
                             <button ion-button small  color="custom"
                             (click)="pushNextPageWithoutLogin(forgotPasswordPage)"  >Forgot Password</button>
-  
+
                         </ion-col>
                         <ion-col col-3 col-sm col-md-3 style="text-align:center;">
                             <button ion-button small  color="custom"
                             (click)="checklogin(f)"  >Log In</button>
 
                         </ion-col>
-                        
+
                     </ion-row>
               </ion-grid>
             </form>
         </div>
         <div *ngSwitchCase="'Register'">
             <form  #f="ngForm" novalidate>
-            
+
               <ion-grid>
                   <ion-row>
                         <ion-col col-12 col-sm col-md-3  *ngIf="regDet.length > 0">
                                 <ion-item no-lines style="padding-left:2px;text-align:center;color:red;">
                                     <ion-label stacked color="custom">{{regDet}}</ion-label>
-                                   
+
                                   </ion-item>
                           </ion-col>
                       <ion-col col-12 col-sm col-md-3>
@@ -145,7 +145,7 @@
                               <ion-label stacked color="custom">Name</ion-label>
                               <ion-input type="text" [(ngModel)]="register.username"  name="username"
                               required maxlength="150"></ion-input>
-                            
+
                               <ion-icon color="custom" item-end name="person"></ion-icon>
                             </ion-item>
                     </ion-col>
@@ -156,17 +156,17 @@
                             <ion-item style="padding-left:2px;">
                                 <ion-label stacked color="custom">Password</ion-label>
                                 <ion-input type="password" [(ngModel)]="register.password"
-                                #password="ngModel" 
+                                #password="ngModel"
                                 name="password"
                                 required pattern="^[a-zA-Z0-9]{6,}"></ion-input>
-                              
+
                                 <ion-icon color="custom" item-end name="key"></ion-icon>
                               </ion-item>
-                              <div ion-item no-lines 
+                              <div ion-item no-lines
                               style="color:red;"
-                              *ngIf="register.password != null && register.password != undefined && 
+                              *ngIf="register.password != null && register.password != undefined &&
                               register.password != '' && password.invalid" class="invalid-feedback">
-                              
+
                               <div *ngIf="password.errors.pattern">Please enter a valid password</div>
                               </div>
                       </ion-col>
@@ -174,16 +174,16 @@
                             <ion-item style="padding-left:2px;">
                                 <ion-label stacked color="custom">Confirm Password</ion-label>
                                 <ion-input type="password" [(ngModel)]="register.cpassword"  name="cpassword"
-                                #cpassword="ngModel" 
+                                #cpassword="ngModel"
                                 required pattern="^[a-zA-Z0-9]{6,}"></ion-input>
                                 <ion-icon color="custom" item-end name="key"></ion-icon>
                               </ion-item>
-                              
-                              <div ion-item no-lines 
+
+                              <div ion-item no-lines
                               style="color:red;"
-                              *ngIf="register.cpassword != null && register.cpassword != undefined && 
+                              *ngIf="register.cpassword != null && register.cpassword != undefined &&
                               register.cpassword != '' && cpassword.invalid" class="invalid-feedback">
-                              
+
                               <div *ngIf="cpassword.errors.pattern">Please enter a valid password</div>
                               </div>
                       </ion-col>
@@ -194,15 +194,15 @@
                             (keyup)="numberonly($event)"
 
                             maxlength="10"></ion-input>
-                          
+
                             <ion-icon color="custom" item-end name="call"></ion-icon>
                           </ion-item>
                   </ion-col>
-                   
+
                   <ion-col col-12 col-sm col-md-3>
                       <ion-item style="padding-left:2px;text-align:center;">
                           <ion-label stacked color="custom">OR</ion-label>
-                         
+
                         </ion-item>
                 </ion-col>
                 <ion-col col-12 col-sm col-md-3>
@@ -212,11 +212,11 @@
                         maxlength="100"
                         pattern="[^ @]*@[^ @]+[.][^ @]+"  #email="ngModel"
                         ></ion-input>
-                      
+
                         <ion-icon color="custom" item-end name="mail"></ion-icon>
-                        
+
                       </ion-item>
-                      <div ion-item no-lines 
+                      <div ion-item no-lines
                style="color:red;"
                *ngIf="email.invalid" class="invalid-feedback">
                <div *ngIf="email.errors.pattern">Please enter a valid email</div>
@@ -225,7 +225,7 @@
                     </ion-row>
                     <ion-row>
                         <ion-col col-12 col-sm col-md-3 style="text-align:center;">
-                            <button ion-button small  color="custom" 
+                            <button ion-button small  color="custom"
                             (click)="registeruser(f)" >Sign Up</button>
 
                         </ion-col>

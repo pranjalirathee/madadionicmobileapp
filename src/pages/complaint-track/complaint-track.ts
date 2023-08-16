@@ -57,6 +57,7 @@ export class ComplaintTrackPage {
         this.setComplaintHistory();
       }
       else{
+        console.log('inside false...');
         this.complaintHistory=[];
         this.activeAccToRefNo=false;
         this.trackcomplaint.complaintReferenceNo=null;
@@ -162,9 +163,6 @@ else{
 
 
   }
-  callfunction(){
-    alert("hello");
-  }
 
   numericOnly(event): boolean {
     let pattern = /^([0-9])$/;
@@ -263,35 +261,7 @@ else{
   //  this.activeAccToRefNo = true;                                                  //changes
 
   }
-  logout()
-  {
-   this.presentLogout();
-  }
+  
 
 
-  presentLogout() {
-    let alert = this.alertCtrl.create({
-      message: 'Do you want to Logout?',
-      buttons: [
-        {
-          text: 'No',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Yes',
-          handler: () => {
-            localStorage.setItem('username',"");
-            this.events.publish('user:menu',"false");
-
-            this.navCtrl.push(LoginPage);
-
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
 }
