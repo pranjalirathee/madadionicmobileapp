@@ -36,7 +36,7 @@ export class ComplaintTrainPage {
 
   trainArrMod=[];
   trainArrGlobal=[];
-
+  startDate="";
 
   presentConfirm(ref,f) {
     let alert = this.alertCtrl.create({
@@ -168,7 +168,7 @@ export class ComplaintTrainPage {
   fetchpnr(event:any)
   {
     const pattern = /^[0-9]*$/;
-
+    this.startDate=null;
     if (!pattern.test(event.target.value)) {
       event.target.value = event.target.value.replace(/[^0-9]/g, "");
 
@@ -206,7 +206,7 @@ export class ComplaintTrainPage {
                 this.trncomplaint.journeyDay=data.lapList.day[0];
                 this.trncomplaint.journeyMonth=data.lapList.month[0];
                 this.trncomplaint.journeyYear=data.lapList.year[0];
-
+                this.startDate=data.trainStartDate;
 
                 var today = new Date();
                 var journeyDate = new Date(data.lapList.year[0]+"-"+data.lapList.month[0]+"-"+data.lapList.day[0]);
@@ -293,12 +293,16 @@ export class ComplaintTrainPage {
     this.trncomplaint.toStation=null;
     this.trncomplaint.totalFare=null;
     this.trncomplaint.psgnNo=null;
+    this.trncomplaint.startDate=null;
+    this.startDate=null;
     this.berthArr=null;
     this.coachArr=null;
     this.trncomplaint.pnrUtsNo=null;
     this.trncomplaint.journeyDay=null;
     this.trncomplaint.journeyMonth=null;
     this.trncomplaint.journeyYear=null;
+    this.trncomplaint.berthNo=null;
+    this.trncomplaint.coachNo=null;
     this.berthArr=[];
     this.coachArr=[];
   }
@@ -521,9 +525,13 @@ setItemsFromLocalStorage(){
     }
     else
     {
+      
        this.setItemsFromLocalStorage();
       this.trncomplaint.channelType='A';
       this.trncomplaint.place_type='t';
+      if(this.startDate!=null&&this.startDate!=""){
+        this.trncomplaint.startDate=this.startDate;
+      }
       if(this.trncomplaint.contact.indexOf("@") != -1)
       {
         this.trncomplaint.complainantEmail=this.trncomplaint.contact;
@@ -546,6 +554,8 @@ setItemsFromLocalStorage(){
 
           this.trncomplaint.trainName=(this.trncomplaint.trainNo as any).train_name.split(':-')[0];
           this.trncomplaint.trainNo=(this.trncomplaint.trainNo as any).train_name.split(':-')[1];
+          this.trncomplaint.berthNo=null;
+          this.trncomplaint.coachNo=null;
 
         }
         else{
@@ -553,7 +563,7 @@ setItemsFromLocalStorage(){
           this.trncomplaint.trainNo=this.trncomplaint.trainNo.split('-')[0].trim();
         }
         this.loadingProvider.presentLoadingDefault();
-
+       // console.log('complaint json is...'+this.trncomplaint);
         this.httpProvider.postMethod("secure/RegisterComplaint",this.trncomplaint).subscribe((data) =>
         {
 

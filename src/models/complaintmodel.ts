@@ -40,6 +40,7 @@ export class ComplaintModel
        trn_complainant_type:string;
 
        contact:string;
+       startDate:string;
    
 
 }

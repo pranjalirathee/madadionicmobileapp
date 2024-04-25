@@ -29,5 +29,6 @@ export class TrainComplaintModel
   journeyDay : string;
   journeyMonth : string;
   journeyYear : string;
+  startDate: string;
 
 }

@@ -56,7 +56,7 @@ export class CheckotpPage {
      }
      else
      {
-      let sdata = { 'msg': 'Thank you for registering in COMS Portal. Your Login Id is: '+data.username+' and Password is : '+this.navParams.data.password +'.'};
+      let sdata = { 'msg': 'Thank you for registering in COMS Portal. Your Login Id is: '+this.navParams.data.username+' and Password is : '+this.navParams.data.password +'.'};
       this.viewCtrl.dismiss(sdata);
 
      }
