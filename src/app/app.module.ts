@@ -37,6 +37,7 @@ import { FreightParcelPage } from '../pages/freight-parcel/freight-parcel';
 import {AppVersion} from '@ionic-native/app-version/';
 import { ComplaintRailAnubhavPage } from '../pages/complaint-railanubhav/complaint-railanubhav';
 import { StarRatingModule } from 'ionic3-star-rating';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @NgModule({
   declarations: [
@@ -108,6 +109,7 @@ import { StarRatingModule } from 'ionic3-star-rating';
     HttpProvider,
     ToastProvider,
     LoadingProvider,
+    InAppBrowser,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     StationNameProvider,
     FileTransfer,
@@ -117,6 +119,7 @@ import { StarRatingModule } from 'ionic3-star-rating';
     CallNumber,
     UserSession,
     AppVersion
+  
   ]
 })
 export class AppModule {}

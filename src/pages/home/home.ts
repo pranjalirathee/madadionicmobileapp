@@ -14,12 +14,15 @@ import {AppVersion} from '@ionic-native/app-version/';
 import { text } from '@angular/core/src/render3/instructions';
 import { HttpHeaders } from '@angular/common/http';
 import { ComplaintRailAnubhavPage } from '../complaint-railanubhav/complaint-railanubhav';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
   activeMenu: string="menu1";
+   
+
   ionVersionNumber: string;
   checksession()
   {
@@ -54,7 +57,7 @@ export class HomePage {
   tab6Root = ComplaintRailAnubhavPage;
   
   constructor(public navCtrl: NavController,private callNumber: CallNumber,public alertCtrl:AlertController,public httpProvider:HttpProvider,public events: Events,platform:Platform,
-private appVersion:AppVersion
+private appVersion:AppVersion,private theInAppBrowser: InAppBrowser
     ) {
 platform.ready().then(async ()=>{
   this.checkversionIsUpdated(platform);
@@ -83,7 +86,7 @@ platform.ready().then(async ()=>{
 
           if (this.ionVersionNumber.localeCompare(this.latestVersionNumber, undefined, { numeric: true, sensitivity: 'base' }) === -1) {
             // alert(this.ionVersionNumber);
-            window.open("https://play.google.com/store/apps/details?id=cris.railmadad", "_system");
+            this.theInAppBrowser.create("https://play.google.com/store/apps/details?id=cris.railmadad", "_system",{location:'no'});
           }
         }, err => {
           console.log(err);
